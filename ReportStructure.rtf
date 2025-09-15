@@ -1,0 +1,188 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Bold;\f1\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid1\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab560
+\pard\pardeftab560\partightenfactor0
+
+\f0\b\fs40 \cf0 Design Chapter:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0\fs26 \cf0 \
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 \ul \ulc0 Functional Design Overview:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\fs26 \cf0 \ulnone \
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0 \cf0 Discuss wat ons wil bereik en hoe ons dit gan opbreek. Beskryf hoe die circuit die beginsels van biosensors en EIS in ag moet neem, basies wat dit moet doen, hoekom multiplexing en ja dan hoe daai overall doel in gedeeltes opgebreek word.\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b \cf0 \
+\pard\pardeftab560\pardirnatural\partightenfactor0
+\ls1\ilvl0
+\f1\b0 \cf0 {\listtext	\uc0\u9702 	}DUT\
+{\listtext	\uc0\u9702 	}Multiplexaer?\
+{\listtext	\uc0\u9702 	}Excitation\
+{\listtext	\uc0\u9702 	}Voltage Measurement\
+{\listtext	\uc0\u9702 	}Current Measurement\
+{\listtext	\uc0\u9702 	}DSP (STM)\
+{\listtext	\uc0\u9702 	}User Interface (ESP etc)\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 \ul Detailed design:\ulnone \
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0\fs26 \cf0 \
+Gaan meer in diepte oor circuitry maar steeds met generic/ideal coponents. Cover circuitry van elke section, design requirements etc soos 10mV excitation bv. Wat wil ons bereik en dan hoe daai translate na technical requirements en dan die circuitry. Wys LT Spice circuits en sims van elke seksie en combined. Cost is n spec (<R4500).\
+\
+\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b \cf0 DUT:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0 \cf0 Data van Dr Ebrahim, en dan kry circuit model van daai af.\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b \cf0 Voltage reference:\uc0\u8232 
+\f1\b0 Verduidelik dat ons bipolar signaling kort sonder DC offset, en ipv +- 1.65V doen ons 1.65V virtual ground.\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b \cf0 Excitation Stage:\uc0\u8232 
+\f1\b0 Verduidelik hoekom ons 3.3V output signal van DAC gebruik (maximise range theory). Verduidelik hoekom ons 10mV soek gebasseer op DUT circuit model. Gee brief overview van beginsels van opamp em somme. Verduidelik dan hoekom LPF Anti Aliasing nodig is gebasseer op Frequency domain theory en al daai. Calcs rondom hoe naby aan signal freq cutoff moet wees, dus variable LPF. Te expenny om self te bou dus eerder IC. Was voor en na Filter van DAC sims.\
+\
+
+\f0\b Voltage Measurement:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0 \cf0 Why is voltage measurement needed when we already know our output voltage. Discuss what to consider when amplifying signal. Discuss LPF en hoekom n volle variable een nie needed is nie (dit is meestal vir noise nie vir anti aliasing van sampling nie, want DAC AA behoort dit te keer).
+\f0\b \
+
+\f1\b0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b \cf0 Current Measurement:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0 \cf0 Beskryf hoekom current measurement so belangrik is. Wat ons range van currents is. Beskryf beginsels van TIA including somme en circuit analysis. Dan hoekom TIA nie al die amplifications doen nie en why PGA needed is. Raak dan briefly ook op die LPF beginsel selfde as voltage.
+\f0\b \
+
+\f1\b0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b \cf0 Multi-plexing:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0 \cf0 Discuss why multiplexing needed (both why multiple sensors are useful and why not just dedicated circuitry for each sensor, including why thats not needed). Discuss options that I considered and why we settled on signal relays. Briefly discuss tree design and why that saves on relays (Double pole double throw vs net manually connect disconnect each relay to central line).
+\f0\b \
+
+\f1\b0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b \cf0 DSP:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0 \cf0 Discuss why DSP needed, why microcontroller and not other DSP. Beskryf basies hoe ons filtering gaan doen etc. Die formules en konsepte van freq domain en hoe ons capacitance calc en dan na concentration gaan. Los die details van code en libraries en issues vir Firmware Design section.
+\f0\b \
+
+\f1\b0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b \cf0 User Interface:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0 \cf0 Baie briefly discuss wat ons vereis van\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 \ul Component Selection:
+\f1\b0 \ulnone \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+
+\fs26 \cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 Watse komponente ons kies, why en watse aspekte ons consider het en hoekom daai specs belangrik is. How een komponent die ander beinvloed. Wys sims met spesifieke komponent seleksies. Wys calcs vir passive compoinent selections.\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 \ul PCB Design:
+\f1\b0 \ulnone \
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\fs26 \cf0 Beskryf filosofie en idees wat mee ingegaa het. Briefly discuss general PCB design principles wat design geguide het (Analogue ground plane etc). Beskryf beperkings van PCB manufactures wat inag geneem moes word (PCB size, layers, trace width via diamtre etc.). Noem briefly hoekom PCB in China eerder as Uni laat maak. Gaan deur design logic en discuss probleem met TIA. Include maybe final PCB diagram en langs dit foto van manufactured PCB.\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\sa40\partightenfactor0
+
+\f0\b\fs32 \cf0 \ul Firmware Design:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0\fs26 \cf0 \ulnone Inculde flow diagram.
+\f0\b \ul \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \ulnone ESP:\ul \
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0 \cf0 \ulnone Vertel van wat ons wil bereik en hoekom. Discuss libraries used. Discuss maybe issues rondom C6 en hoe dit gesolve is en hoekom die C6 steeds die rgete keuse was.\
+\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b \cf0 STM:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f1\b0 \cf0 Probleme met arm library te groot. Discuss met flow chart hoe DMA en als met DAC en ADC interact en dan UART en badies program flow. Delve into limits van STM en maybe briefly setup van DAC en ADC.\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+
+\f0\b \cf0 \ul \
+\pard\pardeftab560\partightenfactor0
+
+\fs40 \cf0 \ulnone Testing & Validation:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\fs26 \cf0 \
+\pard\pardeftab560\sa40\partightenfactor0
+
+\fs32 \cf0 \ul PCB Testing:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\fs26 \cf0 \ulnone \
+Voltage Reference Load Testing:\
+\
+Excitation Stage Testing:\
+\
+Voltage Measurement Testing:\
+\
+Current Measurement Testing:\
+\
+MultiPlexing Testing:\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \ul \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \ulnone Complete System Test Without & With MCU:\
+\
+\pard\pardeftab560\sa40\partightenfactor0
+
+\fs32 \cf0 \ul Validation:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\fs26 \cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 \ulnone Test on Calibration Cell:\
+\
+Test on Saline Solution:\
+\
+Discussion of Results}

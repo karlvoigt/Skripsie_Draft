@@ -1,0 +1,25 @@
+# Basic TeX Live installation profile
+selected_scheme scheme-basic
+TEXDIR /usr/local/texlive/2025
+TEXMFCONFIG ~/.texlive2025/texmf-config
+TEXMFHOME ~/texmf
+TEXMFLOCAL /usr/local/texlive/texmf-local
+TEXMFSYSCONFIG /usr/local/texlive/2025/texmf-config
+TEXMFSYSVAR /usr/local/texlive/2025/texmf-var
+TEXMFVAR ~/.texlive2025/texmf-var
+option_adjustrepo 1
+option_autobackup 1
+option_backupdir tlpkg/backups
+option_desktop_integration 0
+option_file_assocs 0
+option_letter 0
+option_path 1
+option_post_code 1
+option_sys_bin /usr/local/bin
+option_sys_info /usr/local/share/info
+option_sys_man /usr/local/share/man
+option_w32_multi_user 0
+instopt_adjustpath 1
+tlpdbopt_autobackup 1
+tlpdbopt_install_docfiles 0
+tlpdbopt_install_srcfiles 0

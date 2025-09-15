@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pdflatex:*)",
+      "Bash(tlmgr:*)",
+      "Bash(sudo tlmgr install:*)",
+      "Bash(sudo tlmgr update:*)",
+      "Bash(bibtex:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

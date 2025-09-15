@@ -1,0 +1,64 @@
+\graphicspath{{design/fig/}}
+
+\chapter{Design}
+
+\section{Functional Design Overview}
+Discuss wat ons wil bereik en hoe ons dit gan opbreek. Beskryf hoe die circuit die beginsels van biosensors en EIS in ag moet neem, basies wat dit moet doen, hoekom multiplexing en ja dan hoe daai overall doel in gedeeltes opgebreek word.
+
+\subsection{DUT}
+
+\subsection{Multiplexer}
+
+\subsection{Excitation}
+
+\subsection{Voltage Measurement}
+
+\subsection{Current Measurement}
+
+\subsection{DSP (STM)}
+
+\subsection{User Interface (ESP etc)}
+
+\section{Detailed Design}
+Gaan meer in diepte oor circuitry maar steeds met generic/ideal coponents. Cover circuitry van elke section, design requirements etc soos 10mV excitation bv. Wat wil ons bereik en dan hoe daai translate na technical requirements en dan die circuitry. Wys LT Spice circuits en sims van elke seksie en combined. Cost is n spec (<R4500).
+
+\subsection{DUT}
+Data van Dr Ebrahim, en dan kry circuit model van daai af.
+
+\subsection{Voltage Reference}
+Verduidelik dat ons bipolar signaling kort sonder DC offset, en ipv +- 1.65V doen ons 1.65V virtual ground.
+
+\subsection{Excitation Stage}
+Verduidelik hoekom ons 3.3V output signal van DAC gebruik (maximise range theory). Verduidelik hoekom ons 10mV soek gebasseer op DUT circuit model. Gee brief overview van beginsels van opamp em somme. Verduidelik dan hoekom LPF Anti Aliasing nodig is gebasseer op Frequency domain theory en al daai. Calcs rondom hoe naby aan signal freq cutoff moet wees, dus variable LPF. Te expenny om self te bou dus eerder IC. Was voor en na Filter van DAC sims.
+
+\subsection{Voltage Measurement}
+Why is voltage measurement needed when we already know our output voltage. Discuss what to consider when amplifying signal. Discuss LPF en hoekom n volle variable een nie needed is nie (dit is meestal vir noise nie vir anti aliasing van sampling nie, want DAC AA behoort dit te keer).
+
+\subsection{Current Measurement}
+Beskryf hoekom current measurement so belangrik is. Wat ons range van currents is. Beskryf beginsels van TIA including somme en circuit analysis. Dan hoekom TIA nie al die amplifications doen nie en why PGA needed is. Raak dan briefly ook op die LPF beginsel selfde as voltage.
+
+\subsection{Multiplexing}
+Discuss why multiplexing needed (both why multiple sensors are useful and why not just dedicated circuitry for each sensor, including why thats not needed). Discuss options that I considered and why we settled on signal relays. Briefly discuss tree design and why that saves on relays (Double pole double throw vs net manually connect disconnect each relay to central line).
+
+\subsection{DSP}
+Discuss why DSP needed, why microcontroller and not other DSP. Beskryf basies hoe ons filtering gaan doen etc. Die formules en konsepte van freq domain en hoe ons capacitance calc en dan na concentration gaan. Los die details van code en libraries en issues vir Firmware Design section.
+
+\subsection{User Interface}
+Baie briefly discuss wat ons vereis van
+
+\section{Component Selection}
+Watse komponente ons kies, why en watse aspekte ons consider het en hoekom daai specs belangrik is. How een komponent die ander beinvloed. Wys sims met spesifieke komponent seleksies. Wys calcs vir passive compoinent selections.
+
+\section{PCB Design}
+Beskryf filosofie en idees wat mee ingegaa het. Briefly discuss general PCB design principles wat design geguide het (Analogue ground plane etc). Beskryf beperkings van PCB manufactures wat inag geneem moes word (PCB size, layers, trace width via diamtre etc.). Noem briefly hoekom PCB in China eerder as Uni laat maak. Gaan deur design logic en discuss probleem met TIA. Include maybe final PCB diagram en langs dit foto van manufactured PCB.
+
+\section{Firmware Design}
+Inculde flow diagram.
+
+\subsection{ESP}
+Vertel van wat ons wil bereik en hoekom. Discuss libraries used. Discuss maybe issues rondom C6 en hoe dit gesolve is en hoekom die C6 steeds die rgete keuse was.
+
+\subsection{STM}
+Probleme met arm library te groot. Discuss met flow chart hoe DMA en als met DAC en ADC interact en dan UART en badies program flow. Delve into limits van STM en maybe briefly setup van DAC en ADC.
+
+\label{chap:design}
