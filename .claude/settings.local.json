@@ -5,7 +5,9 @@
       "Bash(tlmgr:*)",
       "Bash(sudo tlmgr install:*)",
       "Bash(sudo tlmgr update:*)",
-      "Bash(bibtex:*)"
+      "Bash(bibtex:*)",
+      "Read(//Users/karlvoigt/Documents/Uni/**)",
+      "Bash(kpsewhich:*)"
     ],
     "deny": [],
     "ask": []

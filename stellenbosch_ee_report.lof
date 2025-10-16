@@ -1,10 +1,15 @@
+\acswitchoff 
 \babel@toc {english}{}\relax 
 \babel@toc {afrikaans}{}\relax 
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Example figure inserted using a LaTeX Workshop snippet.}}{4}{figure.caption.7}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Example figure inserted using a LaTeX Workshop snippet.}}{4}{figure.caption.8}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces System Overview}}{9}{figure.caption.11}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Op-amp based multiplexer circuit \cite {Sboa311a}}}{14}{figure.caption.12}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces \newline Virtual ground reference circuit}}{15}{figure.caption.13}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces 5V boost converter circuit}}{15}{figure.caption.13}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

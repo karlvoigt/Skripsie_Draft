@@ -11,51 +11,57 @@ Database file #1: mybib.bib
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty author in Sboa311a
+Warning--empty journal in Sboa311a
+Warning--empty year in Sboa311a
 Warning--empty author in BiomarkersNationalInstitute
 Warning--empty journal in BiomarkersNationalInstitute
 Warning--empty year in BiomarkersNationalInstitute
 Warning--empty journal in rosenzweigWhatArePancreatic2018
+Warning--empty journal in ebrahimDevelopmentBiosensorEarly2023
+Warning--empty journal in gaddyDYNAMICPERFORMANCETESTING
+Warning--empty year in gaddyDYNAMICPERFORMANCETESTING
 
 Done.
-You've used 6 entries,
+You've used 28 entries,
             4087 wiz_defined-function locations,
-            863 strings with 8524 characters,
-and the built_in function-call counts, 4353 in all, are:
-= -- 354
-> -- 80
-< -- 43
-+ -- 51
-- -- 17
-* -- 231
-:= -- 668
-add.period$ -- 12
-call.type$ -- 6
-change.case$ -- 6
-chr.to.int$ -- 96
-cite$ -- 10
-duplicate$ -- 311
-empty$ -- 319
-format.name$ -- 14
-if$ -- 977
+            991 strings with 13412 characters,
+and the built_in function-call counts, 15979 in all, are:
+= -- 1287
+> -- 299
+< -- 119
++ -- 176
+- -- 61
+* -- 743
+:= -- 2454
+add.period$ -- 56
+call.type$ -- 28
+change.case$ -- 28
+chr.to.int$ -- 243
+cite$ -- 38
+duplicate$ -- 1265
+empty$ -- 1303
+format.name$ -- 62
+if$ -- 3657
 int.to.chr$ -- 0
-int.to.str$ -- 6
-missing$ -- 46
-newline$ -- 41
-num.names$ -- 5
-pop$ -- 94
+int.to.str$ -- 28
+missing$ -- 215
+newline$ -- 107
+num.names$ -- 19
+pop$ -- 498
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 319
+skip$ -- 1243
 stack$ -- 0
-substring$ -- 246
-swap$ -- 267
-text.length$ -- 11
+substring$ -- 650
+swap$ -- 966
+text.length$ -- 38
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 6
-warning$ -- 4
-while$ -- 21
-width$ -- 7
-write$ -- 77
-(There were 4 warnings)
+type$ -- 28
+warning$ -- 10
+while$ -- 62
+width$ -- 30
+write$ -- 258
+(There were 10 warnings)

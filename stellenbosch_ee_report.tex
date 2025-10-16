@@ -38,6 +38,8 @@
 % Figures
 \usepackage{graphicx}
 \usepackage{pdfpages}
+\usepackage{float}
+\usepackage{placeins}
 \usepackage{subcaption}
 \setlength{\abovecaptionskip}{7.5pt}  % spacing above and below captions
 \newcommand*{\WaterMark}[2][0.2\paperwidth]{\AddToShipoutPicture*{\AtTextCenter{\parbox[c]{0pt}{\makebox[0pt][c]{\includegraphics[width=#1]{#2}}}}}}
@@ -103,6 +105,76 @@
 \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
 \patchcmd{\ttlh@hang}{\noindent}{}{}{}
 \makeatother
+
+% Todo Notes:
+\newcommand\todo[1]{\textcolor{red}{#1}}
+
+% Custom text color marking for editing
+\usepackage{xcolor}
+\newcommand{\needscite}[1]{\textcolor{orange}{#1}}
+\newcommand{\rephrase}[1]{\textcolor{brown}{#1}}
+\newcommand{\trimdown}[1]{\textcolor{darkgray}{#1}}
+\newcommand{\fillout}[1]{\textcolor{olive}{#1}}
+\newcommand{\tooai}[1]{\textcolor{brown}{#1}}
+
+% Acronyms
+\usepackage{acro}
+\acsetup{
+    first-style = long-short,  % First use: device-under-test (DUT)
+    list/display = used,        % Only show acronyms actually used in text
+}
+
+% Define acronyms
+\DeclareAcronym{DUT}{
+    short = DUT,
+    long = device-under-test,
+    short-plural = s,
+    long-plural-form = devices-under-test,
+}
+\DeclareAcronym{EIS}{
+    short = EIS,
+    long = electrochemical impedance spectroscopy,
+}
+\DeclareAcronym{POC}{
+    short = POC,
+    long = point-of-care,
+}
+\DeclareAcronym{PCB}{
+    short = PCB,
+    long = printed circuit board,
+    short-plural = s,
+    long-plural = s
+}
+\DeclareAcronym{DSP}{
+    short = DSP,
+    long = digital signal processing,
+}
+\DeclareAcronym{DAC}{
+    short = DAC,
+    long = digital-to-analogue converter,
+}
+\DeclareAcronym{ADC}{
+    short = ADC,
+    long = analogue-to-digital converter,
+}
+\DeclareAcronym{TIA}{
+    short = TIA,
+    long = transimpedance amplifier,
+}
+\DeclareAcronym{PGA}{
+    short = PGA,
+    long = programmable gain amplifier,
+}
+\DeclareAcronym{LPF}{
+    short = LPF,
+    long = low-pass filter,
+}
+\DeclareAcronym{MCU}{
+    short = MCU,
+    long = microcontroller unit,
+    short-plural = s,
+    long-plural = s
+}
 
 
 \begin{document}
