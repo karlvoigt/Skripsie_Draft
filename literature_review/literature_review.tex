@@ -1,6 +1,7 @@
 \graphicspath{{literature_review/fig/}}
 
 \chapter{Literature Review}
+\todo{DIscuss bietjie Nyquist vs bode etc en wat hulle vir ons kan sê oor impedances}
 \section{Biosensors}
 Biosensors are employed in applications such as disease monitoring, drug discovery, and detection of pollutants, disease-causing micro-organisms and markers that are indicators of a disease in bodily fluids (blood, urine, saliva, sweat).\cite{bhallaIntroductionBiosensors2016} 
 \subsection{Background on Biomarkers}
@@ -22,27 +23,40 @@ Antibodies are produced by vertebrates as part of their immune response to forei
 \subsection{Transducer Mechanisms}
 The number of biological binding events indicates the concentration of the analyte in the sample. In order to convert the bio-recognition event into a measurable signal, a transducer mechanism is needed\cite{bhallaIntroductionBiosensors2016}. There are various types of transducer mechanisms that can be used in biosensors, including optical, piezoelectric and electrochemical transducers. This project will focus on biosensors where binding events change the electrical properties of the biosensor, specifically the complex impedance. Thus, electrochemical transducers are of interest. 
 
-Electrochemical transducers can use various analysis techniques. In potentiometric analysis, the potential of an electrode is measured against a reference electrode at zero-current \cite{magarElectrochemicalImpedanceSpectroscopy2021}. Coulometry applies a constant potential (with regards to a reference electrode) onto an electrode surface to carry out exhaustive electrolysis of an analyte \cite{magarElectrochemicalImpedanceSpectroscopy2021}. Voltammetry involves subjecting the sample to a varying potential at the electrode's surface and measuring the resulting Faradaic current \cite{magarElectrochemicalImpedanceSpectroscopy2021}. Finally there is electrochemical impedance spectroscopy (EIS), which measures the complex impedance of an electrochemical system as a function of frequency \cite{magarElectrochemicalImpedanceSpectroscopy2021}. EIS is particularly suitable for biosensor applications where biological binding events alter the electrical properties of the electrode-electrolyte interface \cite{danielsLabelFreeImpedanceBiosensors2007}. This project will thus make use of EIS as the transduction mechanism.
+Electrochemical transducers can use various analysis techniques. In potentiometric analysis, the potential of an electrode is measured against a reference electrode at zero-current \cite{magarElectrochemicalImpedanceSpectroscopy2021}. Coulometry applies a constant potential (with regards to a reference electrode) onto an electrode surface to carry out exhaustive electrolysis of an analyte \cite{magarElectrochemicalImpedanceSpectroscopy2021}. Voltammetry involves subjecting the sample to a varying potential at the electrode's surface and measuring the resulting Faradaic current \cite{magarElectrochemicalImpedanceSpectroscopy2021}. Finally there is \ac{EIS}, which measures the complex impedance of an electrochemical system as a function of frequency \cite{magarElectrochemicalImpedanceSpectroscopy2021}. EIS is particularly suitable for biosensor applications where biological binding events alter the electrical properties of the electrode-electrolyte interface \cite{danielsLabelFreeImpedanceBiosensors2007}. This project will thus make use of EIS as the transducer mechanism.
 
 \subsubsection{Electrochemical Impedance Spectroscopy}
 This technique applies a small sinusoidal voltage signal to the biosensor and measures the resulting current response. The complex impedance is calculated as:
 \begin{equation}
     Z(\omega) = \frac{V(\omega)}{I(\omega)} = Z'(\omega) + jZ''(\omega)
 \end{equation}
-where $Z'(\omega)$ is the real component representing resistive behaviour and $Z''(\omega)$ is the imaginary component representing capacitive or inductive behaviour.\cite{orazemTutorialElectrochemicalImpedance2020}
+where $Z'(\omega)$ is the real component representing resistive behaviour and $Z''(\omega)$ is the imaginary component representing capacitive or inductive behaviour.\cite{orazemTutorialElectrochemicalImpedance2020} By varrying the frequency of the excitation signal, different electrochemical processes that occur at distinct time constants can be characterised. 
 
 \subsubsection{Faradaic vs Non-Faradaic EIS Sensors}
-EIS biosensors can be categorized into two main types based on their transduction mechanism: faradaic and non-faradaic sensors.\cite{dorledodefariaFaradaicNonfaradaicElectrochemical2019}
+EIS biosensors can be categorized into two main types based on their transduction mechanism: faradaic and non-faradaic sensors.
 
-Faradaic sensors rely on electron transfer reactions at the electrode surface, typically requiring redox-active species in solution. These sensors detect changes in charge transfer resistance ($R_{ct}$) when biomolecule binding blocks electrode access or alters electron transfer kinetics. The equivalent circuit model for faradaic sensors is the Randles circuit, consisting of solution resistance ($R_s$) in series with the parallel combination of charge transfer resistance and double-layer capacitance ($C_{dl}$), plus Warburg impedance ($Z_w$) representing diffusion processes:
-\begin{equation}
-    Z = R_s + \frac{R_{ct}}{1 + j\omega R_{ct}C_{dl}} + Z_w
-\end{equation}
+In faradaic measurements, charge transfers occur at the electrode-solution interface and redox reactions occur on the electrode surface \cite{xieReviewAdvancementsNanoscale2020a}. The equivalent circuit model for faradaic sensors is the Randles circuit (Figure \ref{fig:randles_fardaic}), consisting of solution resistance ($R_s$) in series with the parallel combination of charge transfer resistance ($R_{CT}$) and double-layer capacitance ($C_{dl}$), plus Warburg impedance ($Z_w$) representing diffusion processes \cite{xieReviewAdvancementsNanoscale2020a}.
 
-Non-faradaic sensors operate without electron transfer reactions, functioning as capacitive sensors that detect changes in the electrical double layer capacitance. These sensors are particularly advantageous for biomarker detection as they require only simple electrolyte solutions and avoid complications associated with redox probes \cite{huangCapacitiveBiosensorsLabelfree2024}. The simplified equivalent circuit consists of solution resistance in series with interfacial capacitance:
-\begin{equation}
-    Z = R_s + \frac{1}{j\omega C_{interface}}
-\end{equation}
+Non-faradaic measurements operate without charge-transfer reactions, functioning as capacitive sensors that detect changes in the electrical double layer capacitance. Due to the lack of charge-transfer, $R_{CT}$ becomes infinitely large, thus creating an open circuit \cite{xieReviewAdvancementsNanoscale2020a}. On solid electrodes, the observed impedance response of $C_{DL}$ differs from an ideal capacitor, thus a \ac{CPE} is used instead of $C_{DL}$ in the Randles non-fardaic equivalent circuit (Figure \ref{fig:randles_non_faradaic}) 
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{RandlesFaradaic.png}
+        \caption{Faradaic Randles Circuit}
+        \label{fig:randles_fardaic}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{RandlesNonFaradaic.png}
+        \caption{Non-Faradaic Randles Circuit}
+        \label{fig:randles_non_faradaic}    
+    \end{subfigure}
+    \caption{Equivalent Circuits for Faradaic and Non-Faradaic EIS Biosensors}
+    \label{fig:randles_circuits}
+\end{figure}
 
 Non-faradaic sensors are capacitive in nature, measuring changes in the dielectric properties at the electrode-electrolyte interface when biomolecules bind to immobilized antibodies. When antigen binding occurs, the capacitance decreases due to the displacement of water molecules and changes in the local dielectric constant according to:
 \begin{equation}
@@ -54,6 +68,8 @@ where $\varepsilon_0$ is the permittivity of free space, $\varepsilon_r$ is the 
 
 % \subsubsection{Implementation for CA-19 Detection}
 % The capacitive biosensors used in this project are designed to detect the CA-19 biomarker for pancreatic cancer screening. The frequency range for capacitive measurements typically spans from 1 Hz to 100 kHz, with the optimal frequency determined by the time constant $\tau = R_s C_{interface}$. At frequencies much higher than $1/\tau$, the impedance is dominated by solution resistance, while at frequencies much lower than $1/\tau$, the capacitive behaviour dominates the response.
+
+\subsection{Complex Impedance}
 
 \section{Signal Processing}
 % The signal processing chain for EIS biosensors converts the electrochemical response into digital impedance measurements and ultimately biomarker concentrations. This process involves analogue front-end conditioning, digital signal processing, impedance calculation algorithms, and calibration models.\cite{katzElectrochemicalImpedanceSpectroscopy2021}

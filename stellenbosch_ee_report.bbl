@@ -20,6 +20,12 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{chioyeBuildProgrammableGain2021}
+L.~Chioye, ``Build a {{Programmable Gain Transimpedance Amplifier Using}} the {{OPA3S328}},'' 2021.
+
+\bibitem{StabilizeYourTransimpedance}
+``Stabilize {{Your Transimpedance Amplifier}} {\textbar} {{Analog Devices}},'' https://www.analog.com/en/resources/technical-articles/stabilize-transimpedance-amplifier-circuit-design.html.
+
 \bibitem{Sboa311a}
 ``Sboa311a.''
 
@@ -50,11 +56,8 @@ J.~S. Daniels and N.~Pourmand, ``Label-{{Free Impedance Biosensors}}: {{Opportun
 \bibitem{orazemTutorialElectrochemicalImpedance2020}
 M.~E. Orazem and B.~Tribollet, ``A tutorial on electrochemical impedance spectroscopy,'' \emph{ChemTexts}, vol.~6, no.~2, p.~12, Jun. 2020.
 
-\bibitem{dorledodefariaFaradaicNonfaradaicElectrochemical2019}
-R.~A. Dorledo De~Faria, L.~G. Dias~Heneine, T.~Matencio, and Y.~Messaddeq, ``Faradaic and non-faradaic electrochemical impedance spectroscopy as transduction techniques for sensing applications,'' \emph{International Journal of Biosensors \& Bioelectronics}, vol.~5, no.~1, Feb. 2019.
-
-\bibitem{huangCapacitiveBiosensorsLabelfree2024}
-L.~Huang, C.~Zhang, R.~Ye, B.~Yan, X.~Zhou, W.~Xu, and J.~Guo, ``Capacitive biosensors for label-free and ultrasensitive detection of biomarkers,'' \emph{Talanta}, vol. 266, p. 124951, Jan. 2024.
+\bibitem{xieReviewAdvancementsNanoscale2020a}
+Q.-Z. Xie, M.-W. Lin, E.-W. Hsu, and C.-T. Lin, ``Review---{{Advancements}} of {{Nanoscale Structures}} and {{Materials}} in {{Impedimetric Biosensing Technologies}},'' \emph{ECS Journal of Solid State Science and Technology}, vol.~9, p. 115027, Oct. 2020.
 
 \bibitem{bergveldThirtyYearsBiosensor2003}
 P.~Bergveld, ``Thirty years of {{ISFETOLOGY}}: {{What}} happened in the past 30 years and what may happen in the next 30 years,'' \emph{Sensors and Actuators B: Chemical}, vol.~88, no.~1, pp. 1--20, 2003.
@@ -98,10 +101,28 @@ e.~{technology}, ``What are the {{Drawbacks}} of {{Differential Amplifier Circui
 \bibitem{InstrumentationAmplifierOperational}
 ``The {{Instrumentation Amplifier}} {\textbar} {{Operational Amplifiers}} {\textbar} {{Electronics Textbook}},'' https://www.allaboutcircuits.com/textbook/semiconductors/chpt-8/the-instrumentation-amplifier/.
 
+\bibitem{fiore53GainBandwidthProduct2018}
+J.~M. Fiore, ``5.3: {{Gain-Bandwidth Product}},'' in \emph{Operational {{Amplifiers}} and {{Linear Integrated Circuits}} - {{Theory}} and {{Application}} ({{Fiore}})}, May 2018.
+
+\bibitem{oljacaOperationalAmplifierGain2010}
+M.~Oljaca and H.~Surtihadi, ``Operational amplifier gain stability, {{Part}} 1: {{General}} system analysis,'' 2010.
+
 \bibitem{SelectingRightCMOS}
 ``Selecting the {{Right CMOS Analog Switch}} {\textbar} {{Analog Devices}},'' https://www.analog.com/en/resources/design-notes/selecting-the-right-cmos-analog-switch.html.
 
 \bibitem{WEBENCHCIRCUITDESIGNERDesignTool}
 ``{{WEBENCH-CIRCUIT-DESIGNER Design}} tool {\textbar} {{TI}}.com,'' https://www.ti.com/tool/WEBENCH-CIRCUIT-DESIGNER.
+
+\bibitem{wilsonSimulatingFractionalCapacitors2023}
+M.~Wilson, L.~Cowie, V.~Farrow, M.~Cree, and J.~Scott, \emph{Simulating {{Fractional Capacitors}} with the {{SPICE}} Circuit Simulator}, Sep. 2023.
+
+\bibitem{FilterManual}
+``Filter manual,'' http://ltspicegoodies.ltwiki.org/FilterManual.php\#FIR\_examples.
+
+\bibitem{PGA113PspiceModel2022}
+``{{PGA113 Pspice}} model - {{Logic}} forum - {{Logic}} - {{TI E2E}} support forums,'' https://e2e.ti.com/support/logic-group/logic/f/logic-forum/1178762/pga113-pspice-model, Dec. 2022.
+
+\bibitem{WhatAreBasic}
+``What {{Are}} the {{Basic Guidelines}} for {{Layout Design}} of {{Mixed-Signal PCBs}}? {\textbar} {{Analog Devices}},'' https://www.analog.com/en/resources/analog-dialogue/articles/what-are-the-basic-guidelines-for-layout-design-of-mixed-signal-pcbs.html.
 
 \end{thebibliography}
