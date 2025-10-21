@@ -20,51 +20,55 @@ Warning--empty author in BiomarkersNationalInstitute
 Warning--empty journal in BiomarkersNationalInstitute
 Warning--empty year in BiomarkersNationalInstitute
 Warning--empty journal in rosenzweigWhatArePancreatic2018
+Warning--empty journal in ibrahimCMOSTransimpedanceAmplifier
+Warning--empty year in ibrahimCMOSTransimpedanceAmplifier
+Warning--empty author in ImprovedHowlandCurrent2020
+Warning--empty journal in ImprovedHowlandCurrent2020
 Warning--empty journal in ebrahimDevelopmentBiosensorEarly2023
 Warning--empty journal in gaddyDYNAMICPERFORMANCETESTING
 Warning--empty year in gaddyDYNAMICPERFORMANCETESTING
 Warning--missing publisher in wilsonSimulatingFractionalCapacitors2023
 
 Done.
-You've used 35 entries,
+You've used 36 entries,
             4087 wiz_defined-function locations,
-            1021 strings with 14695 characters,
-and the built_in function-call counts, 18011 in all, are:
-= -- 1414
-> -- 312
-< -- 117
-+ -- 184
-- -- 63
-* -- 798
-:= -- 2771
-add.period$ -- 69
-call.type$ -- 35
-change.case$ -- 34
-chr.to.int$ -- 243
-cite$ -- 47
-duplicate$ -- 1465
-empty$ -- 1567
-format.name$ -- 65
-if$ -- 4127
+            1020 strings with 14575 characters,
+and the built_in function-call counts, 17519 in all, are:
+= -- 1341
+> -- 300
+< -- 106
++ -- 179
+- -- 61
+* -- 765
+:= -- 2680
+add.period$ -- 71
+call.type$ -- 36
+change.case$ -- 35
+chr.to.int$ -- 228
+cite$ -- 52
+duplicate$ -- 1447
+empty$ -- 1564
+format.name$ -- 62
+if$ -- 4007
 int.to.chr$ -- 0
-int.to.str$ -- 35
-missing$ -- 256
-newline$ -- 128
-num.names$ -- 22
-pop$ -- 637
+int.to.str$ -- 36
+missing$ -- 254
+newline$ -- 131
+num.names$ -- 21
+pop$ -- 662
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1419
+skip$ -- 1378
 stack$ -- 0
-substring$ -- 656
-swap$ -- 1052
-text.length$ -- 36
+substring$ -- 619
+swap$ -- 999
+text.length$ -- 30
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 35
-warning$ -- 12
-while$ -- 65
-width$ -- 37
-write$ -- 302
-(There were 13 warnings)
+type$ -- 36
+warning$ -- 16
+while$ -- 59
+width$ -- 38
+write$ -- 298
+(There were 17 warnings)

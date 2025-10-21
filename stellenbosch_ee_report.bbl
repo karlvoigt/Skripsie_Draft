@@ -47,20 +47,38 @@ X.~Zeng, Z.~Shen, and R.~Mernaugh, ``Recombinant antibodies and their use in bio
 \bibitem{suedaAntibodyImmobilizationImmunosensing2022a}
 S.~Sueda, ``Antibody immobilization for immunosensing,'' \emph{Analytical Sciences}, vol.~38, no.~1, pp. 1--2, Jan. 2022.
 
-\bibitem{magarElectrochemicalImpedanceSpectroscopy2021}
-H.~S. Magar, R.~Y.~A. Hassan, and A.~Mulchandani, ``Electrochemical {{Impedance Spectroscopy}} ({{EIS}}): {{Principles}}, {{Construction}}, and {{Biosensing Applications}},'' \emph{Sensors}, vol.~21, no.~19, p. 6578, Jan. 2021.
+\bibitem{UsingAntibodiesVaccinea}
+``Using {{Antibodies}} as vaccine delivery vehicles,'' https://downhousesoftware.wordpress.com/2013/12/.
 
 \bibitem{danielsLabelFreeImpedanceBiosensors2007}
 J.~S. Daniels and N.~Pourmand, ``Label-{{Free Impedance Biosensors}}: {{Opportunities}} and {{Challenges}},'' \emph{Electroanalysis}, vol.~19, no.~12, pp. 1239--1257, 2007.
 
-\bibitem{orazemTutorialElectrochemicalImpedance2020}
-M.~E. Orazem and B.~Tribollet, ``A tutorial on electrochemical impedance spectroscopy,'' \emph{ChemTexts}, vol.~6, no.~2, p.~12, Jun. 2020.
+\bibitem{magarElectrochemicalImpedanceSpectroscopy2021}
+H.~S. Magar, R.~Y.~A. Hassan, and A.~Mulchandani, ``Electrochemical {{Impedance Spectroscopy}} ({{EIS}}): {{Principles}}, {{Construction}}, and {{Biosensing Applications}},'' \emph{Sensors}, vol.~21, no.~19, p. 6578, Jan. 2021.
+
+\bibitem{lazanasErratumElectrochemicalImpedance2025}
+A.~C. Lazanas and M.~I. Prodromidis, ``Erratum: {{Electrochemical Impedance Spectroscopy}}-{{A Tutorial}} ({{ACS Measurement Science Au}} (2023) 3:3 (162-193) {{DOI}}: 10.1021/acsmeasuresciau.2c00070),'' \emph{ACS Measurement Science Au}, vol. 2023, no.~3, pp. 14--14, 2025.
+
+\bibitem{EISQualityIndicators}
+``{{EIS Quality Indicators}} and {{Linearity Correction}}.''
 
 \bibitem{xieReviewAdvancementsNanoscale2020a}
 Q.-Z. Xie, M.-W. Lin, E.-W. Hsu, and C.-T. Lin, ``Review---{{Advancements}} of {{Nanoscale Structures}} and {{Materials}} in {{Impedimetric Biosensing Technologies}},'' \emph{ECS Journal of Solid State Science and Technology}, vol.~9, p. 115027, Oct. 2020.
 
-\bibitem{bergveldThirtyYearsBiosensor2003}
-P.~Bergveld, ``Thirty years of {{ISFETOLOGY}}: {{What}} happened in the past 30 years and what may happen in the next 30 years,'' \emph{Sensors and Actuators B: Chemical}, vol.~88, no.~1, pp. 1--20, 2003.
+\bibitem{BodeNyquistPlot}
+``Bode and {{Nyquist Plot}}.''
+
+\bibitem{buscagliaSimpleZLowCostPortable2023}
+L.~A. Buscaglia, J.~P. Carmo, and O.~N. Oliveira, ``Simple-{{Z}}: {{A Low-Cost Portable Impedance Analyzer}},'' \emph{IEEE Sensors Journal}, vol.~23, no.~21, pp. 26\,067--26\,074, Nov. 2023.
+
+\bibitem{al-aliDesignPortableLowCost2017}
+A.~{Al-Ali}, A.~Elwakil, A.~Ahmad, and B.~Maundy, ``Design of a {{Portable Low-Cost Impedance Analyzer}},'' \emph{BIODEVICES 2017 - 10th International Conference on Biomedical Electronics and Devices, Proceedings; Part of 10th International Joint Conference on Biomedical Engineering Systems and Technologies, BIOSTEC 2017}, vol.~2, pp. 104--109, Feb. 2017.
+
+\bibitem{ibrahimCMOSTransimpedanceAmplifier}
+M.~Ibrahim, ``{{CMOS Transimpedance Amplifier}} for {{Biosensor Signal Acquisition}}.''
+
+\bibitem{ImprovedHowlandCurrent2020}
+````{{Improved}}'' {{Howland}} current pump circuit,'' 2020.
 
 \bibitem{brownDesignThinking2008}
 T.~Brown, ``Design {{Thinking}},'' \emph{Harvard Business Review}, Jul. 2008.
@@ -71,23 +89,8 @@ T.~Brown, ``Design {{Thinking}},'' \emph{Harvard Business Review}, Jul. 2008.
 \bibitem{ebrahimDevelopmentBiosensorEarly2023}
 T.~Ebrahim, ``The development of a biosensor for the early detection of pancreatic cancer,'' 2023.
 
-\bibitem{al-aliDesignPortableLowCost2017}
-A.~{Al-Ali}, A.~Elwakil, A.~Ahmad, and B.~Maundy, ``Design of a {{Portable Low-Cost Impedance Analyzer}},'' \emph{BIODEVICES 2017 - 10th International Conference on Biomedical Electronics and Devices, Proceedings; Part of 10th International Joint Conference on Biomedical Engineering Systems and Technologies, BIOSTEC 2017}, vol.~2, pp. 104--109, Feb. 2017.
-
-\bibitem{buscagliaSimpleZLowCostPortable2023}
-L.~A. Buscaglia, J.~P. Carmo, and O.~N. Oliveira, ``Simple-{{Z}}: {{A Low-Cost Portable Impedance Analyzer}},'' \emph{IEEE Sensors Journal}, vol.~23, no.~21, pp. 26\,067--26\,074, Nov. 2023.
-
 \bibitem{dincerMultiplexedPointofCareTesting2017}
 C.~Dincer, R.~Bruch, A.~Kling, P.~S. Dittrich, and G.~A. Urban, ``Multiplexed {{Point-of-Care Testing}} -- {{xPOCT}},'' \emph{Trends in Biotechnology}, vol.~35, no.~8, pp. 728--742, Aug. 2017.
-
-\bibitem{ElectrochemicalMeasurementsElectrochemical}
-``Electrochemical {{Measurements}}: {{Electrochemical Impedance Spectroscopy}} {\textbar} {{Nanoscience Instruments}}.''
-
-\bibitem{EISQualityIndicators}
-``{{EIS Quality Indicators}} and {{Linearity Correction}}.''
-
-\bibitem{lazanasErratumElectrochemicalImpedance2025}
-A.~C. Lazanas and M.~I. Prodromidis, ``Erratum: {{Electrochemical Impedance Spectroscopy}}-{{A Tutorial}} ({{ACS Measurement Science Au}} (2023) 3:3 (162-193) {{DOI}}: 10.1021/acsmeasuresciau.2c00070),'' \emph{ACS Measurement Science Au}, vol. 2023, no.~3, pp. 14--14, 2025.
 
 \bibitem{gaddyDYNAMICPERFORMANCETESTING}
 L.~Gaddy and H.~Kawai, ``{{DYNAMIC PERFORMANCE TESTING OF DIGITAL AUDIO D}}/{{A CONVERTERS}}.''

@@ -40,16 +40,7 @@ Discuss wat ons wil bereik en hoe ons dit gan opbreek. Beskryf hoe die circuit d
 \section{Subsystem Design}
 
 \subsection{Excitation}\label{subsec:design_excitation}
-Discuss opsies vir excitation considered: AD5933 chip wat signals generate, DAC ons MCU ander external DAC. Ultimately DAC op MCU.
-Discuss hoekom sein 10mV moet wees en hoekom ons die volle range van die dac moet gebruik (within die linear region).
-Finally tie together oor hoekom die excitation phase dus bestaan uit filtering en voltage attenuation
-\todo{Should this be in the literature review?}
-
-EIS involves applying a small sinusoidal perturbation to the \ac{DUT} and measuring the response. This can be either a voltage or current signal, \rephrase{while the other is measured}. Generating or measuring voltage is simple as most modern electronics are voltage mode rather than current mode. On the other hand, generating a small current signal is difficult to do accurately and requires circuits such as the improved Howlard current pump. While measuring a current signal also has some complexity, it is significantly easier than generation. It was thus decided that voltage excitation would be used.
-
-\Ac{EIS} relies on the system acting as a linear time-invariant system, but most real-world electrochemical systems are inherently nonlinear \cite{ElectrochemicalMeasurementsElectrochemical}. To approximate linear behaviour and ensure valid results, EIS uses a small AC excitation signal, typically between 1–10 mVpp\cite{EISQualityIndicators}\cite{lazanasErratumElectrochemicalImpedance2025}. At higher amplitudes, the response deviates from ideal sinusoidal form, causing harmonic distortion and invalid measurements. However, making the excitation too small reduces signal-to-noise ratio, so 10 mVpp is commonly used to balance linearity and measurement quality.
-
-The easiest way of producing a controlled voltage signal is using a \ac{DAC}. \fillout{Both dedicated \acp{DAC} and \acp{DAC} built into \acp{MCU} were possible options.} \todo{Figure out hoekom die AD5933 nie sou werk nie (maybe lack of voltage measurement en discuss TIA issues)}
+The easiest way of producing a controlled voltage signal is using a \ac{DAC}. \fillout{Both dedicated \acp{DAC} and \acp{DAC} built into \acp{MCU} were possible options.}
 
 Biosensing requires a bipolar signal with no DC component to avoid charge accumulation at the electrode–electrolyte interface, which leads to polarization. Over time, this would establish a net electrochemical bias, which drives redox reactions and changes the interfacial chemistry of the biosensor. These parasitic reactions alter the impedance characteristics of the electrode, obscuring the true dielectric and charge transfer properties that the EIS measurement aims to quantify. This can be solved by shifting our generated excitation to be biased around ground using a level shifting op-amp circuit. However, this also requires providing all analogue circuitry with a negative supply rail. Rather, this project makes use of a buffered virtual ground reference at 1.65V (3.3V/2) and uses this as the midpoint for all the analogue circuitry. This approach ensures that no DC bias is applied to the \ac{DUT} while negating the need for negative supply rails.
 
@@ -247,14 +238,14 @@ Simplified Randles Circuit with Ideal Capacitance:
 \end{align}
 Full Randles Circuit with CPE:
 \begin{align}
-    Z_{CPE} &= \frac{1}{T(j\omega)^{\phi}} \\
+    Z_{CPE} &= \frac{1}{T(j\omega)^{\alpha}} \\
     Z_{in} &= (R_S + Z_{CPE}) || X_{C_{in}} \\
     \beta (j\omega) &= \frac{Z_{in}}{R_f + Z_{in}} \label{eq:randles_beta}\\
     \therefore \frac{1}{\beta(j\omega)} &= 1 + \frac{R_f}{Z_{in}} \nonumber\\
     &= 1 + \frac{R_f}{(R_S + Z_{CPE}) || X_{C_{in}}}
 \end{align}
 
-However, the equivalent Randles circuit model of a biosensor differs fundamentally from the model of a photodiode due to the series resistance $R_s$. Figures \ref{fig:randles_cpe_tia} and \ref{fig:randles_cdl_tia} show the equivalent TIA circuits for a non-faradaic Randles circuit and a simplified model using an ideal capacitance ($C_{dl}$) instead of the \ac{CPE} by approximating $T=C_{dl}$ and $\phi=1$. For the simplified model, the input impedance and feedback factor can be calculated as seen in equations \ref{eq:simple_zin} - \ref{eq:simple_beta}. The full Randles non faradaic equivalent circuit results in \ref{eq:randles_beta}. The series resistance and double layer capacitance of the biosensor was estimated using PS Trace and values for input capacitance, open loop gain and gain bandwidth were read from the OPA3S328 datsheet. A MatLab script was then used to calculate the $\frac{1}{\beta(j\omega)}$ transfer function and loop gain of the system. Similairly the series resistance, $T$ and $\phi$ values were estimated for the Randles circuit using circuit fitting in PS Trace and plotted in MatLab. The response of the equivalent photodiode model was also plotted using the constant $C_{DL}$ as the parasitic junction capacitance. Table \ref{tab:stability_params} shows the estimated circuit paramaters and figures \ref{fig:matlab_7.5} and \ref{fig:matlab_37.5} shows the resulting responses. Table \ref{tab:matlab_results} lists the calculated critical frequencies and phase margins.
+However, the equivalent Randles circuit model of a biosensor differs fundamentally from the model of a photodiode due to the series resistance $R_s$. Figures \ref{fig:randles_cpe_tia} and \ref{fig:randles_cdl_tia} show the equivalent TIA circuits for a non-faradaic Randles circuit and a simplified model using an ideal capacitance ($C_{dl}$) instead of the \ac{CPE} by approximating $T=C_{dl}$ and $\alpha=1$. For the simplified model, the input impedance and feedback factor can be calculated as seen in equations \ref{eq:simple_zin} - \ref{eq:simple_beta}. The full Randles non faradaic equivalent circuit results in \ref{eq:randles_beta}. The series resistance and double layer capacitance of the biosensor was estimated using PS Trace and values for input capacitance, open loop gain and gain bandwidth were read from the OPA3S328 datsheet. A MatLab script was then used to calculate the $\frac{1}{\beta(j\omega)}$ transfer function and loop gain of the system. Similairly the series resistance, $T$ and $\alpha$ values were estimated for the Randles circuit using circuit fitting in PS Trace and plotted in MatLab. The response of the equivalent photodiode model was also plotted using the constant $C_{DL}$ as the parasitic junction capacitance. Table \ref{tab:stability_params} shows the estimated circuit paramaters and figures \ref{fig:matlab_7.5} and \ref{fig:matlab_37.5} shows the resulting responses. Table \ref{tab:matlab_results} lists the calculated critical frequencies and phase margins.
 
 \begin{figure}[H]
     \centering
@@ -306,7 +297,7 @@ From these plots, the difference between the photodiode and biosensor circuits b
             \multicolumn{2}{l}{\textit{CPE Randles Circuit}} \\
             $R_S$ & \SI{8.975}{\ohm} \\
             $T$ & \SI{6.993e-6}{} \\
-            $\phi$ & 0.785 \\
+            $\alpha$ & 0.785 \\
             $C_{in}$ & \SI{4.0}{\pico\farad} \\
             \hline
             \multicolumn{2}{l}{\textit{Constant C Randles Circuit}} \\
@@ -329,14 +320,14 @@ From these plots, the difference between the photodiode and biosensor circuits b
              & \textbf{(kHz)} & \textbf{(\textdegree)} & \\
             \hline
             \multicolumn{4}{l}{\textit{$R_f = \SI{7.5}{\kilo\ohm}$}} \\
-            Constant C Randles & 65.7 & 82.2 & Stable \\
-            Photodiode & 24.3 & 0.1 & Unstable \\
-            CPE Randles & 64.3 & 63.8 & Stable \\
+            Constant C Randles & 65.83 & 82.2 & Stable \\
+            Photodiode & 24.22 & 0.1 & Unstable \\
+            CPE Randles & 64.22 & 63.8 & Stable \\
             \hline
             \multicolumn{4}{l}{\textit{$R_f = \SI{37.5}{\ohm}$}} \\
-            Constant C Randles & 1000.0 & 89.6 & Stable \\
-            Photodiode & 345.0 & 0.5 & Unstable \\
-            CPE Randles & 1000.0 & 86.9 & Stable \\
+            Constant C Randles & 9840.03 & 89.8 & Stable \\
+            Photodiode & 343.77 & 0.5 & Unstable \\
+            CPE Randles & 7725.81 & 86.3 & Stable \\
             \hline
         \end{tabular}
     \end{minipage}
@@ -509,6 +500,8 @@ The voltage measurement stage was simulated with the INA331 and TLV9061 models t
 
 \subsection{Current measurement}
 Due to problems porting the OPA3s328 PSpice model to LT Spice, the internal mux was not simulated. The PGA113 has no available PSpice model \cite{PGA113PspiceModel2022}, thus a standard inverting amplifier configuration using the TLV9061 was used to simulate the PGA stage. Figure \ref{fig:tia_freq} shows the frequency response of the TIA stage alone, with a -0.15dB gain reduction and -7.2\textdegree phase shift at 100kHz. Figure \ref{fig:i_meas_freq} shows the overall frequency response of the current measurement stage with the PGA and final amplification stages contributing an additional -0.25dB gain reduction and -4.8\textdegree phase shift. This confirms that sufficient bandwidth is available for measurements up to 100kHz.
+
+To confirm the stability of the TIA circuit, Tian's method was used to plot the loop gain and phase margin for both the Radnles circuit using the \ac{CPE} and the simplified circuit using a constant capacitance as seen in figure \ref{fig:tia_stability} and Table \ref{tab:lt_tia_stability}. These results closely match the MatLab results in section \ref{subsec:design_cur}, confirming that the TIA design is stable without the need for feedback compensation.
 
 \subsection{Complete System}
 The individual subsystems were combined into a complete model including DAC and ADCs using sample-and-hold blocks. Transient analysis was done at a range of excitation frequencies. For frequency analysis the DAC and ADCs were excluded.

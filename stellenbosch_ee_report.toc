@@ -16,55 +16,54 @@
 \contentsline {section}{\numberline {2.1}Biosensors}{3}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Background on Biomarkers}{3}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.1.2}Types of Biosensors}{3}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Transducer Mechanisms}{4}{subsection.2.1.3}%
-\contentsline {subsubsection}{Electrochemical Impedance Spectroscopy}{5}{subsubsection*.9}%
-\contentsline {subsubsection}{Faradaic vs Non-Faradaic EIS Sensors}{5}{subsubsection*.10}%
-\contentsline {subsection}{\numberline {2.1.4}Complex Impedance}{6}{subsection.2.1.4}%
-\contentsline {section}{\numberline {2.2}Signal Processing}{6}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Analogue Electronics}{6}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Digital Processing}{6}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}Calculating Impedance}{6}{subsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.2.4}Extrapolating from Impedance to Concentration}{6}{subsection.2.2.4}%
-\contentsline {section}{\numberline {2.3}Interface}{6}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}ESP32}{6}{subsection.2.3.1}%
-\contentsline {section}{\numberline {2.4}Related Works}{6}{section.2.4}%
-\contentsline {chapter}{\numberline {3}Design}{7}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Design Philosophy}{7}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Understanding the end user}{7}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Problem Statement}{8}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Functional Design Overview}{8}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Subsystem Design}{9}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Excitation}{9}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Voltage Measurement}{11}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Current Measurement}{14}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}DUT}{21}{subsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.3.5}Multiplexer}{21}{subsection.3.3.5}%
-\contentsline {subsection}{\numberline {3.3.6}Power Circuitry}{23}{subsection.3.3.6}%
-\contentsline {subsection}{\numberline {3.3.7}Signal Processing}{24}{subsection.3.3.7}%
-\contentsline {subsection}{\numberline {3.3.8}User Interface}{24}{subsection.3.3.8}%
-\contentsline {section}{\numberline {3.4}Circuit Simulation}{24}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Biosensor}{24}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Excitation stage}{24}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Voltage measurement}{26}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Current measurement}{26}{subsection.3.4.4}%
-\contentsline {subsection}{\numberline {3.4.5}Complete System}{27}{subsection.3.4.5}%
-\contentsline {section}{\numberline {3.5}PCB Design}{27}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Firmware Design}{29}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}ESP}{29}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}STM}{29}{subsection.3.6.2}%
-\contentsline {chapter}{\numberline {4}Testing \& Validation}{30}{chapter.4}%
-\contentsline {section}{\numberline {4.1}PCB Testing}{30}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Voltage Reference Load Testing}{30}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Excitation Stage Testing}{30}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Voltage Measurement Testing}{30}{subsection.4.1.3}%
-\contentsline {subsection}{\numberline {4.1.4}Current Measurement Testing}{30}{subsection.4.1.4}%
-\contentsline {subsection}{\numberline {4.1.5}Multiplexing Testing}{30}{subsection.4.1.5}%
-\contentsline {subsection}{\numberline {4.1.6}Complete System Test Without \& With MCU}{30}{subsection.4.1.6}%
-\contentsline {section}{\numberline {4.2}Validation}{30}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Test on Calibration Cell}{30}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Test on Saline Solution}{30}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Discussion of Results}{30}{subsection.4.2.3}%
-\contentsline {chapter}{\numberline {5}Summary and Conclusion}{31}{chapter.5}%
-\contentsline {chapter}{Bibliography}{32}{chapter*.33}%
-\contentsline {chapter}{\numberline {A}Project Planning Schedule}{35}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Outcomes Compliance}{36}{appendix.B}%
+\contentsline {section}{\numberline {2.2}Transducer Mechanisms}{4}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Electrochemical Impedance Spectroscopy (EIS)}{5}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Faradaic vs Non-Faradaic EIS Sensors}{5}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Complex Impedance}{6}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Nyquist Plot}{6}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Bode Plots}{8}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}Impedance Analysers}{8}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Signal Generation}{9}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Voltage Measurement}{9}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Current Measurement}{9}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}Related Works}{9}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Design}{10}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Design Philosophy}{10}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Understanding the end user}{10}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Problem Statement}{11}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Functional Design Overview}{11}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Subsystem Design}{12}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Excitation}{12}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Voltage Measurement}{13}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Current Measurement}{16}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}DUT}{23}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Multiplexer}{23}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}Power Circuitry}{25}{subsection.3.3.6}%
+\contentsline {subsection}{\numberline {3.3.7}Signal Processing}{26}{subsection.3.3.7}%
+\contentsline {subsection}{\numberline {3.3.8}User Interface}{26}{subsection.3.3.8}%
+\contentsline {section}{\numberline {3.4}Circuit Simulation}{26}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Biosensor}{26}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Excitation stage}{27}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Voltage measurement}{28}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Current measurement}{29}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}Complete System}{29}{subsection.3.4.5}%
+\contentsline {section}{\numberline {3.5}PCB Design}{29}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Firmware Design}{32}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}ESP}{32}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}STM}{32}{subsection.3.6.2}%
+\contentsline {chapter}{\numberline {4}Testing \& Validation}{33}{chapter.4}%
+\contentsline {section}{\numberline {4.1}PCB Testing}{33}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Voltage Reference Load Testing}{33}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Excitation Stage Testing}{33}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Voltage Measurement Testing}{33}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Current Measurement Testing}{33}{subsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.1.5}Multiplexing Testing}{33}{subsection.4.1.5}%
+\contentsline {subsection}{\numberline {4.1.6}Complete System Test Without \& With MCU}{33}{subsection.4.1.6}%
+\contentsline {section}{\numberline {4.2}Validation}{33}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Test on Calibration Cell}{33}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Test on Saline Solution}{33}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Discussion of Results}{33}{subsection.4.2.3}%
+\contentsline {chapter}{\numberline {5}Summary and Conclusion}{34}{chapter.5}%
+\contentsline {chapter}{Bibliography}{35}{chapter*.32}%
+\contentsline {chapter}{\numberline {A}Project Planning Schedule}{38}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Outcomes Compliance}{39}{appendix.B}%

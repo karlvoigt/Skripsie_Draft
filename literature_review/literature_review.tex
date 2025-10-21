@@ -1,7 +1,6 @@
 \graphicspath{{literature_review/fig/}}
 
 \chapter{Literature Review}
-\todo{DIscuss bietjie Nyquist vs bode etc en wat hulle vir ons kan sê oor impedances}
 \section{Biosensors}
 Biosensors are employed in applications such as disease monitoring, drug discovery, and detection of pollutants, disease-causing micro-organisms and markers that are indicators of a disease in bodily fluids (blood, urine, saliva, sweat).\cite{bhallaIntroductionBiosensors2016} 
 \subsection{Background on Biomarkers}
@@ -16,28 +15,30 @@ Antibodies are produced by vertebrates as part of their immune response to forei
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.7\textwidth]{antibody.png}
-    \caption{Example figure inserted using a LaTeX Workshop snippet.}
+    \caption[Antibody with basic structural features labeled]{Antibody with basic structural features labeled \cite{UsingAntibodiesVaccinea}}
     \label{fig:antibody}
 \end{figure}
 
-\subsection{Transducer Mechanisms}
+Many biosensors require that a "label" is attached to the biomolecule of interest and then the concentration of this label is detected and extrapolated to the concentration of the biomolecule \cite{danielsLabelFreeImpedanceBiosensors2007}. Label-free biosensors, on the other hand, directly detect the target biomolecule by measuring the changes in electrical properties of the surface of the biosensor when binding occurs. Since labeling can dramatically alter the binding properties of biomolecules and adds complexity and cost to the assay process, label-free detection is highly desirable \cite{danielsLabelFreeImpedanceBiosensors2007}, especially in point-of-care environments. 
+
+\section{Transducer Mechanisms}
 The number of biological binding events indicates the concentration of the analyte in the sample. In order to convert the bio-recognition event into a measurable signal, a transducer mechanism is needed\cite{bhallaIntroductionBiosensors2016}. There are various types of transducer mechanisms that can be used in biosensors, including optical, piezoelectric and electrochemical transducers. This project will focus on biosensors where binding events change the electrical properties of the biosensor, specifically the complex impedance. Thus, electrochemical transducers are of interest. 
 
-Electrochemical transducers can use various analysis techniques. In potentiometric analysis, the potential of an electrode is measured against a reference electrode at zero-current \cite{magarElectrochemicalImpedanceSpectroscopy2021}. Coulometry applies a constant potential (with regards to a reference electrode) onto an electrode surface to carry out exhaustive electrolysis of an analyte \cite{magarElectrochemicalImpedanceSpectroscopy2021}. Voltammetry involves subjecting the sample to a varying potential at the electrode's surface and measuring the resulting Faradaic current \cite{magarElectrochemicalImpedanceSpectroscopy2021}. Finally there is \ac{EIS}, which measures the complex impedance of an electrochemical system as a function of frequency \cite{magarElectrochemicalImpedanceSpectroscopy2021}. EIS is particularly suitable for biosensor applications where biological binding events alter the electrical properties of the electrode-electrolyte interface \cite{danielsLabelFreeImpedanceBiosensors2007}. This project will thus make use of EIS as the transducer mechanism.
+Electrochemical transducers can use various analysis techniques. In potentiometric analysis, the potential of an electrode is measured against a reference electrode at zero-current \cite{magarElectrochemicalImpedanceSpectroscopy2021}. Coulometry applies a constant potential (with regards to a reference electrode) onto an electrode surface to carry out exhaustive electrolysis of an analyte \cite{magarElectrochemicalImpedanceSpectroscopy2021}. Voltammetry involves subjecting the sample to a varying potential at the electrode's surface and measuring the resulting Faradaic current \cite{magarElectrochemicalImpedanceSpectroscopy2021}. Finally there is \ac{EIS}, which measures the complex impedance of an electrochemical system as a function of frequency \cite{magarElectrochemicalImpedanceSpectroscopy2021}. EIS is particularly suitable for biosensor applications where biological binding events alter the electrical properties of the electrode-electrolyte interface \cite{danielsLabelFreeImpedanceBiosensors2007}. 
 
-\subsubsection{Electrochemical Impedance Spectroscopy}
-This technique applies a small sinusoidal voltage signal to the biosensor and measures the resulting current response. The complex impedance is calculated as:
-\begin{equation}
-    Z(\omega) = \frac{V(\omega)}{I(\omega)} = Z'(\omega) + jZ''(\omega)
-\end{equation}
-where $Z'(\omega)$ is the real component representing resistive behaviour and $Z''(\omega)$ is the imaginary component representing capacitive or inductive behaviour.\cite{orazemTutorialElectrochemicalImpedance2020} By varrying the frequency of the excitation signal, different electrochemical processes that occur at distinct time constants can be characterised. 
+\subsection{Electrochemical Impedance Spectroscopy (EIS)}
+EIS involves applying a small sinusoidal perturbation to the \ac{DUT} and measuring the response. This can be either a voltage or current signal, \rephrase{while the other is measured}. By varying the frequency of the excitation signal, different electrochemical processes that occur at distinct time constants can be characterised.
 
-\subsubsection{Faradaic vs Non-Faradaic EIS Sensors}
-EIS biosensors can be categorized into two main types based on their transduction mechanism: faradaic and non-faradaic sensors.
+\Ac{EIS} relies on the system acting as a linear time-invariant system, but most real-world electrochemical systems are inherently nonlinear \cite{lazanasErratumElectrochemicalImpedance2025}. To approximate linear behaviour and ensure valid results, EIS uses a small AC excitation signal, typically between 1–10 mVpp\cite{EISQualityIndicators}\cite{lazanasErratumElectrochemicalImpedance2025}. At higher amplitudes, the response deviates from ideal sinusoidal form, causing harmonic distortion and invalid measurements. However, making the excitation too small reduces signal-to-noise ratio, so 10 mVpp is commonly used to balance linearity and measurement quality.  
+% Praat oor voordele van EIS bo ander metodes
+A key advantage of \ac{EIS} is the ability to simulate the electrochemical system using equivalent circuit models. These models represent the various resistive, capacitive, and diffusive elements that represent the behaviour of the system \cite{lazanasErratumElectrochemicalImpedance2025}. This is due to the frequency domain nature of EIS, in comparison with other techniques such as voltammetry that works in the time-domain, thus allowing the behaviour of distinct processes that dominate at certain frequencies to be characterised \cite{lazanasErratumElectrochemicalImpedance2025}. By fitting experimental impedance data to these models, parameters such as charge transfer resistance and double-layer capacitance can be extracted, which correlate with biomolecular interactions occurring on the electrode surface \cite{danielsLabelFreeImpedanceBiosensors2007}. This capability makes \ac{EIS} a powerful tool for label-free biosensing applications. 
+
+\subsection{Faradaic vs Non-Faradaic EIS Sensors}
+\rephrase{EIS biosensors can be categorized into two main types based on their transduction mechanism: faradaic and non-faradaic sensors.}
 
 In faradaic measurements, charge transfers occur at the electrode-solution interface and redox reactions occur on the electrode surface \cite{xieReviewAdvancementsNanoscale2020a}. The equivalent circuit model for faradaic sensors is the Randles circuit (Figure \ref{fig:randles_fardaic}), consisting of solution resistance ($R_s$) in series with the parallel combination of charge transfer resistance ($R_{CT}$) and double-layer capacitance ($C_{dl}$), plus Warburg impedance ($Z_w$) representing diffusion processes \cite{xieReviewAdvancementsNanoscale2020a}.
 
-Non-faradaic measurements operate without charge-transfer reactions, functioning as capacitive sensors that detect changes in the electrical double layer capacitance. Due to the lack of charge-transfer, $R_{CT}$ becomes infinitely large, thus creating an open circuit \cite{xieReviewAdvancementsNanoscale2020a}. On solid electrodes, the observed impedance response of $C_{DL}$ differs from an ideal capacitor, thus a \ac{CPE} is used instead of $C_{DL}$ in the Randles non-fardaic equivalent circuit (Figure \ref{fig:randles_non_faradaic}) 
+Non-faradaic measurements operate without charge-transfer reactions, functioning as capacitive sensors that detect changes in the electrical double layer capacitance. Due to the lack of charge-transfer, $R_{CT}$ becomes infinitely large, thus creating an open circuit \cite{xieReviewAdvancementsNanoscale2020a}. On solid electrodes, the observed impedance response of $C_{DL}$ differs from an ideal capacitor, thus a \ac{CPE} is used instead of $C_{DL}$ in the Randles non-fardaic equivalent circuit (Figure \ref{fig:randles_non_faradaic}).  
 
 \begin{figure}[ht]
     \centering
@@ -58,60 +59,80 @@ Non-faradaic measurements operate without charge-transfer reactions, functioning
     \label{fig:randles_circuits}
 \end{figure}
 
-Non-faradaic sensors are capacitive in nature, measuring changes in the dielectric properties at the electrode-electrolyte interface when biomolecules bind to immobilized antibodies. When antigen binding occurs, the capacitance decreases due to the displacement of water molecules and changes in the local dielectric constant according to:
-\begin{equation}
-    C = \frac{\varepsilon_0 \varepsilon_r A}{d}
-\end{equation}
-where $\varepsilon_0$ is the permittivity of free space, $\varepsilon_r$ is the relative permittivity of the medium, $A$ is the electrode area, and $d$ is the effective thickness of the dielectric layer.\cite{bergveldThirtyYearsBiosensor2003}
-\todo{Discuss nyquist lower vs higher frequency and different effects at different frequencies}
-\todo{Insert circuit models for faradaic and non-faradaic sensors}
-
-% \subsubsection{Implementation for CA-19 Detection}
-% The capacitive biosensors used in this project are designed to detect the CA-19 biomarker for pancreatic cancer screening. The frequency range for capacitive measurements typically spans from 1 Hz to 100 kHz, with the optimal frequency determined by the time constant $\tau = R_s C_{interface}$. At frequencies much higher than $1/\tau$, the impedance is dominated by solution resistance, while at frequencies much lower than $1/\tau$, the capacitive behaviour dominates the response.
-
-\subsection{Complex Impedance}
-
-\section{Signal Processing}
-% The signal processing chain for EIS biosensors converts the electrochemical response into digital impedance measurements and ultimately biomarker concentrations. This process involves analogue front-end conditioning, digital signal processing, impedance calculation algorithms, and calibration models.\cite{katzElectrochemicalImpedanceSpectroscopy2021}
-
-\subsection{Analogue Electronics}
-
-\subsection{Digital Processing}
-
-\subsection{Calculating Impedance}
-% Complex impedance calculation requires extraction of magnitude and phase from voltage and current measurements. The impedance at frequency $\omega$ is calculated as:
-% \begin{equation}
-%     Z(\omega) = \frac{V(\omega)}{I(\omega)} = |Z|e^{j\phi} = Z' + jZ''
-% \end{equation}
-% where $Z'$ and $Z''$ are the real and imaginary components respectively.\cite{orazem2017electrochemical}
-
-% Lock-in amplifier techniques provide high accuracy through synchronous detection. Digital implementation multiplies the input signal with sine and cosine reference waveforms, followed by low-pass filtering to extract DC components proportional to signal amplitude and phase.\cite{zuhriLockInAmplifier2022}
-
-% Frequency sweep optimization employs logarithmic spacing with 10 points per decade across the measurement range. Descending frequency order (high to low) minimizes polarization effects and improves measurement accuracy for electrochemical systems.\cite{gamryBasicsElectrochemicalImpedance2024}
-
-\subsection{Extrapolating from Impedance to Concentration}
-% The conversion from impedance measurements to biomarker concentration requires equivalent circuit modeling and calibration. For capacitive biosensors, the simplified equivalent circuit consists of solution resistance $R_s$ in series with interfacial capacitance $C_{interface}$:
-% \begin{equation}
-%     Z = R_s + \frac{1}{j\omega C_{interface}}
-% \end{equation}
-
-% Biomarker binding alters the interfacial capacitance according to:
+% Non-faradaic sensors are capacitive in nature, measuring changes in the dielectric properties at the electrode-electrolyte interface when biomolecules bind to immobilized antibodies. When antigen binding occurs, the capacitance decreases due to the displacement of water molecules and changes in the local dielectric constant according to:
 % \begin{equation}
 %     C = \frac{\varepsilon_0 \varepsilon_r A}{d}
 % \end{equation}
-% where antigen binding increases the effective dielectric thickness $d$ and changes the local permittivity $\varepsilon_r$.\cite{songCapacitiveBiosensorsLabel2023}
+% where $\varepsilon_0$ is the permittivity of free space, $\varepsilon_r$ is the relative permittivity of the medium, $A$ is the electrode area, and $d$ is the effective thickness of the dielectric layer.\cite{bergveldThirtyYearsBiosensor2003}
 
-% Calibration models relate impedance changes to analyte concentration. The Langmuir adsorption model describes the binding equilibrium:
-% \begin{equation}
-%     \theta = \frac{K_L C}{1 + K_L C}
-% \end{equation}
-% where $\theta$ is the fractional surface coverage, $K_L$ is the binding constant, and $C$ is the analyte concentration.\cite{langmuirAdsorptionModel2024}
 
-% Non-linear least squares fitting, typically using the Levenberg-Marquardt algorithm, extracts equivalent circuit parameters from experimental impedance spectra.\cite{levenbergMarquardtAlgorithm2024} For CA-19 biosensors, detection limits of 0.1 U/mL are achievable with proper calibration and signal processing.\cite{kimCapacitiveBiosensorEarly2024}
 
-\section{Interface}
-\subsection{ESP32}
-% \subsection{WebBLE}
+
+\section{Complex Impedance}
+Electrochemical impedance spectroscopy (EIS) produces complex impedance data consisting of both magnitude and phase information across a range of frequencies. The complex impedance is calculated as:
+\begin{equation}
+    Z(\omega) = \frac{V(\omega)}{I(\omega)} = Z'(\omega) + jZ''(\omega)
+\end{equation}
+where $Z'(\omega)$ is the real component representing resistive behaviour and $Z''(\omega)$ is the imaginary component representing capacitive or inductive behaviour (with $V(\omega)$ and $I(\omega)$ representing the phasor voltage and current respectively) \cite{lazanasErratumElectrochemicalImpedance2025}.
+
+Two major ways of visualizing this complex impedance are the Nyquist and Bode representations, each highlighting different aspects of the electrochemical response.
+
+\subsection{Nyquist Plot}
+A Nyquist plot displays the negative imaginary part of impedance($Z''(\omega)$) versus the real part ($Z'(\omega)$) \cite{BodeNyquistPlot}. Each point on the plot corresponds to a particular frequency, though the frequency is not explicitly shown along the axes. For biosensing, high-frequency data points are located near the origin (low impedance), while low-frequency points are farther along the curve (high impedance). The Nyquist plot has the distinct advantage that some circuit parameters can be read directly form the plot \cite{BodeNyquistPlot}. 
+
+A purely resistive impedance is represented as a point on the x-axis, as it has no imaginary component and is not frequency dependent. A purely capacitive impedance on the other hand is represented as a straight vertical line on the y-axis, as it has no real component and its imaginary component varies inversely with frequency \cite{BodeNyquistPlot}. The series combination of resistive and capacitive elements, thus result in a vertical line offset from the y-axis. The parallel combination of resistive and capacitive elements, however result in a semicircular arc, as current flows though the path of least resistance \cite{BodeNyquistPlot}. At low frequencies, the capacitor acts as an open circuit resulting in the x-axis intercept (or diameter of the semi-circle) representing the magnitude of the resistive elements in the circuit.
+
+For simple electrochemical systems such as a Randles cell, the Nyquist plot appears as a semicircle (frequencies where charge transfer phenomena dominate) ending in a straight line tail (frequencies where mass transfer phenomena dominate) (Figure \ref{fig:randles_nyquist}) \cite{lazanasErratumElectrochemicalImpedance2025}. The series resistance ($R_s$) can be read directly from the x-axis intercept at high frequencies (closer to the origin), while the charge transfer resistance ($R_{CT}$) is given by the diameter of the semicircle in middle frequencies. At low frequencies, the Warburg impedance ($Z_w$) manifests as a 45-degree line due to diffusion-limited processes \cite{lazanasErratumElectrochemicalImpedance2025}, explaining the observed tail.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{RandlesNyquist.jpeg}
+        \caption[Faradaic Randles Circuit]{Faradaic Randles Circuit \cite{lazanasErratumElectrochemicalImpedance2025}}
+        \label{fig:randles_nyquist_faradaic}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{RandlesNonFaradaicNyquist.png}
+        \caption[Non-Faradaic Randles Circuit]{Non-Faradaic Randles Circuit \cite{xieReviewAdvancementsNanoscale2020a}}
+        \label{fig:RandlesNonFaradaicNyquist}    
+    \end{subfigure}
+    \caption{Nyquist Plots of Faradaic and Non-Faradaic Randles Circuits}
+    \label{fig:randles_nyquist}
+\end{figure}
+
+The non-faradaic Randles equivalent, however does not exhibit a semi-circle, due to the exclusion of the charge transfer resistance ($R_{CT}$) and Warburg impedance ($Z_w$). Instead, the Nyquist plot appears as a straight line with an x-axis intercept representing $R_S$. For solid electrodes, however the line is not vertical as would be expected from the series combination of a resistive and purely capacitive element \cite{xieReviewAdvancementsNanoscale2020a} (Figure \ref{fig:RandlesNonFaradaicNyquist}). The $C_{DL}$ is thus replaced with a \ac{CPE} in the circuit model to account for this non-ideal capacitive behaviour. The impedance of the \ac{CPE} is given by equation \ref{eq:cpe_impedance}, with $\omega$ representing the angular frequency, $T$ being a constant related to capacitance, and $\alpha$ being an exponent between 0 and 1 that characterizes the deviation from ideal capacitive behaviour \cite{xieReviewAdvancementsNanoscale2020a}. $\alpha$ corresponds to the angle of the line in the Nyquist plot. When $\alpha = 1$, the \ac{CPE} behaves as an ideal capacitor, while values less than 1 indicate increasing non-ideality due to factors such as surface roughness or inhomogeneities \cite{xieReviewAdvancementsNanoscale2020a}.
+
+\begin{equation}
+    Z_{CPE} = \frac{1}{T(j\omega)^{\alpha}}
+    \label{eq:cpe_impedance}
+\end{equation}
+
+\subsection{Bode Plots}
+
+A Bode plot presents the magnitude, $|Z|$, and phase, $\phi$, of the impedance as functions of frequency on a logarithmic scale. The Bode magnitude plot reveals how impedance changes with frequency, while the phase plot shows the transition between resistive ($\phi = 0^\circ$) and capacitive ($\phi = -90^\circ$) behaviour. While Nyquist plots offer direct visualization of resistive and capacitive interactions, Bode plots highlight the frequency dependence and allow clearer distinction of time constants \cite{BodeNyquistPlot}. In EIS analysis, both representations are complementary: Nyquist plots assist model-based fitting, whereas Bode plots verify consistency and highlight transition frequencies.
+
+\section{Impedance Analysers}
+Impedance analysers are instruments that integrate signal generation, voltage and current measurement, and data processing to determine the complex impedance of a \ac{DUT}. In the context of biosensing, these devices are used to perform \ac{EIS} by applying a known AC excitation signal to the biosensor and measuring the resulting current and voltage responses over a range of frequencies. The ratio of these phasor quantities provides the frequency-dependent impedance, which is used to infer biochemical interactions at the electrode–electrolyte interface.
+
+There are numerous commercial EIS solutions available, such as the PalmSens4, Gamry Reference 600+, and Metrohm Autolab PGSTAT. These instruments are designed for research and industrial applications where extremely high accuracy, broad frequency ranges, and advanced analytic capabilities are essential.
+
+For instance, the PalmSens4 can measure impedances over frequencies from 10 Hz to 1 MHz, with 18-bit resolution, integrated equivalent circuit fitting, and software for parameter extraction. However, such instruments are prohibitively expensive—often exceeding, ($\approx$\texteuro 4200). These devices also require significant technical expertise to interpret Nyquist and Bode plots or analyse equivalent circuit models, making them unsuitable for low-resource POC settings where portability, cost, and ease of use are crucial.
+
+For these reasons, miniaturised, low-cost impedance analysers are being actively developed for POC applications such as \cite{buscagliaSimpleZLowCostPortable2023}, \cite{al-aliDesignPortableLowCost2017} and \cite{ibrahimCMOSTransimpedanceAmplifier}. Such designs prioritise simplicity, automation, and affordability, while maintaining sufficient frequency range and measurement accuracy to detect biological binding events.
+
+\subsection{Signal Generation}
+\Ac{EIS} requires the generation of a small AC excitation signal, either voltage or current, to probe the \ac{DUT}. Generating or measuring voltage is simple as most modern electronics are voltage mode rather than current mode. On the other hand, generating a small current signal is difficult to do accurately and requires circuits such as the improved Howlard current pump \cite{ImprovedHowlandCurrent2020}. While measuring a current signal also has some complexity, it is significantly easier than generation and thus the method commonly used in \ac{EIS} systems.
+
+Voltage based signal generation can be done using dedicated impedance analyser chips such as the AD5933 or custom solutions using microcontroller-based \acp{DAC}. The AD5933 offers integrated frequency sweeps and impedance measurement. However, it has some clear drawbacks, such as a DC offset, lack of direct voltage measurement and minimum impedance of $1 k\Omega$.
+
+Direct measurement of the true voltage across the device under test ensures all sources of non-ideal behaviour (parasitic resistances, stray capacitance, drift, and environmental changes) are accounted for, providing accurate data for impedance calculation. Accurate voltage monitoring is vital because small changes can significantly affect calculated impedance, particularly in low-voltage biosensing circuits. In contrast, a DAC and ADC solution implemented on a microcontroller allows for precise control of excitation signals, flexible signal processing, and easier integration with multiplexing and user interface subsystems
+
+\subsection{Voltage Measurement}
+
+\subsection{Current Measurement}
 
 \section{Related Works}
 
