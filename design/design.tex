@@ -40,31 +40,27 @@ Discuss wat ons wil bereik en hoe ons dit gan opbreek. Beskryf hoe die circuit d
 \section{Subsystem Design}
 
 \subsection{Excitation}\label{subsec:design_excitation}
-The easiest way of producing a controlled voltage signal is using a \ac{DAC}. \fillout{Both dedicated \acp{DAC} and \acp{DAC} built into \acp{MCU} were possible options.}
+The easiest way of producing a controlled voltage signal is using a \ac{DAC}. Both dedicated \acp{DAC} and \acp{DAC} built into \acp{MCU} were possible options.
 
-Biosensing requires a bipolar signal with no DC component to avoid charge accumulation at the electrode–electrolyte interface, which leads to polarization. Over time, this would establish a net electrochemical bias, which drives redox reactions and changes the interfacial chemistry of the biosensor. These parasitic reactions alter the impedance characteristics of the electrode, obscuring the true dielectric and charge transfer properties that the EIS measurement aims to quantify. This can be solved by shifting our generated excitation to be biased around ground using a level shifting op-amp circuit. However, this also requires providing all analogue circuitry with a negative supply rail. Rather, this project makes use of a buffered virtual ground reference at 1.65V (3.3V/2) and uses this as the midpoint for all the analogue circuitry. This approach ensures that no DC bias is applied to the \ac{DUT} while negating the need for negative supply rails.
+To avoid establishing a DC bias at the electrode–electrolyte interface, the generated excitation must be centred around a stable reference potential. This can be achieved by shifting the \ac{DAC} output to be biased around ground using a level-shifting op-amp circuit. However, this requires providing all analogue circuitry with a negative supply rail. This project instead uses a buffered virtual ground reference at 1.65 V (3.3 V/2) as the midpoint for all analogue circuitry. This approach ensures no DC bias is applied to the \ac{DUT} whilst negating the need for negative supply rails.
 
-When generating a sinusoidal signal using a \ac{DAC}, the output is not a smooth analogue waveform, but rather a series of discrete voltage steps. These steps introduce high-frequency components and harmonics that are not present in the original signal. \trimdown{If these unwanted frequencies are not removed, they can interfere with downstream analogue circuitry or be misinterpreted during subsequent analog-to-digital conversion, a phenomenon known as aliasing.} To prevent this, an anti-aliasing filter (AA filter), typically a \ac{LPF}, is placed after the DAC output to remove high-frequency content and smooth out the signal.
+The anti-aliasing filter must provide sufficient attenuation at the Nyquist frequency ($f_s/2$) to ensure any aliased content falls below the \ac{DAC}'s noise floor. For the 12-bit \ac{DAC} found in the STM32F303K8, equation \ref{eq:dac_range} gives a dynamic range of 74 dB. 
 
-Dynamic range determines the smallest signal the DAC can produce above its noise floor. The theoretical dynamic range (in dB) of a DAC is given by the following formula\cite{gaddyDYNAMICPERFORMANCETESTING}:
 \begin{equation}
-    \text{Dynamic Range}=6.02n + 1.76 
+    \text{Dynamic Range} = 6.02n + 1.76 
     \label{eq:dac_range}
 \end{equation}
-with $n$ being the number of bits of resolution. For the 12-bit \ac{DAC} found in the STM32F303K8, this results in a dynamic range of 74dB. When designing the AA filter, the dynamic range determines the required level of attenuation at the Nyquist frequency ($f_s/2$). To prevent high-frequency components—introduced by the DAC's discrete step output—from being aliased back into the signal band, the AA filter must attenuate these frequencies sufficiently so that any aliased content falls below the DAC's noise floor, as set by its dynamic range. At the same time, the filter's passband must remain flat at the desired signal bandwidth to avoid distorting the amplitude or phase of the intended output. 
 
-\todo{If we want to have more calculations insert, the calcs of how to calculate the cutoff of an 8th order raised cosine to have -74dB at fs/2 but it's going to be at least 1/2 page}
+The filter's passband must remain flat at the desired signal bandwidth to avoid distorting the amplitude or phase of the intended output. Due to these requirements, a fixed frequency AA filter is unsuitable when generating frequencies from 1 Hz to 100 kHz. Many variable AA filter ICs exist, but most require changing resistor values to set the cutoff frequency, which is impractical when many frequencies are needed. 
 
-Due to these requirements, a fixed frequency AA filter is unsuitable when generating a wide range of frequencies from 1Hz-100kHz. Many variable AA filter ICs exist, however many require changing a resistor value to set the cutoff frequency. \rephrase{This would be impractical when many frequencies are needed.} Ultimately the LTC1069 proved to be the only viable option, providing an 8th order lowpass filter that approximates a raised cosine response (with $\alpha=1$). Importantly it has a cutoff frequency of up to 120kHz (200kHz when using $\pm5V$ supply rails) set by an external clock and a linear phase response \cite{LTC10697CS8PBF}. \rephrase{The clock-tunable nature of the LTC1069 is ideal for this project, allowing easy adjustments through the use of a timer on the STM.}
+The LTC1069 proved to be the only viable option. It provides an 8th order lowpass filter that approximates a raised cosine response (with $\alpha=1$). It has a cutoff frequency of up to 120 kHz (200 kHz when using $\pm5$ V supply rails) set by an external clock and a linear phase response \cite{LTC10697CS8PBF}. The clock-tunable nature is ideal for this project, allowing easy adjustments through a timer on the STM.
 
-To maximise the voltage resolution and minimise noise, the full linear range of the DAC is utilised when generating the signal. This requires that our DAC output signal is attenuated from 3Vpp to the desired 10mVpp using an inverting op-amp. From equation \ref{eq:inv_opamp_gain} $R_{f}=1k\Omega$ and $R_{in}=300k\Omega$ can be calculated as suitable values.
+To maximise voltage resolution and minimise noise, the full linear range of the \ac{DAC} is utilised when generating the signal. This requires that the \ac{DAC} output signal is attenuated from 3 Vpp to the desired 10 mVpp using an inverting op-amp. From equation \ref{eq:inv_opamp_gain}, $R_{f}=1 k\Omega$ and $R_{in}=300 k\Omega$ can be calculated as suitable values.
 
 \begin{equation}
     A_v = \frac{V_{out}}{V_{in}} = -\frac{R_f}{R_{in}}
     \label{eq:inv_opamp_gain}
 \end{equation}
-
-\todo{Insert diagrams of stair stepping and frequency components. Dalk sommer van LT Spice}
 
 \begin{figure}[]
     \centering
@@ -74,15 +70,14 @@ To maximise the voltage resolution and minimise noise, the full linear range of 
 \end{figure}
 
 \subsection{Voltage Measurement}
-Some impedance analyser designs attempt to infer voltage across the sample by using the known attenuation an applied signal \cite{buscagliaSimpleZLowCostPortable2023}. However, direct measurement of the true voltage across the device under test ensures all sources of non-ideal behaviour (parasitic resistances, stray capacitance, drift, and environmental changes) are accounted for, providing accurate data for impedance calculation. Accurate voltage monitoring is vital because small changes can significantly affect calculated impedance, particularly in low-voltage biosensing circuits.
+The voltage measurement stage is responsible for accurately measuring the voltage across the \ac{DUT} during excitation. The expected voltage levels across the \ac{DUT} are in the range of 10 mVpp, which is too small to be measured directly by the \ac{ADC} of the STM32F303K8, which has an input range of 0-3.3 V. To fully utilise the \ac{ADC}'s resolution and sensitivity, the voltage signal must be amplified to match the \ac{ADC}'s input range. This requires a gain of approximately 300 V/V (from 10 mVpp to 3 Vpp). However, amplifying the signal by such a large factor in a single stage would introduce significant phase shifts and gain reductions at higher frequencies due to the gain-bandwidth product limitations of op-amps. To mitigate this, a two-stage amplification approach is employed.
 
-It is essential to measure the voltage directly across the biosensor, rather than measuring the applied signal only in reference to the virtual ground. \needscite{This ensures that variations that occur due to the dynamic and non-ideal behaviours at the sensor–electrolyte interface are included, leading to more reliable results.} 
+The INA331 instrumentation amplifier was selected for the first stage of voltage measurement due to its combination of low offset voltage, high common-mode rejection and low input bias current. The INA331 features a typical offset voltage of 250 µV, which represents the inherent DC error between the input terminals when no differential signal is applied. It directly adds to the measured voltage, creating a systematic DC error that must be considered in calibration. The low input bias current of 0.5 pA avoids loading the \ac{DUT} and influencing current measurements. 
 
-Two common circuits are used to achieve this: differential op-amps and instrumentation amplifiers. Differential op-amps are simple and cost-effective for basic differential measurements, but they are susceptible to common-mode noise and offset errors \cite{technologyWhatAreDrawbacks2024}. Differential op-amps also have low input impedance, which loads the signal source and can affect test results \cite{technologyWhatAreDrawbacks2024}. Instrumentation amplifiers, on the other hand, are specifically designed for high-precision differential measurement and provide superior common-mode rejection, high input impedance and excellent accuracy even when the input signals are small or operating in a noisy environment \cite{InstrumentationAmplifierOperational}. This makes instrumentation amplifiers particularly suitable for biosensing applications where the signals to be measured can be very small, and minimizing interference is critical.
+The device provides an internal gain of 5 V/V, configurable to higher gains through external resistors according to the relationship $G = 5 + 5\times \frac{R_2}{R_1}$. Choosing $R_1=1 k\Omega$ and $R_2=2 k\Omega$ results in a gain of 15 V/V. 
 
-Additionally, it is important to amplify the measured voltage to fully utilise the linear range of the \ac{ADC}, which enhances both sensitivity and resolution. By maximizing the voltage swing within the \ac{ADC}'s input range, the system can discriminate smaller changes in sensor response, thus allowing for better detection of low-concentration analytes.
-
-\Ac{GBW} represents the -3dB bandwidth of an op-amp at unity gain. The -3dB bandwidth of the op-amp can then be calculated for a specific gain using equation \ref{eq:GBW} where $A_{noise}$ represents the noise gain calculated in equation \ref{eq:noise_gain}. The use of noise gain accounts for the non-ideal feedback effects and circuit imperfections \cite{fiore53GainBandwidthProduct2018}.
+\todo{Discuss why bandwidth is important instead of jumping straight into it}
+\Ac{GBW} represents the -3 dB bandwidth of an op-amp at unity gain. The -3 dB bandwidth of the op-amp can be calculated for a specific gain using equation \ref{eq:GBW}, where $A_{noise}$ represents the noise gain calculated in equation \ref{eq:noise_gain}. The use of noise gain accounts for non-ideal feedback effects and circuit imperfections \cite{fiore53GainBandwidthProduct2018}.
 
 \begin{equation}
     f_c = \frac{GBW}{A_{noise}}
@@ -93,7 +88,7 @@ Additionally, it is important to amplify the measured voltage to fully utilise t
     \label{eq:noise_gain}
 \end{equation}
 
-The gain and phase shift at any frequency can then be calculated based on the cutoff frequency using equations \ref{eq:mag_rollof} and \ref{eq:phase_shift} respectively \cite{oljacaOperationalAmplifierGain2010}. With $\omega=2\pi f$ and $\omega_0=2\pi f_c$.
+The gain and phase shift at any frequency can be calculated based on the cutoff frequency using equations \ref{eq:mag_rollof} and \ref{eq:phase_shift} respectively \cite{oljacaOperationalAmplifierGain2010}, with $\omega=2\pi f$ and $\omega_0=2\pi f_c$.
 
 \begin{equation}
     |H(j\omega)|_{dB} = 20\log\frac{1}{\sqrt{1+\frac{\omega^2}{w_0^2}}}
@@ -104,7 +99,7 @@ The gain and phase shift at any frequency can then be calculated based on the cu
     \label{eq:phase_shift}
 \end{equation}
 
-Using a single stage of amplification to amplify the signal from 10mVpp back to 3Vpp would introduce significant phase shifts and gain reductions at higher test frequencies. This is alleviated by using a two stage amplification design. The INA331 instrumentation amplifier was selected for the first stage of voltage measurement due to its combination of low offset voltage, high common-mode rejection and low input bias current. The INA331 features a typical offset voltage of 250 µV, which represents the inherent DC error between the input terminals when no differential signal is applied. It directly adds to the measured voltage, creating a systematic DC error that must be considered in calibration. The low input bias current of 0.5pA avoids loading the DUT and influencing our current measurements. The device provides an internal gain of 5 V/V, configurable to higher gains through external resistors according to the relationship $G = 5 + 5\times \frac{R_2}{R_1}$. Choosing $R_1=1k\Omega$ and $R_2=2k\Omega$ results in a gain of 15V/V. While equations \ref{eq:GBW} and \ref{eq:noise_gain} are not applicable to instrumentation amplifiers due to their 3 op-amp design, the bandwidth can be estimated from the datasheet to be 2.3MHz (as seen in figure \ref{fig:ina_bw}) at the chosen gain. Using equations \ref{eq:mag_rollof} and \ref{eq:phase_shift}, the gain reduction and phase shift at 100kHz can be estimated as -0.004dB and -2.49\textdegree\ respectively. While this still needs to be accounted for during calibration, it represents a very flat and linear response leading to a more accurate system.
+Equations \ref{eq:GBW} and \ref{eq:noise_gain} are not applicable to instrumentation amplifiers due to their three op-amp design. However, the bandwidth can be estimated from the datasheet to be 2.3 MHz (as seen in figure \ref{fig:ina_bw}) at the chosen gain. Using equations \ref{eq:mag_rollof} and \ref{eq:phase_shift}, the gain reduction and phase shift at 100 kHz can be estimated as -0.004 dB and -2.49\textdegree\ respectively. While this still needs to be accounted for during calibration, it represents a very flat and linear response leading to a more accurate system.
 
 \begin{figure}[H]
     \centering
@@ -113,9 +108,9 @@ Using a single stage of amplification to amplify the signal from 10mVpp back to 
     \label{fig:ina_bw}
 \end{figure}
 
-The second amplification stage uses a TLV9061 op-amp in an inverting gain configuration. With a GBW of 10MHz and gain of $A_v=-20$ ($A_{noise}=21$) the expected bandwidth is 476.2kHz (equation \ref{eq:GBW}). From equations \ref{eq:mag_rollof} and \ref{eq:phase_shift} an expected -0.094dB gain reduction and -11.86\textdegree\ phase shift is calculated at 100kHz. However, this does not need to be calibrated for as an identical gain stage will be used for the current measurement, ensuring that any gain reductions and phase shifts are cancelled out during impedance calculation.
+The second stage uses a TLV9061 op-amp in an inverting gain configuration. With a GBW of 10 MHz and gain of $A_v=-20$ ($A_{noise}=21$), the expected bandwidth is 476.2 kHz (equation \ref{eq:GBW}). From equations \ref{eq:mag_rollof} and \ref{eq:phase_shift}, an expected -0.094 dB gain reduction and -11.86\textdegree\ phase shift is calculated at 100 kHz. However, this does not need to be calibrated for as an identical gain stage will be used for the current measurement, ensuring that any gain reductions and phase shifts are cancelled out during impedance calculation.
 
-The final circuit for voltage measurement can be seen in \ref{fig:vmeas_stage_circuit}.
+The final circuit for voltage measurement can be seen in figure \ref{fig:vmeas_stage_circuit}.
 
 \begin{figure}[H]
     \centering
@@ -125,32 +120,22 @@ The final circuit for voltage measurement can be seen in \ref{fig:vmeas_stage_ci
 \end{figure}
 
 \subsection{Current Measurement}\label{subsec:design_cur}
-The most basic method of measuring current is through making use of a precision shunt resistor. This involves placing a small known resistor in series with the current path and measuring the voltage drop across the resistor. Making use of Ohm's Law (equation \ref{eq:ohms_law}), the current can be calculated.
-\begin{equation}
-    V_{drop} = I_{in} \times R_{shunt}
-    \label{eq:ohms_law}
-\end{equation}
-This approach is cheap and easy to implement, but has severe drawbacks. The voltage drop across the resistor impacts the magnitude of the applied perturbation, thereby impacting the measurements. For biosensing, where signal levels are low, even small drops or error sources can affect sensitivity.
+The current measurement stage represents the most complex and arguably most important aspect of the analogue frontend. Accurate current measurement across a wide dynamic range is essential for reliable impedance determination.
 
-Alternatively a \ac{TIA} can be used. A \ac{TIA} makes use of the following properties of op-amps:
-\begin{equation}
-    V_n \approx V_p
-    \label{eq:opamp_V}
-\end{equation}
-\begin{equation}
-    I_n \approx I_p \approx 0
-    \label{eq:opamp_I}
-\end{equation}
-Equation \ref{eq:opamp_V} shows that the positive input (connected to the \ac{DUT}) is driven to the same potential as the negative input (the virtual ground reference at 1.65V), thereby ensuring a low-impedance path for the current. Conversely, equation \ref{eq:opamp_I} ensures that the TIA has a high input-impedance and that the current from the sensor flows entirely through the feedback resistor. The output voltage is then given by:
-\begin{equation}
-    V_{out}=I_{in} \times R_{feedback}
-    \label{eq:tia_gain}
-\end{equation}
-The feedback resistor can be large without affecting the applied signal, however it does reduce the bandwidth of the TIA (referring back to equation \ref{eq:GBW}). If $R_{feedback}$ is too large, the TIA will experience significant phase shifts and reduced gain at higher frequencies. Similairly to the voltage measurement stage, this can be mitigated by using multiple gain stages.
+The architecture consists of three stages: a \ac{TIA} provides the initial current-to-voltage conversion, followed by a \ac{PGA}, then a final inverting gain op-amp stage. This final stage is identical to the second voltage measurement stage, ensuring that gain reductions and phase shifts cancel during impedance calculation.
 
-Additionally, biosensing with a fixed voltage perturbation over a wide impedance range means the current can vary from nanoamps (high impedance, low analyte concentration) to milliamps (low impedance, high analyte concentration). Due to this a fixed gain amplifier is impractical. To achieve accurate measurement across this dynamic range, a \ac{PGA} is used to amplify the TIA output and ensure that the output voltage remains within the optimal range for the \ac{ADC}. The TIA is also designed with multiple gains by switching the feedback resistor values. This prevents saturation for high currents and maximises resolution for low currents. The result is a three stage current measurement circuit, where the TIA provides the intial current-to-voltage conversion, which is then amplified by a \ac{PGA} before being amplified by a final inverting gain op-amp. The STM32F303K8 also has an internal PGA with a 8Mhz GBW and binary gains from $2^1$ - $2^4$. It was unclear wether the added flexibility of a second PGA would outweigh the added noise of an additional gain stage, thus further testing was needed. The PCB was designed with a jumper allowing the internal PGA to be bypassed after testing if needed (see section \ref{sec:PCB}).
+Based on measurements of the biosensor using the PalmSens4, the expected impedance ranges from \SI{100}{\kilo\ohm} at 1 Hz to \SI{10}{\ohm} at 100 kHz. For a fixed 10 mVpp excitation, this corresponds to a current range from 100 nA to 1 mA, spanning four orders of magnitude. This wide dynamic range drives several critical design requirements.
 
-The OPA3S328 is specifically designed for TIA applications, with a wide GBW of 40MHz, 0.2pA input bias and typical input voltage offset of \SI{10}{\micro\volt}. Importantly it also has integrated switches for switching between feedback resistors. However, the switch on-resistance is non negligable at 90-125$\Omega$ and varying with temperature. This will produce gain errors and distortion on the TIA output. This can addressed by using the second switch and op-amp integrated into the OPA3S328 package to build a buffered multiplexer. An example of this circuit is shown in Figure \ref{fig:kelvin_sense_tia}. The switch is used to sense the TIA output directly at the feedback resistor for each gain, while the second op-amp is used as a buffer. The low input bias current of the op-amp ensures negligable voltage drop (a worst case of 1.25nV), thus providing an accurate Kelvin sense connection. This eliminates the gain error, gain error drift and gain non-linearity due to the switch resistances.
+A fixed-gain amplifier is impractical across this range. High gain would saturate at high currents, whilst low gain would not utilise the full \ac{ADC} range at low currents. Programmable gain is therefore essential. This is achieved through two mechanisms: switchable feedback resistors in the \ac{TIA} and variable gain in the \ac{PGA} stage.
+
+The PGA113 offers gains ranging from 1-200 V/V with a high GBW of 10 MHz and is controlled via SPI. It has a low gain error of $\le0.3\%$ and extremely low noise at $12\text{ nV}/\sqrt{\text{Hz}}$. Combined with the final TLV9061 gain stage (identical to the final voltage measurement stage), this provides variable gain from 20-4000 V/V after the \ac{TIA}. The STM32F303K8 also has an internal \ac{PGA} with an 8 MHz GBW and binary gains from $2^1$ to $2^4$, however it was unclear whether the added flexibility of a second PGA would outweigh the
+added noise of an additional gain stage. The PCB was thus designed with a jumper allowing the internal \ac{PGA} to be bypassed. After testing, it was decided that the STM's PGA would not be used.
+
+While the \ac{TIA}'s feedback resistor can be large without affecting the applied signal to the \ac{DUT}, it reduces the bandwidth. If $R_{feedback}$ is too large, the \ac{TIA} experiences significant phase shifts and reduced gain at higher frequencies (referring back to equation \ref{eq:GBW}). Using multiple gain stages distributes the amplification, allowing the \ac{TIA} to use a moderate feedback resistor whilst maintaining adequate bandwidth.
+
+Multiple feedback resistor paths on the \ac{TIA} itself provide additional benefits beyond bandwidth. They enable finer gain segmentation across the input current range, improving measurement precision. The larger feedback resistor handles low currents with maximum resolution, whilst the smaller resistor prevents saturation at high currents. This ensures smooth transitions between gain settings without gaps where currents would be too large for one resistor but too small for the other.
+
+The OPA3S328 is specifically designed for \ac{TIA} applications, with a wide GBW of 40 MHz, 0.2 pA input bias and typical input voltage offset of \SI{10}{\micro\volt}. Importantly, it has integrated switches for switching between feedback resistors. However, the switch on-resistance is non-negligible at 90--125 $\Omega$ and varies with temperature. This produces gain errors and distortion on the \ac{TIA} output. This can be addressed by using the second switch and op-amp integrated into the OPA3S328 package to build a buffered multiplexer. An example of this circuit is shown in Figure \ref{fig:kelvin_sense_tia}. The switch senses the \ac{TIA} output directly at the feedback resistor for each gain, whilst the second op-amp acts as a buffer. The low input bias current of the op-amp ensures negligible voltage drop (a worst case of 1.25 nV), providing an accurate Kelvin sense connection. This eliminates gain error, gain error drift and gain non-linearity due to the switch resistances.
 
 \begin{figure}[]
     \centering
@@ -161,14 +146,14 @@ The OPA3S328 is specifically designed for TIA applications, with a wide GBW of 4
 
 The YBJ variant was chosen due to its 3-way \ac{MUX} over the RGR variant with a 2-way \ac{MUX}, enabling finer gain segmentation and improved measurement precision across the input current range. However, due to the small package size and PCB manufacturing limits (see section \ref{sec:PCB}), only two of the three switches were used.
 
-The PGA113 offers gains ranging from 1-200 V/V with a high GBW of 10MHz and is controlled via SPI. It has a low gain error at $\le0.3\%$ and extremely low noise at $12\text{nV}/\sqrt{\text{Hz}}$. Combined with a final TLV9061 gain stage (identical to the final voltage measurement stage), this provides variable gain from 20-4000V/V after the TIA. With a further 2-16 V/V provided by the STM's internal PGA if needed, although after testing it was decided that this was not needed. Based on measurements of the biosensor using the PalmSens4, the expected impedance ranges from \SI{100}{\kilo\ohm} at 1Hz to \SI{10}{\ohm} at 100kHz, resulting in a current ranging from 100nA to 1mA. \rephrase{To maximise the ADC's range even at the smallest current, the larger feedback resistor is desgined to deliver 3Vpp at our maximum PGA gain. From equations \ref{eq:tia_1} - \ref{eq:tia_3}, this results in $7.5k\Omega$.}
+To maximise the \ac{ADC}'s range even at the smallest current, the larger feedback resistor is designed to deliver 3 Vpp at the maximum \ac{PGA} gain. From equations \ref{eq:tia_1}--\ref{eq:tia_3}, this results in 7.5 k$\Omega$.
 \begin{align}
-        V_{TIA} &= \frac{3}{4000} = 750 \mu  V \label{eq:tia_1}\\
+        V_{TIA} &= \frac{3}{4000} = 750 \mu V \label{eq:tia_1}\\
         A_{TIA} &= \frac{750 \mu V}{100 nA} = 7500 V/A \\
         \therefore  R_{f1} &= 7.5 k\Omega \label{eq:tia_3}
 \end{align}
 
-\rephrase{The smaller feedback resistor is then chosen to give the same gain at the maximum PGA gain as the larger resistor gives at the minimum PGA gain, this ensures a smooth transition between feedback resistors with no currents being too large for the larger feedback resistor, but too small for the smaller one. The smaller feedback resistor is then calculated to be 200 times smaller at  $R_{f2}=37.5 \Omega$. This ensures that the ranges from 50nA-20$\mu$A and 20$\mu$A-4mA are covered respectively, while ensuring that the ADC input stays between 1.5-3Vpp.}
+The smaller feedback resistor is chosen to give the same overall gain at the maximum \ac{PGA} gain as the larger resistor gives at the minimum \ac{PGA} gain. This ensures a smooth transition between feedback resistors with no currents being too large for the larger feedback resistor but too small for the smaller one. The smaller feedback resistor is calculated to be 200 times smaller at $R_{f2}=37.5 \Omega$. This ensures that the ranges from 50 nA - 20 $\mu$A and 20 $\mu$A - 4 mA are covered respectively, whilst ensuring that the \ac{ADC} input stays between 1.5 - 3 Vpp.
 
 In traditional TIA designs a capacitor is placed in parallel with the feedback resistor to provide sufficient phase margin and ensure stability \cite{StabilizeYourTransimpedance}. These designs are, however intended for use with a photodiode, rather than \ac{EIS}. There are few sources available that discuss the design of a TIA for EIS purposes, where capacitance is what is measured rather than compensated for. These sources do not discuss the necessity of feedback capacitors, thus this has to be derived from theory.
 

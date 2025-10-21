@@ -126,13 +126,50 @@ For these reasons, miniaturised, low-cost impedance analysers are being actively
 \subsection{Signal Generation}
 \Ac{EIS} requires the generation of a small AC excitation signal, either voltage or current, to probe the \ac{DUT}. Generating or measuring voltage is simple as most modern electronics are voltage mode rather than current mode. On the other hand, generating a small current signal is difficult to do accurately and requires circuits such as the improved Howlard current pump \cite{ImprovedHowlandCurrent2020}. While measuring a current signal also has some complexity, it is significantly easier than generation and thus the method commonly used in \ac{EIS} systems.
 
-Voltage based signal generation can be done using dedicated impedance analyser chips such as the AD5933 or custom solutions using microcontroller-based \acp{DAC}. The AD5933 offers integrated frequency sweeps and impedance measurement. However, it has some clear drawbacks, such as a DC offset, lack of direct voltage measurement and minimum impedance of $1 k\Omega$.
+Voltage-based signal generation can use dedicated chips like the AD5933 or custom solutions using microcontroller-based \acp{DAC}. The AD5933 offers integrated frequency sweeps and impedance measurement, making it attractive for simple implementations. However, it has several critical drawbacks. The chip has a DC offset, which is problematic because biosensing requires bipolar signals with no DC component. DC bias causes charge accumulation at the electrode–electrolyte interface, establishing a net electrochemical potential that drives unwanted redox reactions. Over time, these parasitic reactions alter the interfacial chemistry and change the electrode's impedance characteristics, obscuring the dielectric and charge transfer properties that \ac{EIS} aims to measure. The AD5933 also lacks direct voltage measurement capability and has a minimum measurable impedance of 1 k$\Omega$, further limiting its suitability for biosensing applications.
 
-Direct measurement of the true voltage across the device under test ensures all sources of non-ideal behaviour (parasitic resistances, stray capacitance, drift, and environmental changes) are accounted for, providing accurate data for impedance calculation. Accurate voltage monitoring is vital because small changes can significantly affect calculated impedance, particularly in low-voltage biosensing circuits. In contrast, a DAC and ADC solution implemented on a microcontroller allows for precise control of excitation signals, flexible signal processing, and easier integration with multiplexing and user interface subsystems
+In contrast, a \ac{DAC} and \ac{ADC} solution implemented on a microcontroller allows precise control of excitation signals, flexible signal processing, and easier integration with multiplexing and user interface subsystems. Direct measurement of the voltage across the \ac{DUT} accounts for all sources of non-ideal behaviour—parasitic resistances, stray capacitance, drift, and environmental changes—providing accurate data for impedance calculation. This is vital in low-voltage biosensing where small changes significantly affect calculated impedance.
+
+When generating sinusoidal signals using a \ac{DAC}, the output is not a smooth analogue waveform but rather a series of discrete voltage steps. These steps introduce high-frequency components and harmonics not present in the original signal. Without filtering, they may interfere with downstream circuitry or cause aliasing during analog-to-digital conversion. An anti-aliasing filter (AA filter), typically a \ac{LPF}, is placed after the \ac{DAC} output to remove high-frequency content and smooth the signal.
+
+The dynamic range of a \ac{DAC}, expressed in decibels, determines the smallest signal it can produce above its noise floor and is given by \cite{gaddyDYNAMICPERFORMANCETESTING}:
+\begin{equation}
+    \text{Dynamic Range} = 6.02n + 1.76 
+    \label{eq:dac_range_lit}
+\end{equation}
+where $n$ is the number of bits of resolution. The AA filter must attenuate high-frequency components sufficiently so that aliased content falls below this noise floor, whilst maintaining a flat passband response to avoid distorting the intended output's amplitude or phase.
+
+For systems generating signals across wide frequency ranges, a fixed-frequency AA filter becomes unsuitable. A single cutoff frequency cannot accommodate both low and high signal frequencies without either excessive attenuation or inadequate filtering. Variable AA filters address this by allowing dynamic cutoff adjustment. Many require changing resistor values to set the cutoff frequency, which is impractical for rapid frequency changes. Clock-tunable filters, which adjust their cutoff based on an external clock signal, offer a more flexible solution for wide frequency sweeps.
 
 \subsection{Voltage Measurement}
+Accurate voltage measurement across the \ac{DUT} is essential for impedance calculation. Some designs infer voltage by using the known characteristics of the applied signal \cite{buscagliaSimpleZLowCostPortable2023}, but this fails to account for parasitic resistances, stray capacitance, drift, and environmental changes. Direct measurement captures all these variations, leading to reliable impedance calculations, particularly in low-voltage biosensing where errors significantly impact results. The voltage must be measured directly across the biosensor itself, rather than only relative to a fixed reference, to ensure that dynamic behaviours at the sensor-electrolyte interface are accurately reflected.
+
+Two common circuits for differential voltage measurements are differential op-amps and instrumentation amplifiers. Differential op-amps are simple and cost-effective but are susceptible to common-mode noise and offset errors \cite{technologyWhatAreDrawbacks2024}. They also have relatively low input impedance, which loads the signal source and affects measurements \cite{technologyWhatAreDrawbacks2024}. Instrumentation amplifiers are specifically designed for high-precision differential measurement. They provide superior common-mode rejection, high input impedance, and excellent accuracy even with small signals in noisy environments \cite{InstrumentationAmplifierOperational}. This makes them particularly suitable for biosensing where signals can be very small and minimising interference is critical.
+
+Amplifying the measured voltage to fully utilise the \ac{ADC}'s linear range enhances both sensitivity and resolution. By maximising the voltage swing within the \ac{ADC}'s input range, the system can discriminate smaller changes in sensor response, allowing better detection of low-concentration analytes. However, amplification introduces trade-offs related to gain-bandwidth product, which limits usable bandwidth at higher gains. Multi-stage amplification distributes gain across several stages, allowing higher overall gain whilst maintaining adequate bandwidth across the measurement frequency range.
 
 \subsection{Current Measurement}
+Accurate current measurement is essential for determining the impedance of the \ac{DUT}. Two primary approaches exist, namely shunt resistor-based measurement and transimpedance amplifier-based measurement.
+
+The most basic method places a small, known precision resistor (shunt resistor) in series with the current path and measures the voltage drop across it. Ohm's Law then gives the current. This approach is cheap and easy to implement but has severe drawbacks. The voltage drop across the resistor directly reduces the magnitude of the applied perturbation to the \ac{DUT}, impacting measurements. For biosensing, where signal levels are already low, even small drops significantly affect sensitivity.
+
+A \ac{TIA} converts input current to proportional output voltage without introducing significant voltage drop across the \ac{DUT}. The \ac{TIA} makes use of the following properties of op-amps:
+\begin{equation}
+    V_n \approx V_p
+    \label{eq:opamp_V}
+\end{equation}
+\begin{equation}
+    I_n \approx I_p \approx 0
+    \label{eq:opamp_I}
+\end{equation}
+where $V_n$ and $V_p$ are the voltages at the inverting and non-inverting inputs respectively, and $I_n$ and $I_p$ are the input bias currents. The positive input (connected to the \ac{DUT}) is driven to the same potential as the negative input (ground or reference voltage), thereby ensuring a low-impedance path for the current. Conversely, equation \ref{eq:opamp_I} ensures that the TIA has a high input-impedance and that the current from the sensor flows entirely through the feedback resistor. The output voltage is then given by:
+\begin{equation}
+    V_{out}=I_{in} \times R_{feedback}
+    \label{eq:tia_gain}
+\end{equation}
+The \ac{TIA} has the advantage that unlike a shunt resistor, the feedback resistor can be large without affecting the applied signal.
+
+In biosensing with fixed voltage perturbation, current varies dramatically depending on the \ac{DUT}'s impedance; from nanoamperes at high impedance (low analyte concentration) to milliamperes at low impedance (high analyte concentration). A fixed-gain amplifier is impractical across this dynamic range. It would either saturate at high currents or provide insufficient resolution at low currents. Variable gain amplification, achieved through switchable feedback resistors in the \ac{TIA} or \acp{PGA} in subsequent stages, allows the system to adapt to current magnitude. This ensures output voltage remains within the optimal range for the \ac{ADC} whilst maximising measurement resolution.
 
 \section{Related Works}
 

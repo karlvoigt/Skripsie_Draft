@@ -80,6 +80,15 @@ M.~Ibrahim, ``{{CMOS Transimpedance Amplifier}} for {{Biosensor Signal Acquisiti
 \bibitem{ImprovedHowlandCurrent2020}
 ````{{Improved}}'' {{Howland}} current pump circuit,'' 2020.
 
+\bibitem{gaddyDYNAMICPERFORMANCETESTING}
+L.~Gaddy and H.~Kawai, ``{{DYNAMIC PERFORMANCE TESTING OF DIGITAL AUDIO D}}/{{A CONVERTERS}}.''
+
+\bibitem{technologyWhatAreDrawbacks2024}
+e.~{technology}, ``What are the {{Drawbacks}} of {{Differential Amplifier Circuits}}?'' https://www.eimtechnology.com/blogs/articles/what-are-the-drawbacks-of-differential-amplifier-circuits, Apr. 2024.
+
+\bibitem{InstrumentationAmplifierOperational}
+``The {{Instrumentation Amplifier}} {\textbar} {{Operational Amplifiers}} {\textbar} {{Electronics Textbook}},'' https://www.allaboutcircuits.com/textbook/semiconductors/chpt-8/the-instrumentation-amplifier/.
+
 \bibitem{brownDesignThinking2008}
 T.~Brown, ``Design {{Thinking}},'' \emph{Harvard Business Review}, Jul. 2008.
 
@@ -92,17 +101,8 @@ T.~Ebrahim, ``The development of a biosensor for the early detection of pancreat
 \bibitem{dincerMultiplexedPointofCareTesting2017}
 C.~Dincer, R.~Bruch, A.~Kling, P.~S. Dittrich, and G.~A. Urban, ``Multiplexed {{Point-of-Care Testing}} -- {{xPOCT}},'' \emph{Trends in Biotechnology}, vol.~35, no.~8, pp. 728--742, Aug. 2017.
 
-\bibitem{gaddyDYNAMICPERFORMANCETESTING}
-L.~Gaddy and H.~Kawai, ``{{DYNAMIC PERFORMANCE TESTING OF DIGITAL AUDIO D}}/{{A CONVERTERS}}.''
-
 \bibitem{LTC10697CS8PBF}
 ``{{LTC1069-7CS8}}\#{{PBF}},'' https://www.digikey.co.za/en/products/detail/analog-devices-inc/LTC1069-7CS8-PBF/889060.
-
-\bibitem{technologyWhatAreDrawbacks2024}
-e.~{technology}, ``What are the {{Drawbacks}} of {{Differential Amplifier Circuits}}?'' https://www.eimtechnology.com/blogs/articles/what-are-the-drawbacks-of-differential-amplifier-circuits, Apr. 2024.
-
-\bibitem{InstrumentationAmplifierOperational}
-``The {{Instrumentation Amplifier}} {\textbar} {{Operational Amplifiers}} {\textbar} {{Electronics Textbook}},'' https://www.allaboutcircuits.com/textbook/semiconductors/chpt-8/the-instrumentation-amplifier/.
 
 \bibitem{fiore53GainBandwidthProduct2018}
 J.~M. Fiore, ``5.3: {{Gain-Bandwidth Product}},'' in \emph{Operational {{Amplifiers}} and {{Linear Integrated Circuits}} - {{Theory}} and {{Application}} ({{Fiore}})}, May 2018.
