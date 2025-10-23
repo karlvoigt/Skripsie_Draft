@@ -4,7 +4,7 @@
 \contentsline {chapter}{Abstract}{iii}{chapter*.2}%
 \babel@toc {afrikaans}{}\relax 
 \babel@toc {english}{}\relax 
-\contentsline {chapter}{List of Figures}{vii}{chapter*.4}%
+\contentsline {chapter}{List of Figures}{vi}{chapter*.4}%
 \contentsline {chapter}{List of Tables}{viii}{chapter*.5}%
 \contentsline {chapter}{Nomenclature}{ix}{chapter*.6}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
@@ -25,45 +25,41 @@
 \contentsline {section}{\numberline {2.4}Impedance Analysers}{8}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Signal Generation}{9}{subsection.2.4.1}%
 \contentsline {subsection}{\numberline {2.4.2}Voltage Measurement}{10}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}Current Measurement}{11}{subsection.2.4.3}%
-\contentsline {section}{\numberline {2.5}Related Works}{12}{section.2.5}%
-\contentsline {chapter}{\numberline {3}Design}{13}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Design Philosophy}{13}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Understanding the end user}{13}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Problem Statement}{14}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Functional Design Overview}{14}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Subsystem Design}{15}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Excitation}{15}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Voltage Measurement}{16}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Current Measurement}{18}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}DUT}{25}{subsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.3.5}Multiplexer}{25}{subsection.3.3.5}%
-\contentsline {subsection}{\numberline {3.3.6}Power Circuitry}{27}{subsection.3.3.6}%
-\contentsline {subsection}{\numberline {3.3.7}Signal Processing}{28}{subsection.3.3.7}%
-\contentsline {subsection}{\numberline {3.3.8}User Interface}{28}{subsection.3.3.8}%
-\contentsline {section}{\numberline {3.4}Circuit Simulation}{28}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Biosensor}{28}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Excitation stage}{28}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Voltage measurement}{30}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Current measurement}{30}{subsection.3.4.4}%
-\contentsline {subsection}{\numberline {3.4.5}Complete System}{31}{subsection.3.4.5}%
-\contentsline {section}{\numberline {3.5}PCB Design}{31}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Firmware Design}{33}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}ESP}{33}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}STM}{33}{subsection.3.6.2}%
-\contentsline {chapter}{\numberline {4}Testing \& Validation}{34}{chapter.4}%
-\contentsline {section}{\numberline {4.1}PCB Testing}{34}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Voltage Reference Load Testing}{34}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Excitation Stage Testing}{34}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Voltage Measurement Testing}{34}{subsection.4.1.3}%
-\contentsline {subsection}{\numberline {4.1.4}Current Measurement Testing}{34}{subsection.4.1.4}%
-\contentsline {subsection}{\numberline {4.1.5}Multiplexing Testing}{34}{subsection.4.1.5}%
-\contentsline {subsection}{\numberline {4.1.6}Complete System Test Without \& With MCU}{34}{subsection.4.1.6}%
-\contentsline {section}{\numberline {4.2}Validation}{34}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Test on Calibration Cell}{34}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Test on Saline Solution}{34}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Discussion of Results}{34}{subsection.4.2.3}%
-\contentsline {chapter}{\numberline {5}Summary and Conclusion}{35}{chapter.5}%
-\contentsline {chapter}{Bibliography}{36}{chapter*.32}%
-\contentsline {chapter}{\numberline {A}Project Planning Schedule}{39}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Outcomes Compliance}{40}{appendix.B}%
+\contentsline {subsection}{\numberline {2.4.3}Current Measurement}{10}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}Related Works}{11}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Design}{12}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Design Philosophy}{12}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Understanding the end user}{12}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Problem Statement}{13}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Functional Design Overview}{13}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Analogue Frontend Design}{14}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Excitation}{14}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Voltage Measurement}{15}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Current Measurement}{17}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}DUT}{24}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Multiplexer}{24}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}Power Circuitry}{26}{subsection.3.3.6}%
+\contentsline {subsection}{\numberline {3.3.7}Signal Processing}{27}{subsection.3.3.7}%
+\contentsline {subsection}{\numberline {3.3.8}User Interface}{27}{subsection.3.3.8}%
+\contentsline {section}{\numberline {3.4}Circuit Simulation}{27}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Biosensor}{27}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Excitation stage}{27}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Voltage measurement}{29}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Current measurement}{29}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}Complete System}{30}{subsection.3.4.5}%
+\contentsline {section}{\numberline {3.5}PCB Design}{30}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Firmware Development}{32}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}ESP}{32}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}STM}{32}{subsection.3.6.2}%
+\contentsline {chapter}{\numberline {4}Testing \& Validation}{33}{chapter.4}%
+\contentsline {section}{\numberline {4.1}PCB Testing}{33}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Excitation Stage}{33}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Voltage Measurement Stage}{34}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Current Measurement Stage}{34}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}System Calibration}{36}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Biosensor Validation}{36}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Discussion of Results}{37}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Summary and Conclusion}{39}{chapter.5}%
+\contentsline {chapter}{Bibliography}{40}{chapter*.36}%
+\contentsline {chapter}{\numberline {A}Project Planning Schedule}{43}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Outcomes Compliance}{44}{appendix.B}%

@@ -59,15 +59,6 @@ Non-faradaic measurements operate without charge-transfer reactions, functioning
     \label{fig:randles_circuits}
 \end{figure}
 
-% Non-faradaic sensors are capacitive in nature, measuring changes in the dielectric properties at the electrode-electrolyte interface when biomolecules bind to immobilized antibodies. When antigen binding occurs, the capacitance decreases due to the displacement of water molecules and changes in the local dielectric constant according to:
-% \begin{equation}
-%     C = \frac{\varepsilon_0 \varepsilon_r A}{d}
-% \end{equation}
-% where $\varepsilon_0$ is the permittivity of free space, $\varepsilon_r$ is the relative permittivity of the medium, $A$ is the electrode area, and $d$ is the effective thickness of the dielectric layer.\cite{bergveldThirtyYearsBiosensor2003}
-
-
-
-
 \section{Complex Impedance}
 Electrochemical impedance spectroscopy (EIS) produces complex impedance data consisting of both magnitude and phase information across a range of frequencies. The complex impedance is calculated as:
 \begin{equation}
@@ -115,13 +106,9 @@ The non-faradaic Randles equivalent, however does not exhibit a semi-circle, due
 A Bode plot presents the magnitude, $|Z|$, and phase, $\phi$, of the impedance as functions of frequency on a logarithmic scale. The Bode magnitude plot reveals how impedance changes with frequency, while the phase plot shows the transition between resistive ($\phi = 0^\circ$) and capacitive ($\phi = -90^\circ$) behaviour. While Nyquist plots offer direct visualization of resistive and capacitive interactions, Bode plots highlight the frequency dependence and allow clearer distinction of time constants \cite{BodeNyquistPlot}. In EIS analysis, both representations are complementary: Nyquist plots assist model-based fitting, whereas Bode plots verify consistency and highlight transition frequencies.
 
 \section{Impedance Analysers}
-Impedance analysers are instruments that integrate signal generation, voltage and current measurement, and data processing to determine the complex impedance of a \ac{DUT}. In the context of biosensing, these devices are used to perform \ac{EIS} by applying a known AC excitation signal to the biosensor and measuring the resulting current and voltage responses over a range of frequencies. The ratio of these phasor quantities provides the frequency-dependent impedance, which is used to infer biochemical interactions at the electrode–electrolyte interface.
+Impedance analysers integrate signal generation, voltage and current measurement, and data processing to determine the complex impedance of a \ac{DUT}. In biosensing, these devices perform \ac{EIS} by applying a known AC excitation and measuring the resulting voltage and current responses over a range of frequencies. The ratio of these phasor quantities provides the frequency-dependent impedance, revealing biochemical interactions at the electrode–electrolyte interface.
 
-There are numerous commercial EIS solutions available, such as the PalmSens4, Gamry Reference 600+, and Metrohm Autolab PGSTAT. These instruments are designed for research and industrial applications where extremely high accuracy, broad frequency ranges, and advanced analytic capabilities are essential.
-
-For instance, the PalmSens4 can measure impedances over frequencies from 10 Hz to 1 MHz, with 18-bit resolution, integrated equivalent circuit fitting, and software for parameter extraction. However, such instruments are prohibitively expensive—often exceeding, ($\approx$\texteuro 4200). These devices also require significant technical expertise to interpret Nyquist and Bode plots or analyse equivalent circuit models, making them unsuitable for low-resource POC settings where portability, cost, and ease of use are crucial.
-
-For these reasons, miniaturised, low-cost impedance analysers are being actively developed for POC applications such as \cite{buscagliaSimpleZLowCostPortable2023}, \cite{al-aliDesignPortableLowCost2017} and \cite{ibrahimCMOSTransimpedanceAmplifier}. Such designs prioritise simplicity, automation, and affordability, while maintaining sufficient frequency range and measurement accuracy to detect biological binding events.
+Commercial solutions such as the PalmSens4, Gamry Reference 600+, and Metrohm Autolab PGSTAT offer exceptional accuracy, broad frequency ranges (typically 10 Hz to 1 MHz or higher), and advanced analytics including integrated equivalent circuit fitting. However, these instruments are prohibitively expensive ($\approx$ \texteuro 4200 for the PalmSens4) and require significant technical expertise to interpret results. This makes them unsuitable for low-resource point-of-care settings where portability, cost, and ease of use are crucial. Miniaturised, low-cost impedance analysers are therefore being actively developed for POC applications \cite{buscagliaSimpleZLowCostPortable2023, al-aliDesignPortableLowCost2017, ibrahimCMOSTransimpedanceAmplifier}. Such designs prioritise simplicity, automation, and affordability, while maintaining sufficient frequency range and measurement accuracy to detect biological binding events.
 
 \subsection{Signal Generation}
 \Ac{EIS} requires the generation of a small AC excitation signal, either voltage or current, to probe the \ac{DUT}. Generating or measuring voltage is simple as most modern electronics are voltage mode rather than current mode. On the other hand, generating a small current signal is difficult to do accurately and requires circuits such as the improved Howlard current pump \cite{ImprovedHowlandCurrent2020}. While measuring a current signal also has some complexity, it is significantly easier than generation and thus the method commonly used in \ac{EIS} systems.

@@ -37,7 +37,7 @@ Discuss wat ons wil bereik en hoe ons dit gan opbreek. Beskryf hoe die circuit d
     \label{fig:system_overview} 
 \end{figure}
 
-\section{Subsystem Design}
+\section{Analogue Frontend Design}
 
 \subsection{Excitation}\label{subsec:design_excitation}
 The easiest way of producing a controlled voltage signal is using a \ac{DAC}. Both dedicated \acp{DAC} and \acp{DAC} built into \acp{MCU} were possible options.
@@ -428,13 +428,13 @@ For the simulation of the excitation stage, a sample-and-hold block was used to 
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{LTC_10k.png}
         \caption{10kHz cutoff frequency}
         \label{fig:ltc_10k}
     \end{subfigure}\hfill
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{LTC_100k.png}
         \caption{100kHz cutoff frequency}
@@ -484,7 +484,7 @@ The voltage measurement stage was simulated with the INA331 and TLV9061 models t
 \end{figure}
 
 \subsection{Current measurement}
-Due to problems porting the OPA3s328 PSpice model to LT Spice, the internal mux was not simulated. The PGA113 has no available PSpice model \cite{PGA113PspiceModel2022}, thus a standard inverting amplifier configuration using the TLV9061 was used to simulate the PGA stage. Figure \ref{fig:tia_freq} shows the frequency response of the TIA stage alone, with a -0.15dB gain reduction and -7.2\textdegree phase shift at 100kHz. Figure \ref{fig:i_meas_freq} shows the overall frequency response of the current measurement stage with the PGA and final amplification stages contributing an additional -0.25dB gain reduction and -4.8\textdegree phase shift. This confirms that sufficient bandwidth is available for measurements up to 100kHz.
+Due to problems porting the OPA3s328 PSpice model to LT Spice, the internal mux was not simulated. The PGA113 has no available PSpice model \cite{PGA113PspiceModel2022}, thus a standard inverting amplifier configuration using the TLV9061 was used to simulate the PGA stage. Figure \ref{fig:tia_freq} shows the frequency response of the TIA stage alone at both feedback resistor values. At 100 kHz with $R_F = 7.5~k\Omega$, the stage exhibits a gain increase of +0.136 dB and a phase shift of -15.4\textdegree. For $R_F = 37.5~\Omega$, the response shows a gain increase of +0.137 dB and a phase shift of -15.6\textdegree. The slight gain increase is due to very slight peaking in the frequency response before the eventual rolloff. This demonstrates a very flat frequency response well below the circuit's bandwidth limitations. Figure \ref{fig:i_meas_freq} shows the overall frequency response of the current measurement stage with the PGA and final amplification stages contributing an additional -0.25dB gain reduction and -4.8\textdegree phase shift. This confirms that sufficient bandwidth is available for measurements up to 100kHz.
 
 To confirm the stability of the TIA circuit, Tian's method was used to plot the loop gain and phase margin for both the Radnles circuit using the \ac{CPE} and the simplified circuit using a constant capacitance as seen in figure \ref{fig:tia_stability} and Table \ref{tab:lt_tia_stability}. These results closely match the MatLab results in section \ref{subsec:design_cur}, confirming that the TIA design is stable without the need for feedback compensation.
 
@@ -502,7 +502,7 @@ Subsystems we're grouped together with jumpers connecting subsystems, allowing f
 
 The complete PCB schematic is shown in Appendix \ref{appendix:schematic} and the final PCB layout in Figure \ref{fig:final_pcb}.
 
-\begin{table}[H]
+\begin{table}[ht]
     \centering
     \caption{JLC PCB Standard Manufacturing Process Limits}
     \label{tab:jlc_limits}
@@ -515,13 +515,13 @@ The complete PCB schematic is shown in Appendix \ref{appendix:schematic} and the
         Minimum Via Diameter & \SI{0.45}{\milli\meter} \\
         Minimum Via Hole Diameter & \SI{0.3}{\milli\meter} \\
         Minimum BGA Pad Diameter & \SI{0.25}{\milli\meter} \\
-        Maximum Board Size & \SI{100}{\milli\meter} × \SI{1100}{\milli\meter} \\
+        Maximum Board Size & \SI{100}{\milli\meter} × \SI{100}{\milli\meter} \\
         Number of Layers & 2, 4, or 6 layers \\
         \hline
     \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
@@ -539,7 +539,7 @@ The complete PCB schematic is shown in Appendix \ref{appendix:schematic} and the
     \label{fig:pcb_layout}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
     \begin{minipage}{0.4\textwidth}
         \centering
@@ -555,7 +555,7 @@ The complete PCB schematic is shown in Appendix \ref{appendix:schematic} and the
     \end{minipage}
 \end{figure}
 
-\section{Firmware Design}
+\section{Firmware Development}
 Inculde flow diagram.
 
 \subsection{ESP}

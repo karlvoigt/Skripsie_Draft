@@ -30,45 +30,45 @@ Warning--empty journal in ebrahimDevelopmentBiosensorEarly2023
 Warning--missing publisher in wilsonSimulatingFractionalCapacitors2023
 
 Done.
-You've used 36 entries,
+You've used 37 entries,
             4087 wiz_defined-function locations,
-            1020 strings with 14575 characters,
-and the built_in function-call counts, 17519 in all, are:
-= -- 1341
-> -- 300
+            1024 strings with 14736 characters,
+and the built_in function-call counts, 17785 in all, are:
+= -- 1357
+> -- 301
 < -- 106
-+ -- 179
++ -- 180
 - -- 61
-* -- 765
-:= -- 2680
-add.period$ -- 71
-call.type$ -- 36
-change.case$ -- 35
+* -- 770
+:= -- 2719
+add.period$ -- 73
+call.type$ -- 37
+change.case$ -- 36
 chr.to.int$ -- 228
-cite$ -- 52
-duplicate$ -- 1447
-empty$ -- 1564
+cite$ -- 53
+duplicate$ -- 1475
+empty$ -- 1598
 format.name$ -- 62
-if$ -- 4007
+if$ -- 4069
 int.to.chr$ -- 0
-int.to.str$ -- 36
-missing$ -- 254
-newline$ -- 131
+int.to.str$ -- 37
+missing$ -- 260
+newline$ -- 134
 num.names$ -- 21
-pop$ -- 662
+pop$ -- 681
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1378
+skip$ -- 1403
 stack$ -- 0
-substring$ -- 619
-swap$ -- 999
+substring$ -- 620
+swap$ -- 1011
 text.length$ -- 30
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 36
+type$ -- 37
 warning$ -- 16
 while$ -- 59
-width$ -- 38
-write$ -- 298
+width$ -- 39
+write$ -- 304
 (There were 17 warnings)

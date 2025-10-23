@@ -128,4 +128,7 @@ M.~Wilson, L.~Cowie, V.~Farrow, M.~Cree, and J.~Scott, \emph{Simulating {{Fracti
 \bibitem{WhatAreBasic}
 ``What {{Are}} the {{Basic Guidelines}} for {{Layout Design}} of {{Mixed-Signal PCBs}}? {\textbar} {{Analog Devices}},'' https://www.analog.com/en/resources/analog-dialogue/articles/what-are-the-basic-guidelines-for-layout-design-of-mixed-signal-pcbs.html.
 
+\bibitem{ImSeeingUnexpected}
+``I'm seeing unexpected noise on my ocsilloscope.'' https://www.tek.com/en/support/faqs/im-seeing-unexpected-noise-my-ocsilloscope.
+
 \end{thebibliography}
