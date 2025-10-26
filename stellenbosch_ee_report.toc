@@ -49,17 +49,20 @@
 \contentsline {subsection}{\numberline {3.4.5}Complete System}{30}{subsection.3.4.5}%
 \contentsline {section}{\numberline {3.5}PCB Design}{30}{section.3.5}%
 \contentsline {section}{\numberline {3.6}Firmware Development}{32}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}ESP}{32}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}STM}{32}{subsection.3.6.2}%
-\contentsline {chapter}{\numberline {4}Testing \& Validation}{33}{chapter.4}%
-\contentsline {section}{\numberline {4.1}PCB Testing}{33}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Excitation Stage}{33}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Voltage Measurement Stage}{34}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Current Measurement Stage}{34}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}System Calibration}{36}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Biosensor Validation}{36}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Discussion of Results}{37}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Summary and Conclusion}{39}{chapter.5}%
-\contentsline {chapter}{Bibliography}{40}{chapter*.36}%
-\contentsline {chapter}{\numberline {A}Project Planning Schedule}{43}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Outcomes Compliance}{44}{appendix.B}%
+\contentsline {subsection}{\numberline {3.6.1}STM32 Measurement Subsystem}{33}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}ESP32 User Interface and System Control}{33}{subsection.3.6.2}%
+\contentsline {subsubsection}{On-Device Interface}{33}{subsubsection*.33}%
+\contentsline {subsubsection}{Web Interface via BLE}{34}{subsubsection*.34}%
+\contentsline {section}{\numberline {3.7}System Integration}{34}{section.3.7}%
+\contentsline {chapter}{\numberline {4}Testing \& Validation}{35}{chapter.4}%
+\contentsline {section}{\numberline {4.1}PCB Testing}{35}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Excitation Stage}{35}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Voltage Measurement Stage}{36}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Current Measurement Stage}{36}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}System Calibration}{38}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Biosensor Validation}{38}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Discussion of Results}{39}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Summary and Conclusion}{41}{chapter.5}%
+\contentsline {chapter}{Bibliography}{42}{chapter*.39}%
+\contentsline {chapter}{\numberline {A}Project Planning Schedule}{45}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Outcomes Compliance}{46}{appendix.B}%

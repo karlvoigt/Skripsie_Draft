@@ -556,12 +556,42 @@ The complete PCB schematic is shown in Appendix \ref{appendix:schematic} and the
 \end{figure}
 
 \section{Firmware Development}
-Inculde flow diagram.
+The embedded system architecture was driven by the \ac{POC} requirements of ease of use without technical expertise, versatility across diverse clinical settings and reliable measurements. To avoid dependence on external software and ensure the device can operate in any environment, all processing is performed on-device. 
 
-\subsection{ESP}
-Vertel van wat ons wil bereik en hoekom. Discuss libraries used. Discuss maybe issues rondom C6 en hoe dit gesolve is en hoekom die C6 steeds die rgete keuse was.
+The system architecture is shown in Figure \ref{fig:embed_system_diagram}. The ESP32 C6 has \ac{ADC} and \ac{DAC} peripherals, but their performance is known to be suboptimal for high-precision measurement applications. Furthermore, the lack of direct timer control or \ac{DMA} support for these peripherals limits their usability for synchronous signal generation and acquisition. The STM32F303K8 on the other hand is specifically designed for mixed-signal applications, with high-performance \ac{ADC} and \ac{DAC} peripherals, advanced timer capabilities and \ac{DMA} support. However, it lacks support for wireless communication and has limited flash and RAM resources, making it unsuitable for complex user interfaces. Thus, a dual-microcontroller architecture was used.
 
-\subsection{STM}
-Probleme met arm library te groot. Discuss met flow chart hoe DMA en als met DAC en ADC interact en dan UART en badies program flow. Delve into limits van STM en maybe briefly setup van DAC en ADC.
+The STM32 serves as the measurement subsystem, interfacing with the analogue frontend to perform measurements. Results are then sent to the ESP32 via UART. The ESP32 acts as the system controller, managing calibration, sending commands to the STM32 and handling the user interfaces. An on-device LCD with buttons provides an interface for standalone operation in any setting, while an optional web-based interface accessible via \ac{BLE} enables enhanced usability when client devices are available.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{BioPalSystemDiagram.png}
+    \caption{Embedded System Diagram}
+    \label{fig:embed_system_diagram}
+\end{figure}
+    
+
+\subsection{STM32 Measurement Subsystem}
+The STM32F303K8 includes a 12-bit \ac{DAC} and 12-bit \acp{ADC} with up to 1 Msps sampling. Advanced timers enable precise frequency generation for the excitation stage with sub-microsecond accuracy. The ARM Cortex-M4F core includes a hardware \ac{FPU} and \ac{DSP} extensions, providing native support for \ac{FFT} operations through the CMSIS-DSP library.
+
+\ac{DMA} channels enable \ac{DAC} output and simultaneous sampling of both \acp{ADC} without CPU intervention, ensuring precise phase measurements. The STM32 generates the excitation waveform, controls the multiplexer, \ac{PGA} and \ac{TIA} gain settings, acquires voltage and current measurements, performs digital filtering and \ac{FFT} analysis, and transmits impedance results to the ESP32.
+
+\subsection{ESP32 User Interface and System Control}
+The ESP32-C6 serves as the system controller, accepting user inputs, sending measurement commands to the STM32, calibrating the resulting measurements and displaying results to the user. The larger flash and RAM resources on the ESP32 allowed for the use of Free RTOS,allowing for multitasking and improved system responsiveness. The ESP32 also handles the two user interfaces.
+
+\subsubsection{On-Device Interface}
+Physical buttons and an LCD display enable complete standalone operation. Combined with battery power, this ensures the device functions in any resource-constrained setting without requiring external hardware. The interface provides immediate feedback and control, critical for \ac{POC} environments where reliable operation cannot depend on network connectivity or additional devices.
+
+\subsubsection{Web Interface via BLE}
+A secondary web-based interface provides enhanced usability when network-connected devices are available. Three implementation approaches were considered:
+
+\textbf{Option 1 - Existing WiFi Network:} The device connects to an existing network, enabling control over WiFi or the internet. While convenient once configured, this approach poses significant barriers in healthcare environments with strict network security policies protecting patient data. It also excludes settings without WiFi infrastructure, such as rural clinics.
+
+\textbf{Option 2 - Device WiFi Hotspot:} The device hosts its own WiFi network, serving a local website. This avoids secure network requirements and functions everywhere, but forces client devices offline, potentially disrupting other applications and services.
+
+\textbf{Option 3 - Web Application with BLE:} A web application hosted remotely connects to the device via \ac{BLE}. This approach was selected as it provides the benefits of both previous options without their drawbacks. Client devices maintain internet connectivity, no secure network authentication is required, and the solution works universally. Critically, all measurement data transfers locally over \ac{BLE}, eliminating security risks and POPIA compliance concerns associated with transmitting patient information over the internet. The web-based implementation ensures cross-platform compatibility across mobile, desktop, and tablet devices regardless of operating system.
+
+Communication between the ESP32 and STM32 occurs via UART, with a protocol designed for reliable transmission of measurement parameters, gain settings, and impedance results. The ESP32 polls the STM32 for measurement status and retrieves data once processing completes.
+
+\section{System Integration}
 
 \label{chap:design}
