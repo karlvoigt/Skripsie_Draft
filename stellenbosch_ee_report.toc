@@ -4,65 +4,67 @@
 \contentsline {chapter}{Abstract}{iii}{chapter*.2}%
 \babel@toc {afrikaans}{}\relax 
 \babel@toc {english}{}\relax 
-\contentsline {chapter}{List of Figures}{vi}{chapter*.4}%
-\contentsline {chapter}{List of Tables}{viii}{chapter*.5}%
-\contentsline {chapter}{Nomenclature}{ix}{chapter*.6}%
+\contentsline {chapter}{List of Figures}{vii}{chapter*.4}%
+\contentsline {chapter}{List of Tables}{ix}{chapter*.5}%
+\contentsline {chapter}{Nomenclature}{x}{chapter*.6}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Project Objectives}{1}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Project Scope}{2}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Chapter Overview}{2}{section.1.4}%
-\contentsline {chapter}{\numberline {2}Literature Review}{3}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Biosensors}{3}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Background on Biomarkers}{3}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Types of Biosensors}{3}{subsection.2.1.2}%
-\contentsline {section}{\numberline {2.2}Transducer Mechanisms}{4}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Electrochemical Impedance Spectroscopy (EIS)}{5}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Faradaic vs Non-Faradaic EIS Sensors}{5}{subsection.2.2.2}%
-\contentsline {section}{\numberline {2.3}Complex Impedance}{6}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Nyquist Plot}{6}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Bode Plots}{8}{subsection.2.3.2}%
-\contentsline {section}{\numberline {2.4}Impedance Analysers}{8}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Signal Generation}{9}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Voltage Measurement}{10}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}Current Measurement}{10}{subsection.2.4.3}%
-\contentsline {section}{\numberline {2.5}Related Works}{11}{section.2.5}%
-\contentsline {chapter}{\numberline {3}Design}{12}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Design Philosophy}{12}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Understanding the end user}{12}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Problem Statement}{13}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Functional Design Overview}{13}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Analogue Frontend Design}{14}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Excitation}{14}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Voltage Measurement}{15}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Current Measurement}{17}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}DUT}{24}{subsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.3.5}Multiplexer}{24}{subsection.3.3.5}%
-\contentsline {subsection}{\numberline {3.3.6}Power Circuitry}{26}{subsection.3.3.6}%
-\contentsline {subsection}{\numberline {3.3.7}Signal Processing}{27}{subsection.3.3.7}%
-\contentsline {subsection}{\numberline {3.3.8}User Interface}{27}{subsection.3.3.8}%
-\contentsline {section}{\numberline {3.4}Circuit Simulation}{27}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Biosensor}{27}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Excitation stage}{27}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Voltage measurement}{29}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Current measurement}{29}{subsection.3.4.4}%
-\contentsline {subsection}{\numberline {3.4.5}Complete System}{30}{subsection.3.4.5}%
-\contentsline {section}{\numberline {3.5}PCB Design}{30}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Firmware Development}{32}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}STM32 Measurement Subsystem}{33}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}ESP32 User Interface and System Control}{33}{subsection.3.6.2}%
-\contentsline {subsubsection}{On-Device Interface}{33}{subsubsection*.33}%
-\contentsline {subsubsection}{Web Interface via BLE}{34}{subsubsection*.34}%
-\contentsline {section}{\numberline {3.7}System Integration}{34}{section.3.7}%
-\contentsline {chapter}{\numberline {4}Testing \& Validation}{35}{chapter.4}%
-\contentsline {section}{\numberline {4.1}PCB Testing}{35}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Excitation Stage}{35}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Voltage Measurement Stage}{36}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Current Measurement Stage}{36}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}System Calibration}{38}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Biosensor Validation}{38}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Discussion of Results}{39}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Summary and Conclusion}{41}{chapter.5}%
-\contentsline {chapter}{Bibliography}{42}{chapter*.39}%
-\contentsline {chapter}{\numberline {A}Project Planning Schedule}{45}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Outcomes Compliance}{46}{appendix.B}%
+\contentsline {subsection}{\numberline {1.3.1}Within Scope}{2}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Outside Scope}{3}{subsection.1.3.2}%
+\contentsline {section}{\numberline {1.4}Chapter Overview}{3}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Literature Review}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Biosensors}{5}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Background on Biomarkers}{5}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Types of Biosensors}{5}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}Transducer Mechanisms}{6}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Electrochemical Impedance Spectroscopy (EIS)}{7}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Faradaic vs Non-Faradaic EIS Sensors}{7}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Complex Impedance}{8}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Nyquist Plot}{8}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Bode Plots}{10}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}Impedance Analysers}{10}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Signal Generation}{11}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Voltage Measurement}{12}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Current Measurement}{12}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}Related Works}{13}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Design}{14}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Design Philosophy}{14}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Understanding the end user}{14}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Problem Statement}{15}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Functional Design Overview}{15}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Analogue Frontend Design}{16}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Excitation}{16}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Voltage Measurement}{17}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Current Measurement}{19}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}DUT}{26}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Multiplexer}{26}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}Power Circuitry}{28}{subsection.3.3.6}%
+\contentsline {subsection}{\numberline {3.3.7}Signal Processing}{29}{subsection.3.3.7}%
+\contentsline {subsection}{\numberline {3.3.8}User Interface}{29}{subsection.3.3.8}%
+\contentsline {section}{\numberline {3.4}Circuit Simulation}{29}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Biosensor}{29}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Excitation stage}{30}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Voltage measurement}{31}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Current measurement}{32}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}Complete System}{32}{subsection.3.4.5}%
+\contentsline {section}{\numberline {3.5}PCB Design}{32}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Firmware Development}{34}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}STM32 Measurement Subsystem}{35}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}ESP32 User Interface and System Control}{35}{subsection.3.6.2}%
+\contentsline {subsubsection}{On-Device Interface}{36}{subsubsection*.32}%
+\contentsline {subsubsection}{Web Interface via BLE}{36}{subsubsection*.33}%
+\contentsline {section}{\numberline {3.7}System Integration}{36}{section.3.7}%
+\contentsline {chapter}{\numberline {4}Testing \& Validation}{37}{chapter.4}%
+\contentsline {section}{\numberline {4.1}PCB Testing}{37}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Excitation Stage}{37}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Voltage Measurement Stage}{38}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Current Measurement Stage}{38}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}System Calibration}{40}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Biosensor Validation}{40}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Discussion of Results}{41}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Summary and Conclusion}{43}{chapter.5}%
+\contentsline {chapter}{Bibliography}{44}{chapter*.38}%
+\contentsline {chapter}{\numberline {A}Project Planning Schedule}{47}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Outcomes Compliance}{48}{appendix.B}%

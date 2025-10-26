@@ -32,7 +32,7 @@ Discuss wat ons wil bereik en hoe ons dit gan opbreek. Beskryf hoe die circuit d
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{SystemOverview.png}
+    \includegraphics[width=0.8\textwidth]{FullSystemOverview.png}
     \caption{System Overview}
     \label{fig:system_overview} 
 \end{figure}
@@ -558,17 +558,9 @@ The complete PCB schematic is shown in Appendix \ref{appendix:schematic} and the
 \section{Firmware Development}
 The embedded system architecture was driven by the \ac{POC} requirements of ease of use without technical expertise, versatility across diverse clinical settings and reliable measurements. To avoid dependence on external software and ensure the device can operate in any environment, all processing is performed on-device. 
 
-The system architecture is shown in Figure \ref{fig:embed_system_diagram}. The ESP32 C6 has \ac{ADC} and \ac{DAC} peripherals, but their performance is known to be suboptimal for high-precision measurement applications. Furthermore, the lack of direct timer control or \ac{DMA} support for these peripherals limits their usability for synchronous signal generation and acquisition. The STM32F303K8 on the other hand is specifically designed for mixed-signal applications, with high-performance \ac{ADC} and \ac{DAC} peripherals, advanced timer capabilities and \ac{DMA} support. However, it lacks support for wireless communication and has limited flash and RAM resources, making it unsuitable for complex user interfaces. Thus, a dual-microcontroller architecture was used.
+The system architecture is shown in Figure \ref{fig:system_overview}. The ESP32 C6 has \ac{ADC} and \ac{DAC} peripherals, but their performance is known to be suboptimal for high-precision measurement applications. Furthermore, the lack of direct timer control or \ac{DMA} support for these peripherals limits their usability for synchronous signal generation and acquisition. The STM32F303K8 on the other hand is specifically designed for mixed-signal applications, with high-performance \ac{ADC} and \ac{DAC} peripherals, advanced timer capabilities and \ac{DMA} support. However, it lacks support for wireless communication and has limited flash and RAM resources, making it unsuitable for complex user interfaces. Thus, a dual-microcontroller architecture was used.
 
 The STM32 serves as the measurement subsystem, interfacing with the analogue frontend to perform measurements. Results are then sent to the ESP32 via UART. The ESP32 acts as the system controller, managing calibration, sending commands to the STM32 and handling the user interfaces. An on-device LCD with buttons provides an interface for standalone operation in any setting, while an optional web-based interface accessible via \ac{BLE} enables enhanced usability when client devices are available.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{BioPalSystemDiagram.png}
-    \caption{Embedded System Diagram}
-    \label{fig:embed_system_diagram}
-\end{figure}
-    
 
 \subsection{STM32 Measurement Subsystem}
 The STM32F303K8 includes a 12-bit \ac{DAC} and 12-bit \acp{ADC} with up to 1 Msps sampling. Advanced timers enable precise frequency generation for the excitation stage with sub-microsecond accuracy. The ARM Cortex-M4F core includes a hardware \ac{FPU} and \ac{DSP} extensions, providing native support for \ac{FFT} operations through the CMSIS-DSP library.
