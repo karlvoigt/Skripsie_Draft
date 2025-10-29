@@ -12,63 +12,62 @@ Warning--I didn't find a database entry for "INA331"
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
-Warning--empty journal in chioyeBuildProgrammableGain2021
-Warning--empty author in Sboa311a
-Warning--empty journal in Sboa311a
-Warning--empty year in Sboa311a
 Warning--empty author in BiomarkersNationalInstitute
 Warning--empty journal in BiomarkersNationalInstitute
 Warning--empty year in BiomarkersNationalInstitute
-Warning--empty journal in rosenzweigWhatArePancreatic2018
 Warning--empty journal in ibrahimCMOSTransimpedanceAmplifier
 Warning--empty year in ibrahimCMOSTransimpedanceAmplifier
 Warning--empty author in ImprovedHowlandCurrent2020
 Warning--empty journal in ImprovedHowlandCurrent2020
 Warning--empty journal in gaddyDYNAMICPERFORMANCETESTING
 Warning--empty year in gaddyDYNAMICPERFORMANCETESTING
+Warning--empty journal in chioyeBuildProgrammableGain2021
 Warning--empty journal in ebrahimDevelopmentBiosensorEarly2023
+Warning--empty author in Sboa311a
+Warning--empty journal in Sboa311a
+Warning--empty year in Sboa311a
 Warning--missing publisher in wilsonSimulatingFractionalCapacitors2023
 
 Done.
-You've used 37 entries,
+You've used 29 entries,
             4087 wiz_defined-function locations,
-            1024 strings with 14736 characters,
-and the built_in function-call counts, 17785 in all, are:
-= -- 1357
-> -- 301
-< -- 106
-+ -- 180
-- -- 61
-* -- 770
-:= -- 2719
-add.period$ -- 73
-call.type$ -- 37
-change.case$ -- 36
-chr.to.int$ -- 228
-cite$ -- 53
-duplicate$ -- 1475
-empty$ -- 1598
-format.name$ -- 62
-if$ -- 4069
+            977 strings with 13209 characters,
+and the built_in function-call counts, 12759 in all, are:
+= -- 949
+> -- 211
+< -- 59
++ -- 121
+- -- 43
+* -- 544
+:= -- 1980
+add.period$ -- 57
+call.type$ -- 29
+change.case$ -- 28
+chr.to.int$ -- 120
+cite$ -- 44
+duplicate$ -- 1097
+empty$ -- 1194
+format.name$ -- 47
+if$ -- 2905
 int.to.chr$ -- 0
-int.to.str$ -- 37
-missing$ -- 260
-newline$ -- 134
-num.names$ -- 21
-pop$ -- 681
+int.to.str$ -- 29
+missing$ -- 199
+newline$ -- 110
+num.names$ -- 16
+pop$ -- 544
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1403
+skip$ -- 1011
 stack$ -- 0
-substring$ -- 620
-swap$ -- 1011
-text.length$ -- 30
+substring$ -- 344
+swap$ -- 702
+text.length$ -- 19
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 37
-warning$ -- 16
-while$ -- 59
-width$ -- 39
-write$ -- 304
-(There were 17 warnings)
+type$ -- 29
+warning$ -- 15
+while$ -- 38
+width$ -- 31
+write$ -- 236
+(There were 16 warnings)

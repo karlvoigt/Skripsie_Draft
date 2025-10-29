@@ -5,33 +5,34 @@
 
 \section{Background}
 
-Biosensors are devices that measure biological and chemical reactions through physical transducer mechanisms, generating signals proportional to the concentration of an analyte in a sample \cite{bhallaIntroductionBiosensors2016} . This enables detection of biomarkers that can be used to monitor health conditions or diagnose diseases. Early disease screening using biosensors could provide significant healthcare benefits, particularly in resource-limited settings.
+Biosensors are devices that measure biological and chemical reactions through physical transducer mechanisms, generating signals proportional to the concentration of an analyte in a sample \cite{bhallaIntroductionBiosensors2016}. This enables detection of biomarkers that can be used to monitor health conditions or diagnose diseases. Early disease screening using biosensors could provide significant healthcare benefits, particularly in resource-limited settings.
+\todo{Add more references}
+Commercial impedance analysers for biosensing, such as the PalmSens4, offer exceptional technical capabilities but are prohibitively expensive (approximately R85 000) and require substantial technical expertise to interpret electrochemical impedance spectroscopy (EIS) data. This creates a significant barrier to adoption in point-of-care (POC) environments, particularly in rural clinics and community health facilities where specialized personnel and equipment may be unavailable.
 
-Commercial impedance analyzers for biosensing, such as the PalmSens4, offer exceptional technical capabilities but are prohibitively expensive (approximately €15,000) and require substantial technical expertise to interpret electrochemical impedance spectroscopy (EIS) data. This creates a significant barrier to adoption in point-of-care (POC) environments, particularly in rural clinics and community health facilities where specialized personnel and equipment may be unavailable.
-
-Designing a low-cost, easy-to-use device to perform impedance measurements on biosensors would provide a valuable tool for POC disease screening. By abstracting the complexity of EIS interpretation and presenting results in an intuitive format, such a device would enable healthcare workers without specialized training to identify patients requiring further testing or specialist referral. Furthermore, a multiplexed system capable of measuring multiple biosensors from a single sample would improve efficiency and reduce the need for repeated sample collection, making screening more practical in high-volume POC settings.
+\Ac{IDE} biosensors developed through previous research at this institution will be utilized for the impedance measurements. Designing a low-cost, easy-to-use device to perform impedance measurements on these \acp{IDE} would provide a valuable tool for POC disease screening. By abstracting the complexity of EIS interpretation and presenting results in an intuitive format, such a device would enable healthcare workers without specialized training to identify patients requiring further testing or specialist referral. Furthermore, a multiplexed system capable of measuring multiple biosensors from a single sample would improve efficiency and reduce the need for repeated sample collection, making screening more practical in high-volume POC settings.
 
 \section{Project Objectives}
 
-This project aims to develop a low-cost, user-friendly multiplexed impedance analyzer for biosensing applications. The system design objectives include:
+This project aims to develop a low-cost, user-friendly multiplexed impedance analyser for biosensing applications. The system design objectives include:
 
-\begin{itemize}
-    \item Developing analog frontend circuitry that enables microcontroller-based biosensor measurements using electrochemical impedance spectroscopy (EIS), including excitation signal generation, voltage measurement, and current measurement stages.
+\begin{enumerate}
+    \item Developing analogue frontend circuitry that enables microcontroller-based biosensor measurements using electrochemical impedance spectroscopy (EIS), including excitation signal generation, voltage measurement, and current measurement stages.
     \item Implementing multiplexing capability to sequentially measure up to four biosensors without manual intervention.
-    \item Designing and fabricating a printed circuit board (PCB) that integrates all analog and digital subsystems.
+    \item Designing and fabricating a printed circuit board (PCB) that integrates all analogue and digital subsystems.
     \item Developing firmware for signal processing and impedance calculation.
-    \item Creating an intuitive user interface that enables device operation across diverse point-of-care settings without requiring external equipment or specialized knowledge.
-    \item Ensuring the complete system is battery-powered, portable, and achieves a total cost under R4,500 (approximately €220) to enable widespread adoption.
+    \item Creating an intuitive user interface that enables device operation across diverse point-of-care settings by \acp{HCW} without requiring external equipment or specialized knowledge.
+    \item Ensuring the complete system is battery-powered, portable, and achieves a total cost under R4,500 to enable widespread adoption.
     \item Calibrating and validating the system against a commercial reference instrument (PalmSens4) using test cells and biosensor measurements.
-\end{itemize}
+\end{enumerate}
 
 \section{Project Scope}
 
-This project focuses on the development of a multiplexed impedance analyzer system for biosensing applications. The scope includes:
+This project focuses on the development of a multiplexed impedance analyser system for biosensing applications. The scope includes:
 
-\subsection{Within Scope}
+\subsection{Inclusions}
+\todo{Cut this maybe and just refer to project objectives}
 \begin{itemize}
-    \item Design and implementation of analog frontend circuitry for electrochemical impedance spectroscopy (EIS) measurements
+    \item Design and implementation of analogue frontend circuitry for electrochemical impedance spectroscopy (EIS) measurements
     \item Development of signal generation, voltage measurement, and current measurement stages
     \item Integration of multiplexing capability to sequentially measure up to four biosensors
     \item Design and fabrication of a printed circuit board (PCB) for the complete system
@@ -41,25 +42,24 @@ This project focuses on the development of a multiplexed impedance analyzer syst
     \item Demonstration of surface-based protein binding detection using bovine serum albumin (BSA)
 \end{itemize}
 
-\subsection{Outside Scope}
+\subsection{Exclusions}
 \begin{itemize}
     \item Design, fabrication, or functionalization of biosensors themselves (existing biosensors from prior research are used)
     \item Testing with actual blood samples or patient specimens (requires medical laboratory certification and ethical approval)
     \item Clinical validation studies with real disease biomarkers
     \item Antibody immobilization procedures and antigen-antibody binding experiments
-    \item Regulatory approval processes for medical device certification
 \end{itemize}
 
 \section{Chapter Overview}
 
 \textbf{\large Chapter 1: Introduction} \\
-Provides the background, motivation, objectives, and scope of the project, outlining the need for low-cost, user-friendly impedance analyzers for point-of-care biosensing applications.
+Provides the background, motivation, objectives, and scope of the project, outlining the need for low-cost, user-friendly impedance analysers for point-of-care biosensing applications.
 \\\\
 \textbf{\large Chapter 2: Literature Review} \\
-Reviews the fundamental principles of biosensors, electrochemical impedance spectroscopy, equivalent circuit models, and impedance analyzer architectures. Discusses transducer mechanisms, complex impedance visualization methods, and related work in portable EIS systems.
+Reviews the fundamental principles of biosensors, electrochemical impedance spectroscopy, equivalent circuit models, and impedance analyser architectures. Discusses transducer mechanisms, complex impedance visualization methods, and related work in portable EIS systems.
 \\\\
 \textbf{\large Chapter 3: Design} \\
-Details the complete system design process, including the design philosophy centered on point-of-care requirements, analog frontend development (excitation, voltage and current measurement stages), multiplexer implementation, PCB design considerations, firmware architecture for both STM32 and ESP32 microcontrollers, and circuit simulation validation.
+Details the complete system design process, including the design philosophy centred on point-of-care requirements, analogue frontend development (excitation, voltage and current measurement stages), multiplexer implementation, PCB design considerations, firmware architecture for both STM32 and ESP32 microcontrollers, and circuit simulation validation.
 \\\\
 \textbf{\large Chapter 4: Testing \& Validation} \\
 Presents the systematic testing and validation methodology, progressing from individual subsystem characterization through complete system integration. Includes calibration procedures, measurements with PBS solutions of varying concentrations, and BSA protein binding validation experiments comparing BioPal performance against the PalmSens4 reference instrument.

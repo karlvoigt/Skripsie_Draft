@@ -1,34 +1,19 @@
 \graphicspath{{design/fig/}}
 
-\chapter{Design}
+\chapter{Design and Simulation}\label{chap:design}
+This chapter details the development of the BioPal impedance analyzer, progressing from user-centered design principles through circuit design, simulation, and firmware implementation. The design process was guided by understanding POC requirements and translating them into concrete technical specifications.
+
 \section{Design Philosophy}
-The aim of this project is to design a impedance spectroscopy system that can be used in a point-of-care setting. Tim Brown's design thinking principles\cite{brownDesignThinking2008} are thus well suited and were used as the bases for the design process. Brown’s approach is characterised by five stages: empathising with the end user, defining a clear problem statement, ideating a wide range of creative ideas, building a quick prototype, and finally testing. These phases are cyclical and allow rapid iteration and learning. This project represents the culmination of this design process, although further iterations of the design process could allow further refinement of the end product.
 
-\subsection{Understanding the end user}
-\Ac{POC} diagnostic devices are essential for decentralized healthcare, particularly in resource-limited settings such as rural clinics and community health facilities. While EIS has proven to be a powerful technique for biosensing applications, existing solutions \needscite{present significant barriers to widespread adoption in POC environments.}
+The design followed Brown's design thinking approach\cite{brownDesignThinking2008}, emphasizing user empathy and iterative prototyping. Considering the needs of \ac{POC} healthcare workers revealed that existing solutions, whether commercial instruments like the PalmSens4 or academic prototypes \cite{buscagliaSimpleZLowCostPortable2023}\cite{ al-aliDesignPortableLowCost2017}, share a critical limitation: they require users to interpret raw impedance spectra and understand EIS principles.
 
-Commercial impedance analysers such as the PalmSens4 offer exceptional technical capabilities, including frequency ranges from \SI{10}{\micro\hertz} to 1 MHz, high resolution (18-bit), and data analysis features such as circuit modelling \cite{PalmSens4}. However, these instruments have two critical limitations for \ac{POC} applications. Firstly, they require substantial technical expertise to interpret EIS data, as users must understand the underlying electrochemical principles to extract meaningful diagnostic information. Secondly, commercial systems like the PalmSens4 are prohibitively expensive, with prices \needscite{~\texteuro 15,000}, making them impractical for widespread deployment in clinics, rural health centres, or low-resource settings.
-
-Previous academic projects have successfully demonstrated low cost impedance spectroscopy devices \cite{ebrahimDevelopmentBiosensorEarly2023}\cite{al-aliDesignPortableLowCost2017}\cite{buscagliaSimpleZLowCostPortable2023}, but similarly require users to manually analyse impedance spectra and possess an understanding of EIS principles to interpret the results. This technical barrier prevents POC personnel from using these devices effectively.
-
-\Ac{POC} healthcare providers require a device that performs impedance-based biosensing but abstracts the complexity away from the user, presenting results in an intuitive way. Quantitative results, rather than qualitative results are sufficient to indicate the need for referral to a specialist and further testing. 
-
-\subsection{Problem Statement}
-
-\textbf{How can we design a low-cost, easy-to-use impedance analyzer for biosensing applications that eliminates the need for specialized knowledge, enabling point-of-care personnel to test for multiple biomarkers?}
-\newline
-This problem statement encapsulates three critical design requirements :
-\begin{enumerate}
-    \item Accessibility: \needscite{The device must process raw impedance measurements and convert them to meaningful outputs, removing the need for users to understand Nyquist plots, equivalent circuit models, or phase angle analysis. Running from a battery and being able to operate without a computer are also necessities in rural settings.}
-    \item Affordability: \rephrase{The total system cost must remain under R4,500 (approximately €220), making it orders of magnitude more affordable than commercial alternatives like the PalmSens4 at €15,000, thereby enabling widespread deployment in resource-limited settings}.
-    \item Multiplexing capability: In resource constrained \ac{POC} environments, healthcare professionals often face high patient loads. Due to this, multiplexed \ac{POC} testing is of increasing importance for clinical screening \cite{dincerMultiplexedPointofCareTesting2017}. This allows the screening of multiple analytes with minimal involvement from healthcare professionals.
-\end{enumerate}
+These insights shaped the project objectives around three core pillars: accessibility, affordability, and multiplexing and directly informed the functional architecture and component selection detailed in the following sections.
 
 \section{Functional Design Overview}
-The system can be broken up into multiple subsystems, each fulfilling a specific function in order to create a complete device that meets the requirements. On the most basic level the device consists of the \acp{DUT}, an impedance analyser and a user interface. The DUT is the biosensor that interacts with the analyte and whose impedance characteristics change based on the analyte concentration. A multiplexer is used to interface between multiple DUT's and the impedance analyser. The impedance analyser can be further broken down into the \rephrase{power electronics}, excitation stage, voltage and current measurement stages and finally the processing that uses an STM32. The user interface is based on an ESP32 and communicates with the impedance analyser through UART.
+The system can be broken up into multiple subsystems, each fulfilling a specific function in order to create a complete device that meets the requirements. On the most basic level the device consists of the \acp{DUT}, an impedance analyser and a user interface. The DUT is the \ac{IDE} that interacts with the analyte and whose impedance characteristics change based on the analyte concentration. A multiplexer is used to interface between multiple DUT's and the impedance analyser. The impedance analyser can be further broken down into the power supply, excitation stage, voltage and current measurement stages and finally the processing that uses an STM32. The user interface is based on an ESP32 and communicates with the impedance analyser through UART.
 
-\todo{Breek impedance analyser op in further subsystems}
-Discuss wat ons wil bereik en hoe ons dit gan opbreek. Beskryf hoe die circuit die beginsels van biosensors en EIS in ag moet neem, basies wat dit moet doen, hoekom multiplexing en ja dan hoe daai overall doel in gedeeltes opgebreek word.
+% \todo{Breek impedance analyser op in further subsystems}
+% Discuss wat ons wil bereik en hoe ons dit gan opbreek. Beskryf hoe die circuit die beginsels van biosensors en EIS in ag moet neem, basies wat dit moet doen, hoekom multiplexing en ja dan hoe daai overall doel in gedeeltes opgebreek word.
 
 \begin{figure}[H]
     \centering
@@ -37,14 +22,15 @@ Discuss wat ons wil bereik en hoe ons dit gan opbreek. Beskryf hoe die circuit d
     \label{fig:system_overview} 
 \end{figure}
 
+The following sections will first discuss the design of the analogue frontend and then the embedded firmware design.
 \section{Analogue Frontend Design}
 
-\subsection{Excitation}\label{subsec:design_excitation}
+\subsection{Excitation Stage}\label{subsec:design_excitation}
 The easiest way of producing a controlled voltage signal is using a \ac{DAC}. Both dedicated \acp{DAC} and \acp{DAC} built into \acp{MCU} were possible options.
 
 To avoid establishing a DC bias at the electrode–electrolyte interface, the generated excitation must be centred around a stable reference potential. This can be achieved by shifting the \ac{DAC} output to be biased around ground using a level-shifting op-amp circuit. However, this requires providing all analogue circuitry with a negative supply rail. This project instead uses a buffered virtual ground reference at 1.65 V (3.3 V/2) as the midpoint for all analogue circuitry. This approach ensures no DC bias is applied to the \ac{DUT} whilst negating the need for negative supply rails.
 
-The anti-aliasing filter must provide sufficient attenuation at the Nyquist frequency ($f_s/2$) to ensure any aliased content falls below the \ac{DAC}'s noise floor. For the 12-bit \ac{DAC} found in the STM32F303K8, equation \ref{eq:dac_range} gives a dynamic range of 74 dB. 
+The anti-aliasing filter must provide sufficient attenuation at the Nyquist frequency ($f_s/2$) to ensure any aliased content falls below the \ac{DAC}'s noise floor. For the 12-bit \ac{DAC} found in the STM32F303K8, Equation \ref{eq:dac_range} gives a dynamic range of 74 dB. 
 
 \begin{equation}
     \text{Dynamic Range} = 6.02n + 1.76 
@@ -55,7 +41,7 @@ The filter's passband must remain flat at the desired signal bandwidth to avoid 
 
 The LTC1069 proved to be the only viable option. It provides an 8th order lowpass filter that approximates a raised cosine response (with $\alpha=1$). It has a cutoff frequency of up to 120 kHz (200 kHz when using $\pm5$ V supply rails) set by an external clock and a linear phase response \cite{LTC10697CS8PBF}. The clock-tunable nature is ideal for this project, allowing easy adjustments through a timer on the STM.
 
-To maximise voltage resolution and minimise noise, the full linear range of the \ac{DAC} is utilised when generating the signal. This requires that the \ac{DAC} output signal is attenuated from 3 Vpp to the desired 10 mVpp using an inverting op-amp. From equation \ref{eq:inv_opamp_gain}, $R_{f}=1 k\Omega$ and $R_{in}=300 k\Omega$ can be calculated as suitable values.
+To maximise voltage resolution and minimise noise, the full linear range of the \ac{DAC} is utilised when generating the signal. This requires that the \ac{DAC} output signal is attenuated from 3 Vpp to the desired 10 mVpp using an inverting op-amp. From Equation \ref{eq:inv_opamp_gain}, $R_{f}=1 k\Omega$ and $R_{in}=300 k\Omega$ can be calculated as suitable values.
 
 \begin{equation}
     A_v = \frac{V_{out}}{V_{in}} = -\frac{R_f}{R_{in}}
@@ -77,7 +63,7 @@ The INA331 instrumentation amplifier was selected for the first stage of voltage
 The device provides an internal gain of 5 V/V, configurable to higher gains through external resistors according to the relationship $G = 5 + 5\times \frac{R_2}{R_1}$. Choosing $R_1=1 k\Omega$ and $R_2=2 k\Omega$ results in a gain of 15 V/V. 
 
 \todo{Discuss why bandwidth is important instead of jumping straight into it}
-\Ac{GBW} represents the -3 dB bandwidth of an op-amp at unity gain. The -3 dB bandwidth of the op-amp can be calculated for a specific gain using equation \ref{eq:GBW}, where $A_{noise}$ represents the noise gain calculated in equation \ref{eq:noise_gain}. The use of noise gain accounts for non-ideal feedback effects and circuit imperfections \cite{fiore53GainBandwidthProduct2018}.
+\Ac{GBW} represents the -3 dB bandwidth of an op-amp at unity gain. The -3 dB bandwidth of the op-amp can be calculated for a specific gain using Equation \ref{eq:GBW}, where $A_{noise}$ represents the noise gain calculated in Equation \ref{eq:noise_gain}. The use of noise gain accounts for non-ideal feedback effects and circuit imperfections \cite{fiore53GainBandwidthProduct2018}.
 
 \begin{equation}
     f_c = \frac{GBW}{A_{noise}}
@@ -99,18 +85,18 @@ The gain and phase shift at any frequency can be calculated based on the cutoff 
     \label{eq:phase_shift}
 \end{equation}
 
-Equations \ref{eq:GBW} and \ref{eq:noise_gain} are not applicable to instrumentation amplifiers due to their three op-amp design. However, the bandwidth can be estimated from the datasheet to be 2.3 MHz (as seen in figure \ref{fig:ina_bw}) at the chosen gain. Using equations \ref{eq:mag_rollof} and \ref{eq:phase_shift}, the gain reduction and phase shift at 100 kHz can be estimated as -0.004 dB and -2.49\textdegree\ respectively. While this still needs to be accounted for during calibration, it represents a very flat and linear response leading to a more accurate system.
+Equations \ref{eq:GBW} and \ref{eq:noise_gain} are not applicable to instrumentation amplifiers due to their three op-amp design. However, the bandwidth can be estimated from the datasheet to be 2.3 MHz (as seen in Figure \ref{fig:ina_bw}) at the chosen gain. Using equations \ref{eq:mag_rollof} and \ref{eq:phase_shift}, the gain reduction and phase shift at 100 kHz can be estimated as -0.004 dB and -2.49\textdegree\ respectively. While this still needs to be accounted for during calibration, it represents a very flat and linear response leading to a more accurate system.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{INA_BW.jpeg}
-    \caption{INA331 Bandwidth vs Gain adapted from \cite{INA331}}
+    \caption[INA331 Bandwidth vs Gain]{INA331 Bandwidth vs Gain adapted from \cite{INA331}}
     \label{fig:ina_bw}
 \end{figure}
 
-The second stage uses a TLV9061 op-amp in an inverting gain configuration. With a GBW of 10 MHz and gain of $A_v=-20$ ($A_{noise}=21$), the expected bandwidth is 476.2 kHz (equation \ref{eq:GBW}). From equations \ref{eq:mag_rollof} and \ref{eq:phase_shift}, an expected -0.094 dB gain reduction and -11.86\textdegree\ phase shift is calculated at 100 kHz. However, this does not need to be calibrated for as an identical gain stage will be used for the current measurement, ensuring that any gain reductions and phase shifts are cancelled out during impedance calculation.
+The second stage uses a TLV9061 op-amp in an inverting gain configuration. With a GBW of 10 MHz and gain of $A_v=-20$ ($A_{noise}=21$), the expected bandwidth is 476.2 kHz (Equation \ref{eq:GBW}). From equations \ref{eq:mag_rollof} and \ref{eq:phase_shift}, an expected -0.094 dB gain reduction and -11.86\textdegree\ phase shift is calculated at 100 kHz. However, this does not need to be calibrated for as an identical gain stage will be used for the current measurement, ensuring that any gain reductions and phase shifts are cancelled out during impedance calculation.
 
-The final circuit for voltage measurement can be seen in figure \ref{fig:vmeas_stage_circuit}.
+The final circuit for voltage measurement can be seen in Figure \ref{fig:vmeas_stage_circuit}.
 
 \begin{figure}[H]
     \centering
@@ -131,7 +117,7 @@ A fixed-gain amplifier is impractical across this range. High gain would saturat
 The PGA113 offers gains ranging from 1-200 V/V with a high GBW of 10 MHz and is controlled via SPI. It has a low gain error of $\le0.3\%$ and extremely low noise at $12\text{ nV}/\sqrt{\text{Hz}}$. Combined with the final TLV9061 gain stage (identical to the final voltage measurement stage), this provides variable gain from 20-4000 V/V after the \ac{TIA}. The STM32F303K8 also has an internal \ac{PGA} with an 8 MHz GBW and binary gains from $2^1$ to $2^4$, however it was unclear whether the added flexibility of a second PGA would outweigh the
 added noise of an additional gain stage. The PCB was thus designed with a jumper allowing the internal \ac{PGA} to be bypassed. After testing, it was decided that the STM's PGA would not be used.
 
-While the \ac{TIA}'s feedback resistor can be large without affecting the applied signal to the \ac{DUT}, it reduces the bandwidth. If $R_{feedback}$ is too large, the \ac{TIA} experiences significant phase shifts and reduced gain at higher frequencies (referring back to equation \ref{eq:GBW}). Using multiple gain stages distributes the amplification, allowing the \ac{TIA} to use a moderate feedback resistor whilst maintaining adequate bandwidth.
+While the \ac{TIA}'s feedback resistor can be large without affecting the applied signal to the \ac{DUT}, it reduces the bandwidth. If $R_{feedback}$ is too large, the \ac{TIA} experiences significant phase shifts and reduced gain at higher frequencies (referring back to Equation \ref{eq:GBW}). Using multiple gain stages distributes the amplification, allowing the \ac{TIA} to use a moderate feedback resistor whilst maintaining adequate bandwidth.
 
 Multiple feedback resistor paths on the \ac{TIA} itself provide additional benefits beyond bandwidth. They enable finer gain segmentation across the input current range, improving measurement precision. The larger feedback resistor handles low currents with maximum resolution, whilst the smaller resistor prevents saturation at high currents. This ensures smooth transitions between gain settings without gaps where currents would be too large for one resistor but too small for the other.
 
@@ -140,7 +126,7 @@ The OPA3S328 is specifically designed for \ac{TIA} applications, with a wide GBW
 \begin{figure}[]
     \centering
     \includegraphics[width=0.8\textwidth]{KelvinSenseTIA.png}
-    \caption{Example of Kelvin Sense Switch Connections and High Impedance Buffer\cite{chioyeBuildProgrammableGain2021}}
+    \caption[Example of Kelvin Sense Switch Connections and High Impedance Buffer]{Example of Kelvin Sense Switch Connections and High Impedance Buffer\cite{chioyeBuildProgrammableGain2021}}
     \label{fig:kelvin_sense_tia}
 \end{figure}
 
@@ -157,7 +143,7 @@ The smaller feedback resistor is chosen to give the same overall gain at the max
 
 In traditional TIA designs a capacitor is placed in parallel with the feedback resistor to provide sufficient phase margin and ensure stability \cite{StabilizeYourTransimpedance}. These designs are, however intended for use with a photodiode, rather than \ac{EIS}. There are few sources available that discuss the design of a TIA for EIS purposes, where capacitance is what is measured rather than compensated for. These sources do not discuss the necessity of feedback capacitors, thus this has to be derived from theory.
 
-The dominant pole of the open loop response of an op-amp is a function of the GBW and the open loop gain, $A_{OL}$ (equation \ref{eq:fdp}). This determines the -3dB frequency of the open loop transfer function and after this point the gain rolls of at a rate of -20dB/decade. Due to the extremely large open loop gains of modern op-amps (130dB or $3.16 \times 10^6 V/V$ for the OPA3S328), negative feedback is required between the output and inverting input. The amount of the output that is fed back to the input is defined as the feedback factor ($\beta$) and described by equation \ref{eq:fb_factor}. Where $V_{fb}$ is the voltage present at the inverting input of the op-amp and $V_{out}$ the voltage at the output. This negative feedback results in the closed loop gain (equation \ref{eq:acl}) where the loop-gain refers to $A_{OL}\times\beta$ (equation \ref{eq:loop_gain}).
+The dominant pole of the open loop response of an op-amp is a function of the GBW and the open loop gain, $A_{OL}$ (Equation \ref{eq:fdp}). This determines the -3dB frequency of the open loop transfer function and after this point the gain rolls of at a rate of -20dB/decade. Due to the extremely large open loop gains of modern op-amps (130dB or $3.16 \times 10^6 V/V$ for the OPA3S328), negative feedback is required between the output and inverting input. The amount of the output that is fed back to the input is defined as the feedback factor ($\beta$) and described by Equation \ref{eq:fb_factor}. Where $V_{fb}$ is the voltage present at the inverting input of the op-amp and $V_{out}$ the voltage at the output. This negative feedback results in the closed loop gain (Equation \ref{eq:acl}) where the loop-gain refers to $A_{OL}\times\beta$ (Equation \ref{eq:loop_gain}).
 
 \begin{align}
     \text{Dominant Pole} &= f_{DP} = \frac{\text{GBW}}{A_{OL}} \label{eq:fdp}\\
@@ -166,7 +152,7 @@ The dominant pole of the open loop response of an op-amp is a function of the GB
     \text{Loop Gain} &= A_{OL}\beta \label{eq:loop_gain}\\
 \end{align}
 
-When the loop-gain is -1, equation \ref{eq:acl} simplifies to $A_{CL} = \frac{A_{OL}}{0}$ and the system becomes unstable. This happens when $V_{fb}$ leads or lags $V_{out}$ by 180\textdegree. The phase margin (PM) is thus defined as in equation \ref{eq:pm} and describes how close the system is to a 180\textdegree\ phase shift and instability when the loop gain is at 0dB or 1V/V (the critical point or $f_c$). From equation \ref{eq:aol_at_0db} it is shown that this happens when the magnitude plots of $A_{OL}$ and $\frac{1}{\beta}$ intersect. To ensure stability, the PM should be at least 45\textdegree, with higher values providing more stability at the cost of transient response \cite{StabilizeYourTransimpedance}. The phase margin can be calculated by subtracting the phase of $\frac{1}{\beta(j\omega)}$ from the phase of $A_{OL}(j\omega)$ to get the phase of $A_{OL}\beta(j\omega)$.
+When the loop-gain is -1, Equation \ref{eq:acl} simplifies to $A_{CL} = \frac{A_{OL}}{0}$ and the system becomes unstable. This happens when $V_{fb}$ leads or lags $V_{out}$ by 180\textdegree. The phase margin (PM) is thus defined as in Equation \ref{eq:pm} and describes how close the system is to a 180\textdegree\ phase shift and instability when the loop gain is at 0dB or 1V/V (the critical point or $f_c$). From Equation \ref{eq:aol_at_0db} it is shown that this happens when the magnitude plots of $A_{OL}$ and $\frac{1}{\beta}$ intersect. To ensure stability, the PM should be at least 45\textdegree, with higher values providing more stability at the cost of transient response \cite{StabilizeYourTransimpedance}. The phase margin can be calculated by subtracting the phase of $\frac{1}{\beta(j\omega)}$ from the phase of $A_{OL}(j\omega)$ to get the phase of $A_{OL}\beta(j\omega)$.
 
 \begin{align}
     \text{PM} &= 180^\circ + \varphi_{A_{OL}\beta} \text{ at } |A_{OL}\beta| = 0dB \label{eq:pm} \\
@@ -179,13 +165,13 @@ When the loop-gain is -1, equation \ref{eq:acl} simplifies to $A_{CL} = \frac{A_
     \begin{minipage}{0.6\textwidth}
         \centering
         \includegraphics[width=\textwidth]{PhotoDiodeCircuit.png}
-        \caption{Photodiode equivalent circuit\cite{StabilizeYourTransimpedance}}
+        \caption[Photodiode Equivalent Circuit]{Photodiode Equivalent Circuit\cite{StabilizeYourTransimpedance}}
         \label{fig:photodiode}
     \end{minipage}\hfill
     \begin{minipage}{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{PhotoTIA.png}
-        \caption{Equivalent TIA circuit for photodiodes}
+        \caption{Equivalent TIA Circuit for Photodiodes}
         \label{fig:tia_photo}
     \end{minipage}
 \end{figure}
@@ -196,20 +182,20 @@ When the loop-gain is -1, equation \ref{eq:acl} simplifies to $A_{CL} = \frac{A_
     \therefore \frac{1}{\beta(j\omega)} &= 1+j\omega R_fC_i
 \end{align}
 
-Figure \ref{fig:photodiode} shows the simplified equivalent circuit of a photodiode, including the junction capacitance ($C_J$). With figure \ref{fig:tia_photo} showing the resulting equivalent circuit model of a TIA for measuring photodiodes, including the input capacitance of the op-amp ($C_{in}$). From this, the feedback factor can be calculated as seen in equation \ref{eq:photo_beta}. The pole in $\beta(j\omega)$, caused by the combined input capacitance, translates to a zero in $\frac{1}{\beta(j\omega)}$. This zero causes the magnitude of $\frac{1}{\beta(j\omega)}$ to increase at a rate of 20dB/decade after the corner frequency (determined by the value of $C_{i}$) and the phase to increase from 0\textdegree to 90\textdegree. The result is a very small phase margin at the critical frequency and instability (as seen in figure \ref{fig:matlab_7.5}). The feedback capacitor in parallel with $R_f$ solves this by adding a pole to $\frac{1}{\beta(j\omega)}$, cancelling out the zero and thus adding phase margin.
+Figure \ref{fig:photodiode} shows the simplified equivalent circuit of a photodiode, including the junction capacitance ($C_J$). With Figure \ref{fig:tia_photo} showing the resulting equivalent circuit model of a TIA for measuring photodiodes, including the input capacitance of the op-amp ($C_{in}$). From this, the feedback factor can be calculated as seen in Equation \ref{eq:photo_beta}. The pole in $\beta(j\omega)$, caused by the combined input capacitance, translates to a zero in $\frac{1}{\beta(j\omega)}$. This zero causes the magnitude of $\frac{1}{\beta(j\omega)}$ to increase at a rate of 20dB/decade after the corner frequency (determined by the value of $C_{i}$) and the phase to increase from 0\textdegree to 90\textdegree. The result is a very small phase margin at the critical frequency and instability (as seen in Figure \ref{fig:matlab_7.5}). The feedback capacitor in parallel with $R_f$ solves this by adding a pole to $\frac{1}{\beta(j\omega)}$, cancelling out the zero and thus adding phase margin.
 
 \begin{figure}[H]
     \centering
     \begin{minipage}{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{RandlesSimpleTIA.png}
-        \caption{Simplified Randles equivalent TIA circuit with ideal capacitance}
+        \caption{Simplified Randles Equivalent TIA Circuit with Ideal Capacitance}
         \label{fig:randles_cdl_tia}
     \end{minipage}\hfill
     \begin{minipage}{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{RandlesTIA.png}
-        \caption{Randles equivalent TIA circuit with CPE}
+        \caption{Randles Equivalent TIA Circuit with CPE}
         \label{fig:randles_cpe_tia}
     \end{minipage}
 \end{figure}
@@ -237,16 +223,16 @@ However, the equivalent Randles circuit model of a biosensor differs fundamental
     \begin{subfigure}[b]{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{MatLabBeta_37,5.png}
-        \caption{$\frac{1}{\beta(j\omega)}$ frequency response}
+        \caption{$\frac{1}{\beta(j\omega)}$ Frequency Response}
         \label{fig:matlab_beta_37.5}
     \end{subfigure}\hfill
     \begin{subfigure}[b]{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{MatLabLG_37,5.png}
-        \caption{Loop Gain frequency response}
+        \caption{Loop Gain Frequency Response}
         \label{fig:matlab_cl_37.5}
     \end{subfigure}
-    \caption{Calculated frequency responses for $R_F=37.5\Omega$}
+    \caption{Calculated Frequency Responses for $R_F=37.5\Omega$}
     \label{fig:matlab_37.5}
 \end{figure}
 \begin{figure}[H]
@@ -254,16 +240,16 @@ However, the equivalent Randles circuit model of a biosensor differs fundamental
     \begin{subfigure}[b]{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{MatLabBeta_7500.png}
-        \caption{$\frac{1}{\beta(j\omega)}$ frequency response}
+        \caption{$\frac{1}{\beta(j\omega)}$ Frequency Response}
         \label{fig:matlab_beta_7.5}
     \end{subfigure}\hfill
     \begin{subfigure}[b]{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{MatLabLG_7500.png}
-        \caption{Loop Gain frequency response}
+        \caption{Loop Gain Frequency Response}
         \label{fig:matlab_cl_7.5}
     \end{subfigure}
-    \caption{Calculated frequency responses for $R_F=7.5k\Omega$}
+    \caption{Calculated Frequency Responses for $R_F=7.5k\Omega$}
     \label{fig:matlab_7.5}
 \end{figure}
 
@@ -345,15 +331,15 @@ Op-amp-based multiplexers such as seen in Figure \ref{fig:opamp_mux} provide buf
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{OpAmpMux.png}
-    \caption{Op-amp based multiplexer circuit \cite{Sboa311a}}
+    \caption[Op-amp Based Multiplexer Circuit]{Op-amp Based Multiplexer Circuit \cite{Sboa311a}}
     \label{fig:opamp_mux}
 \end{figure}
 
 Signal relays, in contrast, use electromechanical contacts to physically open or close signal paths, offering near-zero leakage current and extremely low, stable contact resistance that is independent of signal voltage and temperature. This physical isolation and connection ensures that the measured current accurately reflects the biosensor response. While relays are slower to switch and larger than solid-state alternatives, their switching speed is more than sufficient for switching between sensors.
 
-The TXS2-L2-3V DPDT latching signal relay was chosen due to its small size, low operating current (23.3 mA) and high mechanical lifetime (Minimum 200 000 operations). The major concern of a mechanical relay is the mechanical wear, however at an assumed 2 actuations per measurement and 50 measurements a day, the relays are expected to last more than 5 years. Utilising the DPDT topology of the relay, they can be configured in a tree pattern, allowing for 4 DUT's to be switched using 3 relays as seen in figure \ref{fig:relay_topology}. 
+The TXS2-L2-3V DPDT latching signal relay was chosen due to its small size, low operating current (23.3 mA) and high mechanical lifetime (Minimum 200 000 operations). The major concern of a mechanical relay is the mechanical wear, however at an assumed 2 actuations per measurement and 50 measurements a day, the relays are expected to last more than 5 years. Utilising the DPDT topology of the relay, they can be configured in a tree pattern, allowing for 4 DUT's to be switched using 3 relays as seen in Figure \ref{fig:relay_topology}. 
 
-Despite the low operating current, a driver circuit is still needed to power the relay from a microcontroller GPIO. This consists of a lowside NPN transistor and a flyback diode to protect against voltage spikes when the coil is switched off. The final circuit can be seen in figure \ref{fig:relay_circuit}
+Despite the low operating current, a driver circuit is still needed to power the relay from a microcontroller GPIO. This consists of a lowside NPN transistor and a flyback diode to protect against voltage spikes when the coil is switched off. The final circuit can be seen in Figure \ref{fig:relay_circuit}
 
 \begin{figure}[H]
     \centering
@@ -381,31 +367,39 @@ As mentioned in Section \ref{subsec:design_excitation}, a 1.65V reference is nee
     \begin{minipage}{0.35\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Vground.png}
-        \caption{\newline Virtual ground reference circuit}
+        \caption[Virtual Ground Reference Circuit]{\newline Virtual Ground Reference Circuit}
         \label{fig:virtual_ground}
     \end{minipage}\hfill
     \begin{minipage}{0.6\textwidth}
         \centering
         \includegraphics[width=\textwidth]{5V_Reg.png}
-        \caption{5V boost converter circuit}
+        \caption{5V Boost Converter Circuit}
         \label{fig:5V_reg}
     \end{minipage}
 \end{figure}
 
-The LTC1069 AA-Filter requires a 5V supply voltage. A 3.3V to 5V boost circuit was designed around the TPS61072 boost regulator using the TI WeBench power supply design tool \cite{WEBENCHCIRCUITDESIGNERDesignTool}, ensuring a stable and efficient circuit as seen in figure \ref{fig:5V_reg}. 
-
-\subsection{Signal Processing}
-
-\subsection{User Interface}
-\todo{Fill in once GUI is actually done}
-\todo{Talk about flexibility of having both physical buttons and display aswell as web ui, allowing both standalone use and use with either computer, tablet or cell phone, ensuring versatility across environments}
+The LTC1069 AA-Filter requires a 5V supply voltage. A 3.3V to 5V boost circuit was designed around the TPS61072 boost regulator using the TI WeBench power supply design tool \cite{WEBENCHCIRCUITDESIGNERDesignTool}, ensuring a stable and efficient circuit as seen in Figure \ref{fig:5V_reg}. 
 
 \section{Circuit Simulation}
 
 \subsection{Biosensor}
-Despite the widespread use of \acp{CPE} in electrical simulations, the SPICE family of simulators lack a native CPE element. \needscite{There are a variety of approaches to modelling \acp{CPE} such as Laplace transform, Fourier theory or using a network of resistors and capacitors.} \cite{wilsonSimulatingFractionalCapacitors2023} builds on existing approaches to modelling a CPE using a combination of resistors and capacitors (such as \needscite{Add references from wilson}), by using an array of parallel RC elements as seen in Fig \ref{fig:RC_CPE}. The branches form a theoretically infinite geometric progression of characteristic frequencies \cite{wilsonSimulatingFractionalCapacitors2023}, however characteristic frequencies above and below the frequency range of interest are approximated using a single capacitor and resistor respectively. \cite{wilsonSimulatingFractionalCapacitors2023} provides MatLab code that calculates the R and C values of all the branches and this was used to model a CPE element matching the biosensor in LTSpice. Figure \ref{fig:cpe_sim} shows that the CPE model does indeed exhibit a constant phase across the measurement range of interest (1Hz-100kHz) and figure \ref{fig:biosensor_sim} shows the simulated response of the biosensor including $R_S$. Comparing this to the PalmSens measurements (figure \ref{fig:ps_ide}) shows that this model serves as a fairly accurate representation of the \ac{DUT} for simulation purposes.
+% (such as \needscite{Add references from wilson})
+Despite the widespread use of \acp{CPE} in electrical simulations, the SPICE family of simulators lack a native CPE element. \needscite{There are a variety of approaches to modelling \acp{CPE} such as Laplace transform, Fourier theory or using a network of resistors and capacitors.} \cite{wilsonSimulatingFractionalCapacitors2023} builds on existing approaches to modelling a CPE using a combination of resistors and capacitors, by using an array of parallel RC elements as seen in Fig \ref{fig:RC_CPE}. The branches form a theoretically infinite geometric progression of characteristic frequencies \cite{wilsonSimulatingFractionalCapacitors2023}, however characteristic frequencies above and below the frequency range of interest are approximated using a single capacitor and resistor respectively. \cite{wilsonSimulatingFractionalCapacitors2023} provides MatLab code that calculates the R and C values of all the branches and this was used to model a CPE element matching the biosensor in LTSpice. Figure \ref{fig:cpe_sim} shows that the CPE model does indeed exhibit a constant phase across the measurement range of interest (1Hz-100kHz) and Figure \ref{fig:biosensor_sim} shows the simulated response of the biosensor including $R_S$. Comparing this to the PalmSens measurements (Figure \ref{fig:ps_ide}) shows that this model serves as a fairly accurate representation of the \ac{DUT} for simulation purposes.
 
-\subsection{Excitation stage}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{CPE_linear.png}
+        \caption{Simulated CPE Frequency Response}
+        \label{fig:cpe_sim}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{DUT_Z.png}
+        \caption{Simulated Biosensor Frequency Response}
+        \label{fig:biosensor_sim}
+\end{figure}
+
+\subsection{Excitation Stage}
 For the simulation of the excitation stage, a sample-and-hold block was used to mimic the DAC at varying sample rates. LTSpice has no included components to simulate a raised cosine filter, thus a FIR filter block from \cite{FilterManual} with a raised cosine response and $\beta = 1$ was used. Comparing the simulated frequency response with the LTC1069-7 datasheet (Figures \ref{fig:lt_aa_freq} and \ref{fig:ltc_aa_freq}) for cutoff frequencies of 10kHz and 100kHz, the overall magnitude response is a good approximation, despite some differences at high levels of attenuation ($<-50dB$). The simulated phase response, however is non-linear which does not match the LTC1069-7, but this will not impact the overall system simulation as the DUT is being excited at a single frequency. The TLV9061, INA331 and OPA3s328 PSpice models were obtained from TI and adapted to work in LT Spice. The TLV9061 was used for the attenuation stage.
 
 \begin{figure}[H]
@@ -413,16 +407,16 @@ For the simulation of the excitation stage, a sample-and-hold block was used to 
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{FIR_10k.png}
-        \caption{10kHz cutoff frequency}
+        \caption{10kHz Cutoff Frequency}
         \label{fig:fir_10k}
     \end{subfigure}\hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{FIR_100k.png}
-        \caption{100kHz cutoff frequency}
+        \caption{100kHz Cutoff Frequency}
         \label{fig:fir_100k}
     \end{subfigure}
-    \caption{Simulated FIR filter frequency responses}
+    \caption{Simulated FIR filter Frequency Responses}
     \label{fig:lt_aa_freq}
 \end{figure}
 
@@ -431,16 +425,16 @@ For the simulation of the excitation stage, a sample-and-hold block was used to 
     \begin{subfigure}[b]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{LTC_10k.png}
-        \caption{10kHz cutoff frequency}
+        \caption{10kHz Cutoff Frequency}
         \label{fig:ltc_10k}
     \end{subfigure}\hfill
     \begin{subfigure}[b]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{LTC_100k.png}
-        \caption{100kHz cutoff frequency}
+        \caption{100kHz Cutoff Frequency}
         \label{fig:ltc_100k}
     \end{subfigure}
-    \caption{LTC1069-7 datasheet frequency responses}
+    \caption{LTC1069-7 Datasheet Frequency Responses}
     \label{fig:ltc_aa_freq}
 \end{figure}
 
@@ -456,15 +450,15 @@ Figure \ref{fig:dac_filtering} shows a 10kHz signal with 32x oversampling genera
     \end{subfigure}\hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{ExcitationStage.png}
-        \caption{Current through simulated DUT}
+        \includegraphics[width=\textwidth]{AA_vs_noAA_cur.png}
+        \caption{Comparison of current through DUT with and without AA-filter}
         \label{fig:dut_current}
     \end{subfigure}
-    \caption{Simulated excitation stage output and DUT response}
+    \caption{Simulated Excitation Stage Output and DUT Response}
     \label{fig:excitation_sim}
 \end{figure}
 
-\subsection{Voltage measurement}
+\subsection{Voltage Measurement}
 The voltage measurement stage was simulated with the INA331 and TLV9061 models to confirm the frequency response of the system. Figure \ref{fig:ina_freq} shows only a slight gain reduction of -0.02dB gain reduction at 100kHz and a -4.6\textdegree phase shift. Fig \ref{fig:v_meas_freq} shows the overall frequency response of the voltage measurement stage with the TLV9061 amplification stage contributing an additional -0.2dB gain reduction and -3.4\textdegree phase shift. This confirms that sufficient bandwidth is available for measurements up to 100kHz.
 
 \begin{figure}[H]
@@ -472,27 +466,65 @@ The voltage measurement stage was simulated with the INA331 and TLV9061 models t
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{INA331FreqResponse.png}
-        \caption{INA331 frequency response}
+        \caption{INA331 Frequency Response}
         \label{fig:ina_freq}
     \end{minipage}\hfill
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{VmeasFreqResponse.png}
-        \caption{Complete voltage measurement stage frequency response}
+        \caption{Complete Voltage Measurement Stage Frequency Response}
         \label{fig:v_meas_freq}
     \end{minipage}
 \end{figure}
 
-\subsection{Current measurement}
+\subsection{Current Measurement}
 Due to problems porting the OPA3s328 PSpice model to LT Spice, the internal mux was not simulated. The PGA113 has no available PSpice model \cite{PGA113PspiceModel2022}, thus a standard inverting amplifier configuration using the TLV9061 was used to simulate the PGA stage. Figure \ref{fig:tia_freq} shows the frequency response of the TIA stage alone at both feedback resistor values. At 100 kHz with $R_F = 7.5~k\Omega$, the stage exhibits a gain increase of +0.136 dB and a phase shift of -15.4\textdegree. For $R_F = 37.5~\Omega$, the response shows a gain increase of +0.137 dB and a phase shift of -15.6\textdegree. The slight gain increase is due to very slight peaking in the frequency response before the eventual rolloff. This demonstrates a very flat frequency response well below the circuit's bandwidth limitations. Figure \ref{fig:i_meas_freq} shows the overall frequency response of the current measurement stage with the PGA and final amplification stages contributing an additional -0.25dB gain reduction and -4.8\textdegree phase shift. This confirms that sufficient bandwidth is available for measurements up to 100kHz.
 
-To confirm the stability of the TIA circuit, Tian's method was used to plot the loop gain and phase margin for both the Radnles circuit using the \ac{CPE} and the simplified circuit using a constant capacitance as seen in figure \ref{fig:tia_stability} and Table \ref{tab:lt_tia_stability}. These results closely match the MatLab results in section \ref{subsec:design_cur}, confirming that the TIA design is stable without the need for feedback compensation.
+To confirm the stability of the TIA circuit, Tian's method was used to plot the loop gain and phase margin for both the Radnles circuit using the \ac{CPE} and the simplified circuit using a constant capacitance as seen in Figure \ref{fig:tia_stability} and Table \ref{tab:lt_tia_stability}. These results closely match the MatLab results in section \ref{subsec:design_cur}, confirming that the TIA design is stable without the need for feedback compensation.
+
+% Two sub figures for two tia gain freq responses using subfigures not minipages
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TIA_Freq_37,5.png}
+        \caption{$R_F = 37.5~\Omega$}
+        \label{fig:tia_freq_37.5}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TIA_Freq_7500.png}
+        \caption{$R_F = 7.5~k\Omega$}
+        \label{fig:tia_freq_7.5k}
+    \end{subfigure}
+    \caption{Simulated TIA Frequency Response}
+    \label{fig:tia_freq}
+\end{figure}
+
+% Two subfigures for the complete current measurement stage freq response using subfigures not minipages for the two tia gain values
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{CurMeas_37.5.png}
+        \caption{$R_F = 37.5~\Omega$}
+        \label{fig:i_meas_freq_37.5}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{CurMeas_7500.png} 
+        \caption{$R_F = 7.5~k\Omega$}
+        \label{fig:i_meas_freq_7.5k}
+    \end{subfigure}
+    \caption{Simulated Complete Current Measurement Stage Frequency Response}
+    \label{fig:i_meas_freq}
+\end{figure}
 
 \subsection{Complete System}
 The individual subsystems were combined into a complete model including DAC and ADCs using sample-and-hold blocks. Transient analysis was done at a range of excitation frequencies. For frequency analysis the DAC and ADCs were excluded.
 
 \section{PCB Design}\label{sec:PCB}
-Beskryf filosofie en idees wat mee ingegaa het. Briefly discuss general PCB design principles wat design geguide het (Analogue ground plane etc). Beskryf beperkings van PCB manufactures wat inag geneem moes word (PCB size, layers, trace width via diamtre etc.). Noem briefly hoekom PCB in China eerder as Uni laat maak. Gaan deur design logic en discuss probleem met TIA. Include maybe final PCB diagram en langs dit foto van manufactured PCB.
+% Beskryf filosofie en idees wat mee ingegaa het. Briefly discuss general PCB design principles wat design geguide het (Analogue ground plane etc). Beskryf beperkings van PCB manufactures wat inag geneem moes word (PCB size, layers, trace width via diamtre etc.). Noem briefly hoekom PCB in China eerder as Uni laat maak. Gaan deur design logic en discuss probleem met TIA. Include maybe final PCB diagram en langs dit foto van manufactured PCB.
 
 All PCB design was done using KiCad due to its open-source nature and wide usage in industry. Due to the complexity of the circuit, JLC PCB was used for manufacturing rather than Stellenbosch University's in-house PCB manufacturing. \rephrase{There are substantial price differences between JLC's standard process and their more advanced processes (\textdollar 4 vs \textdollar 68)}. Table \ref{tab:jlc_limits} lists the key limits of JLC's standard PCB process that had to be taken into account. 
 
@@ -502,7 +534,7 @@ Subsystems we're grouped together with jumpers connecting subsystems, allowing f
 
 The complete PCB schematic is shown in Appendix \ref{appendix:schematic} and the final PCB layout in Figure \ref{fig:final_pcb}.
 
-\begin{table}[ht]
+\begin{table}[H]
     \centering
     \caption{JLC PCB Standard Manufacturing Process Limits}
     \label{tab:jlc_limits}
@@ -521,7 +553,7 @@ The complete PCB schematic is shown in Appendix \ref{appendix:schematic} and the
     \end{tabular}
 \end{table}
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
@@ -535,22 +567,22 @@ The complete PCB schematic is shown in Appendix \ref{appendix:schematic} and the
         \caption{PCB back layout}
         \label{fig:pcb_back}
     \end{subfigure}
-    \caption{Final PCB layout}
+    \caption{Final PCB Layout}
     \label{fig:pcb_layout}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
     \begin{minipage}{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{BioPal_render.png}
-        \caption{Final PCB render}
+        \caption{Final PCB Render}
         \label{fig:final_pcb}
     \end{minipage}\hfill
     \begin{minipage}{0.35\textwidth}
         \centering
         \includegraphics[width=\textwidth]{BGA_Routing.png}
-        \caption{\\OPA3S328 BGA routing solution}
+        \caption{\\OPA3S328 BGA Routing Solution}
         \label{fig:bga_routing}
     \end{minipage}
 \end{figure}
@@ -563,26 +595,62 @@ The system architecture is shown in Figure \ref{fig:system_overview}. The ESP32 
 The STM32 serves as the measurement subsystem, interfacing with the analogue frontend to perform measurements. Results are then sent to the ESP32 via UART. The ESP32 acts as the system controller, managing calibration, sending commands to the STM32 and handling the user interfaces. An on-device LCD with buttons provides an interface for standalone operation in any setting, while an optional web-based interface accessible via \ac{BLE} enables enhanced usability when client devices are available.
 
 \subsection{STM32 Measurement Subsystem}
-The STM32F303K8 includes a 12-bit \ac{DAC} and 12-bit \acp{ADC} with up to 1 Msps sampling. Advanced timers enable precise frequency generation for the excitation stage with sub-microsecond accuracy. The ARM Cortex-M4F core includes a hardware \ac{FPU} and \ac{DSP} extensions, providing native support for \ac{FFT} operations through the CMSIS-DSP library.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{STMFlowDiagram.png}
+    \caption{STM32 Measurement Subsystem Flowdiagram}
+    \label{fig:stm32_flow}
+\end{figure}
+% Update flow diagram to show selection of MUX channel and gain settings
+The STM32F303K8 was selected for its superior measurement capabilities compared to the ESP32. Its 12-bit \ac{DAC} and 12-bit \acp{ADC} provide 1 Msps sampling with hardware oversampling support, whilst advanced timers enable precise frequency generation with sub-microsecond accuracy. The ARM Cortex-M4F core includes a hardware \ac{FPU} and \ac{DSP} extensions, providing native support for \ac{FFT} operations through the CMSIS-DSP library. These capabilities enable the accurate impedance measurements required for biosensing applications.
 
-\ac{DMA} channels enable \ac{DAC} output and simultaneous sampling of both \acp{ADC} without CPU intervention, ensuring precise phase measurements. The STM32 generates the excitation waveform, controls the multiplexer, \ac{PGA} and \ac{TIA} gain settings, acquires voltage and current measurements, performs digital filtering and \ac{FFT} analysis, and transmits impedance results to the ESP32.
+The 38 measurement frequencies were carefully selected to ensure exact generation by the \ac{DAC}. Timer frequency generation on the STM32 follows Equation \ref{eq:timer_freq}, where $f_{TIM}$ is the timer clock frequency (64 MHz for TIM6), PSC is the prescaler register value, and ARR is the auto-reload register value. Both PSC and ARR are 16-bit registers with maximum values of 65535.
+
+\begin{equation}
+    f_{update} = \frac{f_{TIM}}{(PSC + 1) \times (ARR + 1)}
+    \label{eq:timer_freq}
+\end{equation}
+
+For a target frequency $f_{target}$, suitable PSC and ARR values must be found such that $(PSC + 1) \times (ARR + 1) = f_{TIM} / f_{target}$ and $f_target = f_{meas} \times n_{oversampling}$. This constraint limits the achievable frequencies to those with integer divisors that fit within the 16-bit register limits. The selected frequencies follow roughly logarithmic spacing from 1 Hz to 100 kHz to provide adequate coverage of the biosensor's impedance spectrum.
+
+TIM6 serves dual purposes, triggering both \ac{DAC} updates for signal generation and \ac{ADC} sampling for voltage and current measurements. This synchronous triggering is critical for accurate phase measurements, as any timing mismatch between current and voltage measurement would introduce phase errors. Oversampling improves \ac{DAC} resolution and reduces aliasing effects on the \ac{DUT}. At low frequencies, 128x oversampling is used (128 \ac{DAC} updates per sine wave cycle), limited by the maximum \ac{ADC} buffer size the STM32's 16 KB RAM can accommodate. At higher frequencies, oversampling was reduced due to the limited update speed of the peripherals. However, even at 100 kHz, 32x oversampling is maintained, well above the theoretical Nyquist limit of 2 samples per cycle.
+
+\ac{DMA} channels enable simultaneous \ac{DAC} output and dual-channel \ac{ADC} sampling without CPU intervention. The STM32 controls the \ac{PGA} gain via SPI, switches the \ac{TIA} feedback resistor, and manages the relay multiplexer to select between the four \acp{DUT}.
+
+Initially, a dynamic gain adjustment approach was implemented where the \ac{PGA} and \ac{TIA} gains were automatically adjusted based on measured signal amplitudes to maximise \ac{ADC} range utilisation without clipping. However, this resulted in large run-to-run variations and proved difficult to calibrate for. Fixed gain settings for each frequency were instead adopted based on the expected impedance response of the biosensor being measured, providing consistent and repeatable measurements.
+
+The measurement process follows a state machine architecture. After receiving a start command from the ESP32 via UART, the STM32 sequences through each frequency for each \ac{DUT} in turn. For each measurement point, the system first generates the excitation signal and waits 1 second for the response to reach steady state. It then acquires 10 complete cycles of both voltage and current waveforms. These 10 cycles are then averaged to improve the signal-to-noise ratio before FFT processing. A 128-point FFT is performed on both the voltage and current signals using the ARM CMSIS-DSP library, extracting the magnitude and phase at the frequency of interest. After completing all 38 frequencies for a \ac{DUT}, the STM32 transmits the results to the ESP32 before proceeding to the next \ac{DUT}. This immediate transmission after each \ac{DUT} is necessary due to memory limitations.
 
 \subsection{ESP32 User Interface and System Control}
-The ESP32-C6 serves as the system controller, accepting user inputs, sending measurement commands to the STM32, calibrating the resulting measurements and displaying results to the user. The larger flash and RAM resources on the ESP32 allowed for the use of Free RTOS,allowing for multitasking and improved system responsiveness. The ESP32 also handles the two user interfaces.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{ESPFlowDiagram.png}
+    \caption{ESP Flow Diagram}
+    \label{fig:esp32_flow}
+\end{figure}
+The ESP32-C6 serves as the system controller, accepting user inputs, sending measurement commands to the STM32, calibrating the resulting measurements and displaying results to the user. The larger flash and RAM resources on the ESP32 allowed for the use of Free RTOS, using three concurrent tasks to handle different aspects of system operation. A UART reader task receives and parses data packets from the STM32 as they arrive. A data processor task performs impedance calculations and applies calibration corrections to the raw measurements. A GUI task manages the display updates, button inputs, and \ac{BLE} communication. This multi-tasking approach ensures responsive user interaction whilst processing measurement data in real-time.
+
+The ESP32 orchestrates the complete measurement sequence. Upon receiving a start command from either the physical buttons or web interface, it configures the STM32 with the appropriate measurement parameters (number of \acp{DUT} and frequency range) and initiates the measurement cycle. As the STM32 send measurement data back via UART, the ESP32 applies calibration corrections and updates the display to show measurement progress. The calibration system corrects for systematic errors in the analogue frontend using reference measurements. After completing measurements for all \acp{DUT}, the ESP32 stores the results and makes them available for export via USB serial in a CSV format and sends the data over \ac{BLE} to the web interface if connected.
 
 \subsubsection{On-Device Interface}
-Physical buttons and an LCD display enable complete standalone operation. Combined with battery power, this ensures the device functions in any resource-constrained setting without requiring external hardware. The interface provides immediate feedback and control, critical for \ac{POC} environments where reliable operation cannot depend on network connectivity or additional devices.
+Physical buttons and a TFT LCD display enables complete standalone operation. Combined with battery power, this ensures the device functions in any resource-constrained setting without requiring external hardware. The high resolution display allows for an intuitive user interface. Users can configure the number of \acp{DUT} to measure, set the frequency range, initiate measurements, and view results without any external devices. This interface is critical for resource constrained \ac{POC} environments where reliable network connectivity or additional hardware might not be available.
 
 \subsubsection{Web Interface via BLE}
-A secondary web-based interface provides enhanced usability when network-connected devices are available. Three implementation approaches were considered:
+A secondary web-based interface provides enhanced usability when client devices are available. A website was chosen over an app to ensure compatibility with all modern devices, regardless of operating system. This ensures that computers, phone or tablets can all be used to control the device. Three implementation approaches were considered for enabling remote control of the device via a web interface.
 
-\textbf{Option 1 - Existing WiFi Network:} The device connects to an existing network, enabling control over WiFi or the internet. While convenient once configured, this approach poses significant barriers in healthcare environments with strict network security policies protecting patient data. It also excludes settings without WiFi infrastructure, such as rural clinics.
+% Example of the web ui results page
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{BioPal WebUI.png}
+    \caption{Web Interface Results Page}
+    \label{fig:web_ui_results}
+\end{figure}
+
+\textbf{Option 1 - Existing WiFi Network:} The device connects to an existing network, enabling control over WiFi or the internet. While convenient once configured, this approach poses significant barriers in healthcare environments with strict network security policies due to the need to protect patient data. It also excludes settings without existing WiFi infrastructure, such as rural clinics.
 
 \textbf{Option 2 - Device WiFi Hotspot:} The device hosts its own WiFi network, serving a local website. This avoids secure network requirements and functions everywhere, but forces client devices offline, potentially disrupting other applications and services.
 
-\textbf{Option 3 - Web Application with BLE:} A web application hosted remotely connects to the device via \ac{BLE}. This approach was selected as it provides the benefits of both previous options without their drawbacks. Client devices maintain internet connectivity, no secure network authentication is required, and the solution works universally. Critically, all measurement data transfers locally over \ac{BLE}, eliminating security risks and POPIA compliance concerns associated with transmitting patient information over the internet. The web-based implementation ensures cross-platform compatibility across mobile, desktop, and tablet devices regardless of operating system.
-
-Communication between the ESP32 and STM32 occurs via UART, with a protocol designed for reliable transmission of measurement parameters, gain settings, and impedance results. The ESP32 polls the STM32 for measurement status and retrieves data once processing completes.
+\textbf{Option 3 - Web Application with BLE:} A web application hosted remotely connects to the device via \ac{BLE} usin the WebBLE protocol. This approach was selected as it provides the benefits of both previous options without their drawbacks. Client devices maintain internet connectivity, no secure network authentication is required, and the solution works universally. Critically, all measurement data transfers locally over \ac{BLE}, eliminating security risks and POPIA compliance concerns associated with transmitting patient information over the internet.
 
 \section{System Integration}
 

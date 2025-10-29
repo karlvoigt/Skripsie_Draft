@@ -20,35 +20,11 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{chioyeBuildProgrammableGain2021}
-L.~Chioye, ``Build a {{Programmable Gain Transimpedance Amplifier Using}} the {{OPA3S328}},'' 2021.
-
-\bibitem{StabilizeYourTransimpedance}
-``Stabilize {{Your Transimpedance Amplifier}} {\textbar} {{Analog Devices}},'' https://www.analog.com/en/resources/technical-articles/stabilize-transimpedance-amplifier-circuit-design.html.
-
-\bibitem{Sboa311a}
-``Sboa311a.''
-
 \bibitem{bhallaIntroductionBiosensors2016}
 N.~Bhalla, P.~Jolly, N.~Formisano, and P.~Estrela, ``Introduction to biosensors,'' \emph{Essays in Biochemistry}, vol.~60, no.~1, pp. 1--1, Jun. 2016.
 
 \bibitem{BiomarkersNationalInstitute}
 ``Biomarkers {\textbar} {{National Institute}} of {{Environmental Health Sciences}}.''
-
-\bibitem{rosenzweigWhatArePancreatic2018}
-A.~Rosenzweig, ``What {{Are Pancreatic Cancer Biomarkers}}? - {{Pancreatic Cancer Action Network}},'' 2018.
-
-\bibitem{ribeiroApplicationsElectrochemicalImpedance2024}
-J.~A. Ribeiro and P.~A. Jorge, ``Applications of electrochemical impedance spectroscopy in disease diagnosis---{{A}} review,'' \emph{Sensors and Actuators Reports}, vol.~8, pp. 100\,205--100\,205, Dec. 2024.
-
-\bibitem{zengRecombinantAntibodiesTheir2012}
-X.~Zeng, Z.~Shen, and R.~Mernaugh, ``Recombinant antibodies and their use in biosensors,'' \emph{Analytical and bioanalytical chemistry}, vol. 402, no.~10, pp. 3027--3038, Apr. 2012.
-
-\bibitem{suedaAntibodyImmobilizationImmunosensing2022a}
-S.~Sueda, ``Antibody immobilization for immunosensing,'' \emph{Analytical Sciences}, vol.~38, no.~1, pp. 1--2, Jan. 2022.
-
-\bibitem{UsingAntibodiesVaccinea}
-``Using {{Antibodies}} as vaccine delivery vehicles,'' https://downhousesoftware.wordpress.com/2013/12/.
 
 \bibitem{danielsLabelFreeImpedanceBiosensors2007}
 J.~S. Daniels and N.~Pourmand, ``Label-{{Free Impedance Biosensors}}: {{Opportunities}} and {{Challenges}},'' \emph{Electroanalysis}, vol.~19, no.~12, pp. 1239--1257, 2007.
@@ -92,15 +68,6 @@ e.~{technology}, ``What are the {{Drawbacks}} of {{Differential Amplifier Circui
 \bibitem{brownDesignThinking2008}
 T.~Brown, ``Design {{Thinking}},'' \emph{Harvard Business Review}, Jul. 2008.
 
-\bibitem{PalmSens4}
-``{{PalmSens4}},'' https://www.palmsens.com/product/palmsens4/.
-
-\bibitem{ebrahimDevelopmentBiosensorEarly2023}
-T.~Ebrahim, ``The development of a biosensor for the early detection of pancreatic cancer,'' 2023.
-
-\bibitem{dincerMultiplexedPointofCareTesting2017}
-C.~Dincer, R.~Bruch, A.~Kling, P.~S. Dittrich, and G.~A. Urban, ``Multiplexed {{Point-of-Care Testing}} -- {{xPOCT}},'' \emph{Trends in Biotechnology}, vol.~35, no.~8, pp. 728--742, Aug. 2017.
-
 \bibitem{LTC10697CS8PBF}
 ``{{LTC1069-7CS8}}\#{{PBF}},'' https://www.digikey.co.za/en/products/detail/analog-devices-inc/LTC1069-7CS8-PBF/889060.
 
@@ -110,8 +77,20 @@ J.~M. Fiore, ``5.3: {{Gain-Bandwidth Product}},'' in \emph{Operational {{Amplifi
 \bibitem{oljacaOperationalAmplifierGain2010}
 M.~Oljaca and H.~Surtihadi, ``Operational amplifier gain stability, {{Part}} 1: {{General}} system analysis,'' 2010.
 
+\bibitem{chioyeBuildProgrammableGain2021}
+L.~Chioye, ``Build a {{Programmable Gain Transimpedance Amplifier Using}} the {{OPA3S328}},'' 2021.
+
+\bibitem{StabilizeYourTransimpedance}
+``Stabilize {{Your Transimpedance Amplifier}} {\textbar} {{Analog Devices}},'' https://www.analog.com/en/resources/technical-articles/stabilize-transimpedance-amplifier-circuit-design.html.
+
+\bibitem{ebrahimDevelopmentBiosensorEarly2023}
+T.~Ebrahim, ``The development of a biosensor for the early detection of pancreatic cancer,'' 2023.
+
 \bibitem{SelectingRightCMOS}
 ``Selecting the {{Right CMOS Analog Switch}} {\textbar} {{Analog Devices}},'' https://www.analog.com/en/resources/design-notes/selecting-the-right-cmos-analog-switch.html.
+
+\bibitem{Sboa311a}
+``Sboa311a.''
 
 \bibitem{WEBENCHCIRCUITDESIGNERDesignTool}
 ``{{WEBENCH-CIRCUIT-DESIGNER Design}} tool {\textbar} {{TI}}.com,'' https://www.ti.com/tool/WEBENCH-CIRCUIT-DESIGNER.
@@ -127,8 +106,5 @@ M.~Wilson, L.~Cowie, V.~Farrow, M.~Cree, and J.~Scott, \emph{Simulating {{Fracti
 
 \bibitem{WhatAreBasic}
 ``What {{Are}} the {{Basic Guidelines}} for {{Layout Design}} of {{Mixed-Signal PCBs}}? {\textbar} {{Analog Devices}},'' https://www.analog.com/en/resources/analog-dialogue/articles/what-are-the-basic-guidelines-for-layout-design-of-mixed-signal-pcbs.html.
-
-\bibitem{ImSeeingUnexpected}
-``I'm seeing unexpected noise on my ocsilloscope.'' https://www.tek.com/en/support/faqs/im-seeing-unexpected-noise-my-ocsilloscope.
 
 \end{thebibliography}
