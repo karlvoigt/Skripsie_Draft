@@ -74,12 +74,6 @@ T.~Brown, ``Design {{Thinking}},'' \emph{Harvard Business Review}, Jul. 2008.
 \bibitem{fiore53GainBandwidthProduct2018}
 J.~M. Fiore, ``5.3: {{Gain-Bandwidth Product}},'' in \emph{Operational {{Amplifiers}} and {{Linear Integrated Circuits}} - {{Theory}} and {{Application}} ({{Fiore}})}, May 2018.
 
-\bibitem{oljacaOperationalAmplifierGain2010}
-M.~Oljaca and H.~Surtihadi, ``Operational amplifier gain stability, {{Part}} 1: {{General}} system analysis,'' 2010.
-
-\bibitem{chioyeBuildProgrammableGain2021}
-L.~Chioye, ``Build a {{Programmable Gain Transimpedance Amplifier Using}} the {{OPA3S328}},'' 2021.
-
 \bibitem{StabilizeYourTransimpedance}
 ``Stabilize {{Your Transimpedance Amplifier}} {\textbar} {{Analog Devices}},'' https://www.analog.com/en/resources/technical-articles/stabilize-transimpedance-amplifier-circuit-design.html.
 
@@ -88,9 +82,6 @@ T.~Ebrahim, ``The development of a biosensor for the early detection of pancreat
 
 \bibitem{SelectingRightCMOS}
 ``Selecting the {{Right CMOS Analog Switch}} {\textbar} {{Analog Devices}},'' https://www.analog.com/en/resources/design-notes/selecting-the-right-cmos-analog-switch.html.
-
-\bibitem{Sboa311a}
-``Sboa311a.''
 
 \bibitem{WEBENCHCIRCUITDESIGNERDesignTool}
 ``{{WEBENCH-CIRCUIT-DESIGNER Design}} tool {\textbar} {{TI}}.com,'' https://www.ti.com/tool/WEBENCH-CIRCUIT-DESIGNER.
@@ -106,5 +97,11 @@ M.~Wilson, L.~Cowie, V.~Farrow, M.~Cree, and J.~Scott, \emph{Simulating {{Fracti
 
 \bibitem{WhatAreBasic}
 ``What {{Are}} the {{Basic Guidelines}} for {{Layout Design}} of {{Mixed-Signal PCBs}}? {\textbar} {{Analog Devices}},'' https://www.analog.com/en/resources/analog-dialogue/articles/what-are-the-basic-guidelines-for-layout-design-of-mixed-signal-pcbs.html.
+
+\bibitem{maImpedancebasedIntegratedBiosensor2013}
+H.~Ma, R.~W.~R. Wallbank, R.~Chaji, J.~Li, Y.~Suzuki, C.~Jiggins, and A.~Nathan, ``An impedance-based integrated biosensor for suspended {{DNA}} characterization,'' \emph{Scientific Reports}, vol.~3, no.~1, p. 2730, Sep. 2013.
+
+\bibitem{ebadiPolypyrrolebasedBovineSerum2025}
+M.~Ebadi, S.~A. Mazlan, M.~A.~F. Johari, and M.~R. Yusop, ``Polypyrrole-based bovine serum albumin imprinted electrochemical sensor for clinical application,'' \emph{Talanta Open}, vol.~12, p. 100510, Dec. 2025.
 
 \end{thebibliography}

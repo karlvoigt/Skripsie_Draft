@@ -53,8 +53,8 @@ The PGA113 was measured at each gain setting from 1 V/V to 200 V/V for each meas
 \label{tab:pga_performance}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\textbf{Gain Setting} & \textbf{Maximum Gain} & \textbf{100kHz Gain} & \textbf{Gain Reduction} & \textbf{100kHz Phase Shift} \\
-\textbf{(V/V)} & \textbf{(V/V)} & \textbf{(V/V)} & \textbf{(dB)} & \textbf{(\textdegree)} \\
+\textbf{Gain Setting} & \textbf{Max Gain} & \textbf{100kHz Gain} & \textbf{Gain Reduction} & \textbf{100kHz Phase} \\
+\textbf{(V/V)} & \textbf{(V/V)} & \textbf{(V/V)} & \textbf{(dB)} & \textbf{Shift (\textdegree)} \\
 \hline
 1 & 1.00 & 0.92 & -0.74 & -0.8 \\
 \hline
@@ -81,37 +81,163 @@ The final TLV9061 amplification stage in the current measurement path was modifi
 
 With all subsystems verified individually, the system was integrated and calibrated. The complete analogue frontend was tested using passive test cells, initially with a signal generator providing the excitation. Once analogue system stability and measurement accuracy were confirmed, the STM32 was used to generate DAC signals and acquire responses with the ADCs.
 
-The STM32's ADC offsets were calibrated using the built-in functions. The gradients were determined by applying a series of known voltages using a bench power supply, with each voltage verified using an oscilloscope and multimeter. Similarly, the DAC output was measured, and the centre point of the generated signal adjusted from 2048 to 2009 to account for the constant voltage offset in the excitation stage attenuation. This ensured that the analogue output was precisely centred at 1.65 V, ensuring the biosensor is not biased with a DC voltage.
+\trimdown{The STM32's ADC offsets were calibrated using the built-in functions. The gradients were determined by applying a series of known voltages using a bench power supply, with each voltage verified using an oscilloscope and multimeter. Similarly, the DAC output was measured, and the centre point of the generated signal adjusted from 2048 to 2009 to account for the constant voltage offset in the excitation stage attenuation. This ensured that the analogue output was precisely centred at 1.65 V, ensuring the biosensor is not biased with a DC voltage.The DAC's frequency generation capability was verified by measuring the output waveform at each test frequency using an oscilloscope. }
+% Frequency was confirmed to be accurate across the entire range, validating the timer configuration and DMA-based waveform generation. 
+% Initial calibration attempts using precision resistors measured with the PalmSens4 across the full frequency range (to account for parasitic impedances) proved problematic. Each TIA and PGA gain combination was calibrated separately using these measurements. However, when testing Randles equivalent circuits or actual biosensors, the frequency-dependent impedance characteristics resulted in unacceptably large error margins. \rephrase{The fixed PGA gain used during calibration did not match the actual measurement conditions, where gain settings vary with frequency to maintain optimal ADC range utilisation.}
+% This necessitated a revised calibration approach. The gain settings for each frequency were pre-programmed to match the expected impedance range based on PalmSens4 characterisation of the biosensors. 
+Frequency response data from each subsystem was smoothed with Locally Estimated Scatterplot Smoothing (LOESS) filtering in MATLAB to minimise measurement noise. The processed data was compiled into a calibration table. Finally, a non-faradaic Randles equivalent test cell (consisting of a 12 $\Omega$ resistor and 1.47 $\mu$F capacitor in series), was measured with both the BioPal and PalmSens4. This was used to calibrate the BioPal's response against the reference instrument. 
+% This approach accounts for the complete signal chain at actual operating conditions, significantly improving accuracy.
 
-The DAC's frequency generation capability was verified by measuring the output waveform at each test frequency using an oscilloscope. Frequency was confirmed to be accurate across the entire range, validating the timer configuration and DMA-based waveform generation. 
+It was found that at very low frequencies (32Hz and below), the lack of filtering in the excitation phase, lead to significant aliasing. Due to the \ac{DUT}'s lower impedance at higher frequencies, the aliased high-frequency components dominated the response, leading to clipping at high gain settings or conversely, very low signal levels at the frequency of interest for low gain settings. However, as shown in the following section, these frequencies are below the range of interest for the tested \acp{IDE} and thus did not have a significant impact on results. However, it did lead to increased error margins at lower frequencies, especially in phase measurements.
 
-Initial calibration attempts using precision resistors measured with the PalmSens4 across the full frequency range (to account for parasitic impedances) proved problematic. Each TIA and PGA gain combination was calibrated separately using these measurements. However, when testing Randles equivalent circuits or actual biosensors, the frequency-dependent impedance characteristics resulted in unacceptably large error margins. \rephrase{The fixed PGA gain used during calibration did not match the actual measurement conditions, where gain settings vary with frequency to maintain optimal ADC range utilisation.}
+After calibrating the system, final validation could be done through measurements on \acp{IDE} using phosphate buffered saline (PBS) 1x solution and bovine serum albumin (BSA) protein.
 
-This necessitated a revised calibration approach. The gain settings for each frequency were pre-programmed to match the expected impedance range based on PalmSens4 characterisation of the biosensors. Each analogue frontend stage was then characterised across all frequencies and gain settings. The measured gain and phase data was smoothed using a MATLAB script to eliminate measurement noise, and compiled into a comprehensive calibration table which was uploaded to the ESP32. Finally, a non-faradaic Randles equivalent test cell was measured simultaneously with both the BioPal and PalmSens4, allowing the BioPal's response to be calibrated against the reference instrument. This approach accounts for the complete signal chain at actual operating conditions, significantly improving accuracy.
+\section{Final Validation}
 
-It was found that at low frequencies (200Hz and below), the lack of filtering in the excitation phase, lead to significant aliasing. Due to the \ac{DUT}'s lower impedance at higher frequencies, the aliased high-frequency components dominated the response, leading to clipping at high gain settings or conversely, very low signal levels at the frequency of interest for low gain settings.
-
-\section{Biosensor Validation}
-
-The final validation stage involved measurements on actual biosensors using phosphate buffered saline (PBS) solution and bovine serum albumin (BSA) protein. 
-
+Initial validation was performed using PBS 1x solutions of varying concentrations to test the BioPal's ability to measure bulk solution impedance changes. Following this, BSA protein binding to the \acp{IDE} was used to simulate antibody-antigen interactions, allowing validation of surface-based impedance changes.
 % PBS 1× was selected as the electrolyte solution due to its physiological ionic strength and pH (7.4), which closely mimics the conditions in bodily fluids and provides a stable, well-characterised electrochemical environment for biosensor operation.
+PBS solutions of v25\%, 50\% and 75\% concentrations were prepared by diluting stock PBS 1x with deionised water with higher PBS concentrations corresponding to higher ionic strength and thus lower solution impedance. Figures \ref{fig:25_pbs_comparison} - \ref{fig:75_pbs_comparison} show impedance measurements taken by both the BioPal and PalmSens4 for each concentration. Baseline measurements were taken using the diluted solutions, followed by final measurements using undiluted PBS 1x. Tabel \ref{tab:pbs} summarises the average reduction in impedance magnitude between the baseline and final measurements across the frequency range from 32 Hz - 100 kHz.
 
-Figure \ref{fig:pbs_concentrations} shows impedance measurements of the biosensor in different PBS concentrations, demonstrating the BioPal's ability to clearly distinguish between solution conductivities. The impedance magnitude decreases with increasing PBS concentration as expected, confirming the device's sensitivity to electrochemical changes.
+\begin{table}[H]
+\centering
+\caption{Average Impedance Change from Baseline to PBS 1x (32 Hz - 100 kHz)}
+\label{tab:pbs}
+\begin{tabular}{lcc}
+\hline
+\textbf{Concentration} & \textbf{PalmSens4 Reduction} & \textbf{BioPal Reduction} \\
+\hline
+% \hline
+\textbf{25\%} & 45.3\% & 47.6\% \\
+\textbf{50\%} & 33.8\% & 31.2\% \\
+\textbf{75\%} & 12.9\% & 12.4\% \\
+\hline
+\end{tabular}
+\end{table}
+% The BioPal successfully detected the impedance increase following BSA adsorption, demonstrating its capability to measure surface-based electrochemical changes relevant to biosensing applications.
+
+% PBS comparison figures
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{PBS_25_cropped.png}
+        \caption{BioPal}
+        \label{fig:25_pbs_biopal}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{PalmSens_25.png}
+        \caption{PalmSens4}
+        \label{fig:25_pbs_palmsens}
+    \end{subfigure}
+    \caption{25\% Baseline vs 100\% Final PBS 1x Comparison}
+    \label{fig:25_pbs_comparison}
+\end{figure}
 
 \begin{figure}[H]
     \centering
-    % \includegraphics[width=0.8\textwidth]{PBSConcentrations.png}
-    \caption{Biosensor Impedance Response to Different PBS Concentrations}
-    \label{fig:pbs_concentrations}
+    \begin{subfigure}{0.48\textwidth}   
+        \includegraphics[width=\textwidth]{PBS_50_cropped.png}
+        \caption{BioPal}
+        \label{fig:50_pbs_biopal}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{PalmSens_50.png}
+        \caption{PalmSens4}
+        \label{fig:50_pbs_palmsens}
+    \end{subfigure}
+    \caption{50\% Baseline vs 100\% Final PBS 1x Comparison}
+    \label{fig:50_pbs_comparison}
 \end{figure}
 
-Whilst testing with immobilised antibodies and actual protein antigens would provide the most direct validation of biosensing capability, such tests were beyond the scope of this project due to laboratory safety restrictions, cost constraints, and limited time. Instead, BSA was used as a surface-binding protein to simulate antibody-antigen interactions. BSA is a common blocking protein that readily adsorbs to gold electrode surfaces, creating a protein layer that alters the interfacial impedance characteristics. This mimics the effect of antibody-antigen binding on the electrode surface, allowing validation of the device's ability to detect surface-based electrochemical changes rather than bulk solution properties.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{PBS_75_cropped.png}   
+        \caption{BioPal}
+        \label{fig:75_pbs_biopal}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{PalmSens_75.png}
+        \caption{PalmSens4}
+        \label{fig:75_pbs_palmsens}
+    \end{subfigure}
+    \caption{ 75\% Baseline vs 100\% Final PBS 1x Comparison}
+    \label{fig:75_pbs_comparison}
+\end{figure}
 
-The measurement protocol involved establishing a baseline impedance measurement in PBS 1×, removing the PBS and adding BSA solution to the electrode well, allowing 20 minutes for protein adsorption, flushing the electrode three times with fresh PBS 1× to remove unbound protein whilst maintaining the same solution characteristics, and finally performing a second impedance measurement.
+After validating the ability to distinguish bulk solution impedance changes, sensitivity to surface-based impedance changes needed to be confirmed. While testing with immobilised antibodies and actual protein antigens would provide the most direct validation, this was beyond the scope of this project due to laboratory safety restrictions, cost constraints, and limited time. Instead, BSA was used as a surface-binding protein to simulate antibody-antigen interactions. BSA is a common blocking protein that is readily absorbed by gold electrode surfaces, creating a protein layer that alters the interfacial impedance characteristics. This mimics the effect of antibody-antigen binding on the electrode surface.
 
-Measurements were performed at each step using both the BioPal and the PalmSens4 for direct comparison. Figure \ref{fig:bsa_comparison} shows the impedance magnitude and phase measurements from both instruments before and after BSA binding. 
-% The BioPal successfully detected the impedance increase following BSA adsorption, demonstrating its capability to measure surface-based electrochemical changes relevant to biosensing applications.
+The measurement methodology involved establishing a baseline impedance measurement in PBS 1x, removing the PBS and adding BSA solution to the electrode well, allowing 20 minutes for protein adsorption, flushing the electrode three times with fresh PBS 1x to remove unbound protein and thus maintaining the same solution characteristics, and finally performing a second impedance measurement.
+
+Existing literature use BSA concentrations ranging from 1 mg/mL to 60 mg/mL for impedance based biosensor sensitivity validation \cite{maImpedancebasedIntegratedBiosensor2013}\cite{ebadiPolypyrrolebasedBovineSerum2025}. In this work, three concentrations were selected: 20 mg/mL, 50 mg/mL and 100 mg/mL.
+
+Measurements were performed at each step using both the BioPal and the PalmSens4 for direct comparison. Figures \ref{fig:2g_bsa_comparison_final} - \ref{fig:10g_bsa_comparison_final} shows the impedance magnitude and phase measurements from both instruments before and after BSA binding, showing a clear difference between concentrations. Figures \ref{fig:2g_bsa_comparison} - \ref{fig:10g_bsa_comparison} show the relative change in magnitude across the frequency range. It was found that the largest impedance changes occurred in the frequency range from 160 Hz to 500 kHz. The average change in this range was used to give a qualitative result. The device gives the user a risk level of disease presence ranging from none to high based on the following thresholds:
+\begin{table}[H]
+\centering
+\caption{Qualitative Risk Levels Based on Impedance Change}
+\label{tab:risk_levels}
+\begin{tabular}{lcccc}
+\hline
+\textbf{Risk Level} & \textbf{None} & \textbf{Low} & \textbf{Medium} & \textbf{High} \\
+\hline
+\textbf{Impedance Change} & \textless 5\% & 5\% - 15\% & 15\% - 25\% & \textgreater 25\% \\
+\hline
+\end{tabular}
+\end{table}
+
+% Now the same but for the baseline vs final of each concentration for biopal and palmsens next to eachother
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{2g-100mL BioPal.png}
+        \caption{BioPal: Baseline vs Post-BSA}
+        \label{fig:2g_biopal}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{PalmSens2g.png}
+        \caption{PalmSens4: Baseline vs Post-BSA}
+        \label{fig:2g_palmsens}
+    \end{subfigure}
+    \caption{Baseline vs Final Frequency Response to 20mg/mL BSA Binding}
+    \label{fig:2g_bsa_comparison_final}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}   
+        \includegraphics[width=\textwidth]{5g-100mL BioPal.png}
+        \caption{BioPal: Baseline vs Post-BSA}
+        \label{fig:5g_biopal}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{PalmSens5g.png}
+        \caption{PalmSens4: Baseline vs Post-BSA}
+        \label{fig:5g_palmsens}
+    \end{subfigure}
+    \caption{Baseline vs Final Frequency Response to 50mg/mL BSA Binding}
+    \label{fig:5g_bsa_comparison_final}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{10g-100mL BioPal.png}   
+        \caption{BioPal: Baseline vs Post-BSA}
+        \label{fig:10g_biopal}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{PalmSens10g.png}
+        \caption{PalmSens4: Baseline vs Post-BSA}
+        \label{fig:10g_palmsens}
+    \end{subfigure}
+    \caption{Baseline vs Final Frequency Response to 100mg/mL BSA Binding}
+    \label{fig:10g_bsa_comparison_final}
+\end{figure}
 
 % 3 seperate figures with subfigures (not minipages) showing the change in magnitude and phase for both instruments
 \begin{figure}[H]
@@ -127,7 +253,7 @@ Measurements were performed at each step using both the BioPal and the PalmSens4
         \caption{Change in Impedance Phase}
         \label{fig:2g_phase}
     \end{subfigure}
-    \caption{IDE Impedance Response to 2g/100mL BSA Binding Measured by BioPal and PalmSens4}
+    \caption{IDE Impedance Change with 2g/100mL BSA Binding}
     \label{fig:2g_bsa_comparison}
 \end{figure}
 
@@ -145,7 +271,7 @@ Measurements were performed at each step using both the BioPal and the PalmSens4
         \caption{Change in Impedance Phase}
         \label{fig:5g_phase}
     \end{subfigure}
-    \caption{IDE Impedance Response to 5g/100mL BSA Binding Measured by BioPal and PalmSens4}
+    \caption{IDE Impedance Change with 5g/100mL BSA Binding}
     \label{fig:5g_bsa_comparison}
 \end{figure}
 
@@ -163,63 +289,11 @@ Measurements were performed at each step using both the BioPal and the PalmSens4
         \caption{Change in Impedance Phase}
         \label{fig:10g_phase}
     \end{subfigure}
-    \caption{IDE Impedance Response to 10g/100mL BSA Binding Measured by BioPal and PalmSens4}
+    \caption{IDE Impedance Change with 10g/100mL BSA Binding}
     \label{fig:10g_bsa_comparison}
 \end{figure}
 
-% Now the same but for the baseline vs final of each concentration for biopal and palmsens next to eachother
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\textwidth]{2g-100mL BioPal.png}
-        \caption{BioPal: Baseline vs Post-BSA}
-        \label{fig:2g_biopal}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\textwidth]{PalmSens2g.png}
-        \caption{PalmSens4: Baseline vs Post-BSA}
-        \label{fig:2g_palmsens}
-    \end{subfigure}
-    \caption{Baseline vs Final Frequency Response to 2g/100mL BSA Binding Measured by BioPal and PalmSens4}
-    \label{fig:2g_bsa_comparison_final}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.48\textwidth}   
-        \includegraphics[width=\textwidth]{5g-100mL BioPal.png}
-        \caption{BioPal: Baseline vs Post-BSA}
-        \label{fig:5g_biopal}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\textwidth]{PalmSens5g.png}
-        \caption{PalmSens4: Baseline vs Post-BSA}
-        \label{fig:5g_palmsens}§
-    \end{subfigure}
-    \caption{Baseline vs Final Frequency Response to 5g/100mL BSA Binding Measured by BioPal and PalmSens4}
-    \label{fig:5g_bsa_comparison_final}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\textwidth]{10g-100mL BioPal.png}   
-        \caption{BioPal: Baseline vs Post-BSA}
-        \label{fig:10g_biopal}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\textwidth]{PalmSens10g.png}
-        \caption{PalmSens4: Baseline vs Post-BSA}
-        \label{fig:10g_palmsens}
-    \end{subfigure}
-    \caption{Baseline vs Final Frequency Response to 10g/100mL BSA Binding Measured by BioPal and PalmSens4}
-    \label{fig:10g_bsa_comparison_final}
-\end{figure}
-
-\section{Discussion of Results}
+\section{Discussion of Validation Results}
 
 % The BioPal's performance varied across the measurement frequency range, with distinct regions of accuracy. At very low frequencies (below \todo{X Hz}), the biosensor impedance becomes extremely high, resulting in currents in the tens of nanoamperes. At these current levels, the signal-to-noise ratio decreases substantially, making it difficult to distinguish the frequency content of interest from background noise. Consequently, measurements in this region exhibited large error margins. However, the overall trend still aligned with PalmSens4 measurements, indicating that whilst absolute accuracy was compromised, the relative changes were correctly captured.
 
