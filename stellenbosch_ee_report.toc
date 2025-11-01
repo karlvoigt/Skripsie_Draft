@@ -1,0 +1,64 @@
+\acswitchoff 
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Declaration}{ii}{chapter*.1}%
+\contentsline {chapter}{Abstract}{iii}{chapter*.2}%
+\babel@toc {afrikaans}{}\relax 
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{List of Figures}{vi}{chapter*.4}%
+\contentsline {chapter}{List of Tables}{vii}{chapter*.5}%
+\contentsline {chapter}{Nomenclature}{viii}{chapter*.6}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Project Objectives}{1}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Project Scope}{2}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Inclusions}{2}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Exclusions}{3}{subsection.1.3.2}%
+\contentsline {section}{\numberline {1.4}Chapter Overview}{3}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Literature Review}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Background on Biosensors}{4}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Transducer Mechanisms}{5}{subsection.2.1.1}%
+\contentsline {section}{\numberline {2.2}Fundamentals of EIS}{5}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Faradaic vs Non-Faradaic EIS Sensors}{6}{subsection.2.2.1}%
+\contentsline {section}{\numberline {2.3}Complex Impedance}{6}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Nyquist Plot}{7}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Bode Plots}{8}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}Impedance Analysers}{9}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Signal Generation}{9}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Voltage Measurement}{10}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Current Measurement}{11}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}Related Works}{12}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Design and Simulation}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Design Philosophy}{13}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Functional Design Overview}{13}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Analogue Frontend Design}{14}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Excitation Stage}{15}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Voltage Measurement}{16}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Current Measurement}{17}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Multiplexer and IDE interface}{21}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Power Supply}{22}{subsection.3.3.5}%
+\contentsline {section}{\numberline {3.4}Circuit Simulation}{23}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}IDE}{23}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Excitation Stage}{24}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Voltage Measurement}{24}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Current Measurement}{25}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}PCB Design}{26}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Firmware Development}{27}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}STM32 Measurement Subsystem}{27}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}ESP32 User Interface and System Control}{29}{subsection.3.6.2}%
+\contentsline {subsubsection}{On-Device Interface}{29}{subsubsection*.23}%
+\contentsline {subsubsection}{Web Interface via BLE}{30}{subsubsection*.24}%
+\contentsline {section}{\numberline {3.7}System Integration}{31}{section.3.7}%
+\contentsline {chapter}{\numberline {4}Testing \& Validation}{32}{chapter.4}%
+\contentsline {section}{\numberline {4.1}PCB Testing Methodology and Results}{32}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Excitation Stage}{32}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Voltage Measurement Stage}{33}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Current Measurement Stage}{33}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}System Calibration}{34}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Final Validation Methodology and Results}{35}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Discussion of Validation Results}{39}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Summary and Conclusion}{41}{chapter.5}%
+\contentsline {subsection}{\numberline {5.0.1}Limitations}{42}{subsection.5.0.1}%
+\contentsline {subsection}{\numberline {5.0.2}Recommendations for Future Work}{42}{subsection.5.0.2}%
+\contentsline {chapter}{Bibliography}{43}{chapter*.40}%
+\contentsline {chapter}{\numberline {A}Project Planning Schedule}{46}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Outcomes Compliance}{47}{appendix.B}%

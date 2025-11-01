@@ -14,6 +14,7 @@ Database file #1: mybib.bib
 Warning--empty author in BiomarkersNationalInstitute
 Warning--empty journal in BiomarkersNationalInstitute
 Warning--empty year in BiomarkersNationalInstitute
+Warning--empty year in pariharPointofcareBiosensorsInfectious
 Warning--empty journal in ibrahimCMOSTransimpedanceAmplifier
 Warning--empty year in ibrahimCMOSTransimpedanceAmplifier
 Warning--empty author in ImprovedHowlandCurrent2020
@@ -24,45 +25,45 @@ Warning--empty journal in ebrahimDevelopmentBiosensorEarly2023
 Warning--missing publisher in wilsonSimulatingFractionalCapacitors2023
 
 Done.
-You've used 28 entries,
+You've used 35 entries,
             4087 wiz_defined-function locations,
-            977 strings with 13433 characters,
-and the built_in function-call counts, 13325 in all, are:
-= -- 1020
-> -- 243
-< -- 64
-+ -- 136
-- -- 51
-* -- 578
-:= -- 2051
-add.period$ -- 55
-call.type$ -- 28
-change.case$ -- 27
-chr.to.int$ -- 120
-cite$ -- 39
-duplicate$ -- 1132
-empty$ -- 1204
-format.name$ -- 56
-if$ -- 3054
+            1021 strings with 14977 characters,
+and the built_in function-call counts, 18577 in all, are:
+= -- 1448
+> -- 373
+< -- 109
++ -- 212
+- -- 80
+* -- 831
+:= -- 2799
+add.period$ -- 69
+call.type$ -- 35
+change.case$ -- 34
+chr.to.int$ -- 213
+cite$ -- 47
+duplicate$ -- 1525
+empty$ -- 1599
+format.name$ -- 84
+if$ -- 4282
 int.to.chr$ -- 0
-int.to.str$ -- 28
-missing$ -- 206
-newline$ -- 107
-num.names$ -- 16
-pop$ -- 539
+int.to.str$ -- 35
+missing$ -- 275
+newline$ -- 128
+num.names$ -- 21
+pop$ -- 694
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1063
+skip$ -- 1469
 stack$ -- 0
-substring$ -- 363
-swap$ -- 766
-text.length$ -- 24
+substring$ -- 619
+swap$ -- 1105
+text.length$ -- 38
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 28
-warning$ -- 11
-while$ -- 40
-width$ -- 30
-write$ -- 238
-(There were 11 warnings)
+type$ -- 35
+warning$ -- 12
+while$ -- 58
+width$ -- 37
+write$ -- 303
+(There were 12 warnings)

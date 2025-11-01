@@ -26,6 +26,12 @@ N.~Bhalla, P.~Jolly, N.~Formisano, and P.~Estrela, ``Introduction to biosensors,
 \bibitem{BiomarkersNationalInstitute}
 ``Biomarkers {\textbar} {{National Institute}} of {{Environmental Health Sciences}}.''
 
+\bibitem{chuRecentAdvancesChallenges2021}
+H.~Chu, C.~Liu, J.~Liu, J.~Yang, Y.~Li, and X.~Zhang, ``Recent advances and challenges of biosensing in point-of-care molecular diagnosis,'' \emph{Sensors and Actuators. B, Chemical}, vol. 348, p. 130708, Dec. 2021.
+
+\bibitem{pariharPointofcareBiosensorsInfectious}
+M.~Parihar, N.~W.~N., Sahana, R.~Biswas, B.~Dehury, and N.~Mazumder, ``Point-of-care biosensors for infectious disease diagnosis: Recent updates and prospects,'' \emph{RSC Advances}, vol.~15, no.~36, pp. 29\,267--29\,283.
+
 \bibitem{danielsLabelFreeImpedanceBiosensors2007}
 J.~S. Daniels and N.~Pourmand, ``Label-{{Free Impedance Biosensors}}: {{Opportunities}} and {{Challenges}},'' \emph{Electroanalysis}, vol.~19, no.~12, pp. 1239--1257, 2007.
 
@@ -44,6 +50,9 @@ Q.-Z. Xie, M.-W. Lin, E.-W. Hsu, and C.-T. Lin, ``Review---{{Advancements}} of {
 \bibitem{BodeNyquistPlot}
 ``Bode and {{Nyquist Plot}}.''
 
+\bibitem{PalmSens4}
+``{{PalmSens4}},'' https://www.palmsens.com/product/palmsens4/.
+
 \bibitem{buscagliaSimpleZLowCostPortable2023}
 L.~A. Buscaglia, J.~P. Carmo, and O.~N. Oliveira, ``Simple-{{Z}}: {{A Low-Cost Portable Impedance Analyzer}},'' \emph{IEEE Sensors Journal}, vol.~23, no.~21, pp. 26\,067--26\,074, Nov. 2023.
 
@@ -53,8 +62,17 @@ A.~{Al-Ali}, A.~Elwakil, A.~Ahmad, and B.~Maundy, ``Design of a {{Portable Low-C
 \bibitem{ibrahimCMOSTransimpedanceAmplifier}
 M.~Ibrahim, ``{{CMOS Transimpedance Amplifier}} for {{Biosensor Signal Acquisition}}.''
 
+\bibitem{orazemTutorialElectrochemicalImpedance2020}
+M.~E. Orazem and B.~Tribollet, ``A tutorial on electrochemical impedance spectroscopy,'' \emph{ChemTexts}, vol.~6, no.~2, p.~12, Jun. 2020.
+
 \bibitem{ImprovedHowlandCurrent2020}
 ````{{Improved}}'' {{Howland}} current pump circuit,'' 2020.
+
+\bibitem{AD5934TestUpdate}
+``{{AD5934}} test update {\textbar} {{Analog Devices}},'' https://www.analog.com/en/resources/app-notes/an-1252.html.
+
+\bibitem{seoaneAnalogFrontendEnables2008}
+F.~Seoane, J.~Ferreira, J.~J. Sanch{\'e}z, and R.~Brag{\'o}s, ``An analog front-end enables electrical impedance spectroscopy system on-chip for biomedical applications,'' \emph{Physiological Measurement}, vol.~29, no.~6, pp. S267--S278, Jun. 2008.
 
 \bibitem{gaddyDYNAMICPERFORMANCETESTING}
 L.~Gaddy and H.~Kawai, ``{{DYNAMIC PERFORMANCE TESTING OF DIGITAL AUDIO D}}/{{A CONVERTERS}}.''
@@ -103,5 +121,8 @@ H.~Ma, R.~W.~R. Wallbank, R.~Chaji, J.~Li, Y.~Suzuki, C.~Jiggins, and A.~Nathan,
 
 \bibitem{ebadiPolypyrrolebasedBovineSerum2025}
 M.~Ebadi, S.~A. Mazlan, M.~A.~F. Johari, and M.~R. Yusop, ``Polypyrrole-based bovine serum albumin imprinted electrochemical sensor for clinical application,'' \emph{Talanta Open}, vol.~12, p. 100510, Dec. 2025.
+
+\bibitem{moultonStudiesDoubleLayer2004}
+S.~E. Moulton, J.~N. Barisci, A.~Bath, R.~Stella, and G.~G. Wallace, ``Studies of double layer capacitance and electron transfer at a gold electrode exposed to protein solutions,'' \emph{Electrochimica Acta}, vol.~49, no.~24, pp. 4223--4230, Sep. 2004.
 
 \end{thebibliography}

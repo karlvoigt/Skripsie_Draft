@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{report}
+\documentclass[a4paper,12pt,draft]{report}
 
 % Page layout
 \usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
@@ -43,7 +43,6 @@
 \usepackage{subcaption}
 \setlength{\abovecaptionskip}{7.5pt}  % spacing above and below captions
 \newcommand*{\WaterMark}[2][0.2\paperwidth]{\AddToShipoutPicture*{\AtTextCenter{\parbox[c]{0pt}{\makebox[0pt][c]{\includegraphics[width=#1]{#2}}}}}}
-
 % Mathematics
 \usepackage[cmex10]{amsmath}
 \usepackage{amssymb}
@@ -244,6 +243,10 @@
 \DeclareAcronym{GPIO}{
     short = GPIO,
     long = general-purpose input/output
+}
+\DeclareAcronym{NFC}{
+    short = NFC,
+    long = near-field communication
 }
 \begin{document}
 

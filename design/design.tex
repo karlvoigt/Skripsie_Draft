@@ -1,5 +1,4 @@
 \graphicspath{{design/fig/}}
-
 \chapter{Design and Simulation}\label{chap:design}
 This chapter details the development of the BioPal impedance analyzer, progressing from user-centered design principles through circuit design, simulation, and firmware implementation. The design process was guided by understanding POC requirements and translating them into concrete technical specifications.
 
@@ -11,7 +10,6 @@ These insights shaped the project objectives around three core pillars: accessib
 
 \section{Functional Design Overview}
 The system can be broken up into multiple subsystems, each fulfilling a specific function in order to create a complete device that meets the requirements. On the most basic level the device consists of the \acp{DUT}, an impedance analyser and a user interface. The DUT is the \ac{IDE} that interacts with the analyte and whose impedance characteristics change based on the analyte concentration. A multiplexer is used to interface between multiple \acp{DUT} and the impedance analyser. The impedance analyser can be further broken down into the power supply, excitation stage, voltage and current measurement stages and finally the processing that uses an STM32. The user interface is based on an ESP32 and communicates with the impedance analyser through UART.
-
 % \todo{Breek impedance analyser op in further subsystems}
 % Discuss wat ons wil bereik en hoe ons dit gan opbreek. Beskryf hoe die circuit die beginsels van biosensors en EIS in ag moet neem, basies wat dit moet doen, hoekom multiplexing en ja dan hoe daai overall doel in gedeeltes opgebreek word.
 
@@ -21,38 +19,31 @@ The system can be broken up into multiple subsystems, each fulfilling a specific
     \caption{System Overview}
     \label{fig:system_overview} 
 \end{figure}
-
-The system architecture is shown in Figure \ref{fig:system_overview}. The ESP32 C6 has \ac{ADC} and \ac{DAC} peripherals, but their performance is known to be suboptimal for high-precision measurement applications. Furthermore, the lack of direct timer control or \ac{DMA} support for these peripherals limits their usability for synchronous signal generation and acquisition. The STM32F303K8 on the other hand is specifically designed for mixed-signal applications, with high-performance \ac{ADC} and \ac{DAC} peripherals, advanced timer capabilities and \ac{DMA} support. However, it lacks support for wireless communication and has limited flash and RAM resources, making it unsuitable for complex user interfaces. Thus, a dual-microcontroller architecture was used.
+The system architecture is shown in Figure \ref{fig:system_overview}. The ESP32 C6 has \ac{ADC} and \ac{DAC} peripherals, but their performance is known to be suboptimal for high-precision measurement applications. Furthermore, the lack of direct timer control or \ac{DMA} support for these peripherals limits their usability for synchronous signal generation and acquisition. The STM32F303K8 on the other hand is specifically designed for mixed-signal applications, with high-performance \ac{ADC} and \ac{DAC} peripherals, advanced timer capabilities and \ac{DMA} support. However, it lacks support for wireless communication and has limited flash and memory resources, making it unsuitable for complex user interfaces. Thus, a dual-microcontroller architecture was used.
 
 The following sections will first discuss the design of the analogue frontend and then the embedded firmware design.
 \section{Analogue Frontend Design}
-The analogue frontend is responsible for generating the excitation signal, measuring the voltage across and current through the \ac{DUT}, and conditioning these signals for digitization by the \ac{ADC} on the STM32F303K8. The design of each stage is driven by the requirements of accurate impedance measurement across a wide frequency range (1 Hz to 100 kHz) and dynamic range (from \SI{100}{\kilo\ohm} to \SI{10}{\ohm}). Each stage is discussed in detail below, including component selection, circuit design and theoretical performance analysis.
+The analogue frontend is responsible for generating the excitation signal, measuring the voltage across and current through the \ac{DUT}, and conditioning these signals for digitization by the \ac{ADC} on the STM32F303K8. The design of each stage is driven by the requirements of accurate impedance measurement across a wide frequency range (1 Hz to 100 kHz) and dynamic impedance range (from \SI{100}{\kilo\ohm} to \SI{10}{\ohm}). Each stage is discussed in detail below, including component selection, circuit design and theoretical performance analysis.
 
 \subsection{Excitation Stage}\label{subsec:design_excitation}
 The easiest way of producing a controlled voltage signal is using a \ac{DAC}. Both dedicated \acp{DAC} and \acp{DAC} built into \acp{MCU} were possible options. However the STM32F303K8 was chosen specifically due to its high-performance 12-bit \ac{DAC}. Using the internal \ac{DAC} simplifies the design by reducing component count and cost.
 
-To avoid establishing a DC bias at the electrode–electrolyte interface, the generated excitation must be centred around a stable reference potential. This can be achieved by shifting the \ac{DAC} output to be biased around ground using a level-shifting op-amp circuit. However, this requires providing all analogue circuitry with a negative supply rail. This project instead uses a buffered virtual ground reference at 1.65 V (3.3 V/2) as the midpoint for all analogue circuitry. This approach ensures no DC bias is applied to the \ac{DUT} whilst negating the need for negative supply rails.
-
-The LTC1069 was chosen as the AA-filtering \ac{IC}. It provides an 8th order lowpass filter that approximates a raised cosine response (with $\alpha=1$). It has a cutoff frequency of up to 120 kHz (200 kHz when using $\pm5$ V supply rails) set by an external clock and a linear phase response \cite{LTC10697CS8PBF}. The clock-tunable nature is ideal for this project, allowing easy adjustments through a timer on the STM.
-
+The LTC1069 was chosen as the AA-filtering \ac{IC}, responsible for removing aliased high frequency components from the \ac{DAC} output. It provides an 8th order lowpass filter that approximates a raised cosine response (with $\beta=1$). It has a cutoff frequency of up to 120 kHz (200 kHz when using $\pm5$ V supply rails) set by an external clock and a linear phase response \cite{LTC10697CS8PBF}. The clock-tunable nature is ideal for this project, allowing easy adjustments through a timer on the STM.
 \begin{equation}
     A_v = \frac{V_{out}}{V_{in}} = -\frac{R_f}{R_{in}}
     \label{eq:inv_opamp_gain}
 \end{equation}
-
+To maximise voltage resolution and minimise noise, the full linear range of the \ac{DAC} is utilised when generating the signal. This requires that the \ac{DAC} output signal is attenuated from 3 Vpp to the desired 10 mVpp using an inverting op-amp gain stage. From Equation \ref{eq:inv_opamp_gain}, $R_{f}=1~k\Omega$ and $R_{in}=300~k\Omega$ were calculated as suitable values.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{ExcitationSchem.png}
     \caption{Complete Excitation Stage Circuit}
     \label{fig:excitation_stage_circuit}
 \end{figure}
-
-To maximise voltage resolution and minimise noise, the full linear range of the \ac{DAC} is utilised when generating the signal. This requires that the \ac{DAC} output signal is attenuated from 3 Vpp to the desired 10 mVpp using an inverting op-amp gain stage. From Equation \ref{eq:inv_opamp_gain}, $R_{f}=1~k\Omega$ and $R_{in}=300~k\Omega$ were calculated as suitable values.
-
-The expected voltage levels across the \ac{DUT} are thus too small to be measured directly by the \ac{ADC} of the STM32F303K8 and a voltage measurement stage is required to amplify the signal to fully utilise the linear range of the \ac{ADC}. This is discussed in the following section.
+The expected voltage levels across the \ac{DUT} are thus too small to be measured directly by the \ac{ADC} and a voltage measurement stage is required to amplify the signal to fully utilise the linear range of the \ac{ADC}. This is discussed in the following section.
 
 \subsection{Voltage Measurement}
-The STM32F303K8's \ac{ADC} has a theoretical range of 0-3.3 V, however non-linearities and noise near the rails reduce the effective usable range. A gain of 300 V/V was thus chosen for the measurement stage to amplify the signal from 10 mVpp to 3 Vpp (0.1 V - 3.1 V). \Ac{GBW} represents the -3 dB bandwidth of an op-amp at unity gain. The -3 dB bandwidth of the op-amp can be calculated for a specific gain using Equation \ref{eq:GBW}. $A_{noise}$ represents the noise gain calculated in Equation \ref{eq:noise_gain}and accounts for non-ideal feedback effects and circuit imperfections \cite{fiore53GainBandwidthProduct2018}. This determines the magnitude and phase response of the amplifier at different frequencies, with higher gains resulting in lower bandwidths and thus more significant gain reductions and phase shifts.
+The STM32F303K8's \ac{ADC} has a theoretical range of 0-3.3 V, however non-linearities and noise near the rails reduce the effective usable range. A gain of 300 V/V was thus chosen for the measurement stage to amplify the signal from 10 mVpp to 3 Vpp (0.1 V - 3.1 V). \Ac{GBW} represents the -3 dB bandwidth of an op-amp at unity gain. The -3 dB bandwidth of the op-amp can be calculated for a specific gain using Equation \ref{eq:GBW}, where $A_{noise}$ represents the noise gain calculated in Equation \ref{eq:noise_gain} and accounts for non-ideal feedback effects and circuit imperfections \cite{fiore53GainBandwidthProduct2018}. This determines the magnitude and phase response of the amplifier at different frequencies, with higher gains resulting in lower bandwidths and thus more significant gain reductions and phase shifts.
 
 \begin{equation}
     f_c = \frac{GBW}{A_{noise}}
@@ -65,11 +56,9 @@ The STM32F303K8's \ac{ADC} has a theoretical range of 0-3.3 V, however non-linea
 
 Thus, amplifying the signal by a large factor in a single stage would introduce significant phase shifts and gain reductions at higher frequencies. To mitigate this, a two-stage amplification approach is employed.
 
-The INA331 instrumentation amplifier was selected for the first stage of voltage measurement due to its combination of low offset voltage, high common-mode rejection and low input bias current. The INA331 features a typical offset voltage of 250 µV, which represents the inherent DC error between the input terminals when no differential signal is applied. It directly adds to the measured voltage, creating a systematic DC error that must be considered in calibration. The low input bias current of 0.5 pA avoids loading the \ac{DUT} and influencing current measurements. 
+The INA331 instrumentation amplifier was selected for the first stage of voltage measurement due to its combination of low offset voltage, high common-mode rejection and low input bias current. The INA331 features a small typical offset voltage of 250 µV, which represents the inherent DC error between the input terminals when no differential signal is applied. It adds directly to the measured voltage, creating a systematic DC error. This DC component is filtered out when processing the \ac{FFT}, however if it is too large it could cause clipping. The low input bias current of 0.5 pA avoids loading the \ac{DUT} and influencing current measurements. 
 
-The device provides an internal gain of 5 V/V, configurable to higher gains through external resistors according to the relationship $G = 5 + 5\times \frac{R_2}{R_1}$. Choosing $R_1=1~k\Omega$ and $R_2=2~k\Omega$ results in a gain of 15 V/V. The bandwidth can be estimated from the datasheet to be 2.3 MHz (as seen in Figure \ref{fig:ina_bw}) at the chosen gain. Using equations \ref{eq:mag_rollof} and \ref{eq:phase_shift}, the gain reduction and phase shift at 100 kHz can be estimated as -0.004 dB and -2.49\textdegree\ respectively. While this still needs to be accounted for during calibration, it represents a very flat and linear response leading to a more accurate system.
-
-
+The device provides an internal gain of 5 V/V, configurable to higher gains through external resistors according to the relationship $G = 5 + 5\times \frac{R_2}{R_1}$. Choosing $R_1=1~k\Omega$ and $R_2=2~k\Omega$ results in a gain of 15 V/V. The bandwidth at this gain can be estimated from the datasheet to be 2.3 MHz (as seen in Figure \ref{fig:ina_bw} in Appendix \ref{app:design}). Using equations \ref{eq:mag_rollof} and \ref{eq:phase_shift}, the gain reduction and phase shift at 100 kHz can be estimated as -0.004 dB and -2.49\textdegree\ respectively. While this still needs to be accounted for during calibration, it represents a very flat and linear response leading to a more accurate system.
 \begin{equation}
     |H(j\omega)|_{dB} = 20\log\frac{1}{\sqrt{1+\frac{\omega^2}{w_0^2}}}
     \label{eq:mag_rollof}
@@ -78,7 +67,6 @@ The device provides an internal gain of 5 V/V, configurable to higher gains thro
     \varphi(\omega) = -\tan^{-1}(\frac{\omega}{\omega_0})
     \label{eq:phase_shift}
 \end{equation}
-
 % \todo{Move to appendix}
 % \begin{figure}[H]
 %     \centering
@@ -88,9 +76,7 @@ The device provides an internal gain of 5 V/V, configurable to higher gains thro
 % \end{figure}
 % For standard inverting and non-inverting op-amp gain topologies, the gain and phase shift at any frequency can be calculated based on the cutoff frequency using equations \ref{eq:mag_rollof} and \ref{eq:phase_shift} respectively \cite{oljacaOperationalAmplifierGain2010}, with $\omega=2\pi f$ and $\omega_0=2\pi f_c$.
 
-The second stage uses a TLV9061 op-amp in an inverting gain configuration.  With a GBW of 10 MHz and gain of $A_v=-20$ ($A_{noise}=21$), the expected bandwidth for the TLV gain stage is 476.2 kHz (Equation \ref{eq:GBW}). From equations \ref{eq:mag_rollof} and \ref{eq:phase_shift}, an expected -0.094 dB gain reduction and -11.86\textdegree\ phase shift is calculated at 100 kHz. However, this does not need to be calibrated for as an identical gain stage will be used for the current measurement, ensuring that any gain reductions and phase shifts are cancelled out during impedance calculation.
-
-The final circuit for voltage measurement can be seen in Figure \ref{fig:vmeas_stage_circuit}.
+The second stage uses a TLV9061 op-amp in an inverting gain configuration.  With a GBW of 10 MHz and gain of $A_v=-20$ ($A_{noise}=21$), the expected bandwidth for the TLV gain stage is 476.2 kHz (Equation \ref{eq:GBW}). From equations \ref{eq:mag_rollof} and \ref{eq:phase_shift}, an expected -0.094 dB gain reduction and -11.86\textdegree\ phase shift is calculated at 100 kHz. 
 
 \begin{figure}[H]
     \centering
@@ -99,14 +85,14 @@ The final circuit for voltage measurement can be seen in Figure \ref{fig:vmeas_s
     \label{fig:vmeas_stage_circuit}
 \end{figure}
 
-\todo{Add linking paragraph}
+As mentioned in the following section, the current measurement stage also includes an identical final TLV9061 gain stage. This ensures that any gain reductions and phase shifts introduced by this final stage cancel out during impedance calculation.
 
 \subsection{Current Measurement}\label{subsec:design_cur}
 The current measurement stage represents the most complex and arguably most important aspect of the analogue frontend. Accurate current measurement across a wide dynamic range is essential for reliable impedance determination, thus significant effort was spent on the design of this stage.
 
-The architecture consists of three stages: a \ac{TIA} provides the initial current-to-voltage conversion, followed by a \ac{PGA}, then a final inverting gain op-amp stage. This final stage is identical to the second voltage measurement stage, ensuring that gain reductions and phase shifts cancel during impedance calculation.
+The architecture consists of three stages: a \ac{TIA} provides the initial current-to-voltage conversion, followed by a \ac{PGA}, then a final inverting gain op-amp stage identical to that used in the voltage measurement stage.
 
-Based on measurements of the biosensor using the PalmSens4, the expected impedance ranges from \SI{100}{\kilo\ohm} at 1 Hz to \SI{10}{\ohm} at 100 kHz. For a fixed 10 mVpp excitation, this corresponds to a current range from 100 nA to 1 mA, spanning four orders of magnitude. This wide dynamic range drives several critical design requirements.
+Based on measurements of the \ac{IDE} using the PalmSens4, the expected impedance ranges from \SI{100}{\kilo\ohm} at 1 Hz to \SI{10}{\ohm} at 100 kHz, corresponding to a current range spanning four orders of magnitude (100 nA to 1 mA for a 10mVpp excitaion). This wide dynamic range drives several critical design requirements.
 
 A fixed-gain amplifier is impractical across this range. High gain would saturate at high currents, whilst low gain would not utilise the full \ac{ADC} range at low currents. Programmable gain is therefore essential. This is achieved through two mechanisms: switchable feedback resistors in the \ac{TIA} and variable gain in the \ac{PGA} stage.
 
@@ -177,7 +163,7 @@ When $A_{OL}\beta = -1$ the system becomes unstable. This happens when $V_{fb}$ 
     \beta (j\omega) &= \frac{X_{c_i}}{R_f + X_{C_i}} = \frac{1}{1+j\omega R_fC_i} \label{eq:photo_beta}
     % \therefore \frac{1}{\beta(j\omega)} &= 1+j\omega R_fC_i
 \end{align}
-The simplified equivalent circuit of a photodiode TIA circuit has the photodiode junction capacitance ($C_J$) in parallel with the input capacitance of the op-amp ($C_{in}$) (see Figures \ref{fig:photodiode} and \ref{fig:tia_photo} in Appendix \ref{append:design}). The feedback factor can be calculated as seen in Equation \ref{eq:photo_beta}. The pole in $\beta(j\omega)$, caused by the combined input capacitance, causes the magnitude of $\beta(j\omega)$ to decrease at a rate of -20dB/decade after the corner frequency (determined by the value of $C_{i}$) and the phase to decrease from 0\textdegree to -90\textdegree. The result is a very small phase margin at the critical frequency and instability (as seen in Figure \ref{fig:matlab_lg}). The feedback capacitor in parallel with $R_f$ solves this by adding a zero to $\beta(j\omega)$, cancelling out the pole and thus adding phase margin.
+The simplified equivalent circuit of a photodiode TIA circuit has the photodiode junction capacitance ($C_J$) in parallel with the input capacitance of the op-amp ($C_{in}$) (see Figures \ref{fig:photodiode} and \ref{fig:tia_photo} in Appendix \ref{append:design}). The feedback factor can be calculated as seen in Equation \ref{eq:photo_beta}. The pole in $\beta(j\omega)$, caused by the combined input capacitance, causes the magnitude of $\beta(j\omega)$ to decrease at a rate of -20dB/decade after the corner frequency (determined by the value of $C_{i}$) and the phase to decrease from 0\textdegree\ to -90\textdegree. The result is a very small phase margin at the critical frequency and instability (as seen in Figure \ref{fig:matlab_lg}). The feedback capacitor in parallel with $R_f$ solves this by adding a zero to $\beta(j\omega)$, cancelling out the pole and thus adding phase margin.
 
 %Figures \ref{fig:randles_cpe_tia} and \ref{fig:randles_cdl_tia} show the equivalent TIA circuits for a non-faradaic Randles circuit and a simplified model using an ideal capacitance ($C_{dl}$) instead of the \ac{CPE} by approximating $T=C_{dl}$ and $\alpha=1$.
 However, the equivalent Randles circuit model of a biosensor differs fundamentally from the model of a photodiode due to the series resistance $R_s$. The input impedance and feedback factor for the Randles non-faradaic equivalent circuit can be calculated as:
@@ -227,45 +213,9 @@ However, the equivalent Randles circuit model of a biosensor differs fundamental
 
 The circuit parameters of the IDE were calculated using circuit fitting in the PSTrace software that accompanies the PalmSens (see Table \ref{tab:stability_params}) and values for input capacitance, open loop gain and gain bandwidth were read from the OPA3S328 datasheet. A MatLab script was then used to calculate the loop gain of the system.  The response of a Randles equivalent non-fardaic circuit with constant $C_{dl}$ instead of a CPE and the equivalent photodiode model were also plotted. The resulting loop-gain responses are shown in Figure \ref{fig:matlab_lg} and Table \ref{tab:matlab_results} lists the calculated critical frequencies and phase margins.
 
-\begin{figure}[H]
-    \centering
-    % \begin{subfigure}[b]{0.5\textwidth}
-    %     \centering
-    %     \includegraphics[width=\textwidth]{MatLabLG_37,5.png}
-    %     \caption{$R_F=37.5~\Omega$}
-    %     \label{fig:matlab_cl_37.5}
-    % \end{subfigure}\hfill
-    % \begin{subfigure}[b]{0.5\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{MatLabLG_7500.png}
-        % \caption{$R_F=7.5~k\Omega$}
-        % \label{fig:matlab_cl_7.5}
-    % \end{subfigure}
-    \caption{Loop Gain Frequency Response for $R_F=7.5~k\Omega$}
-    \label{fig:matlab_lg}
-\end{figure}
-% \todo{Move this to the appendix}
-% \begin{figure}[H]
-%     \centering
-%     \begin{subfigure}[b]{0.5\textwidth}
-%         \centering
-%         \includegraphics[width=\textwidth]{MatLabBeta_37,5.png}
-%         \caption{$R_F=37.5~\Omega$}
-%         \label{fig:matlab_beta_37.5}
-%     \end{subfigure}\hfill
-%     \begin{subfigure}[b]{0.5\textwidth}
-%         \centering
-%         \includegraphics[width=\textwidth]{MatLabBeta_7500.png}
-%         \caption{$R_F=7.5~k\Omega$}
-%         \label{fig:matlab_beta_7.5}
-%     \end{subfigure}
-%     \caption{$\frac{1}{\beta(j\omega)}$ Frequency Responses}
-%     \label{fig:matlab_beta}
-% \end{figure}
-At low frequencies the IDE circuit closely follows the response of the photodiode. This is due to the zero caused by the capacitance dominating the response ($X_{C_{DL}}>>R_S$). However, at higher frequencies $R_S$ dominates and the responses start to diverge. This confirms that ample phase margin is available at both $R_f=37.5~\Omega$ and $R_f=7.5~k\Omega$, meaning that no feedback capacitors are needed. At extremely large values of $R_F$ the phase margin reduces, and the system can become unstable ($R_f>40~k\Omega$ for this circuit). Since adding compensation capacitors reduces the bandwidth of the TIA \cite{StabilizeYourTransimpedance}, it is not recommended for biosensing TIA circuits, except in cases of extremely high feedback resistor values.
 \begin{table}[H]
     \centering
-    \begin{minipage}{0.3\textwidth}
+    \begin{minipage}{0.4\textwidth}
         \centering
         \caption{Circuit Parameters}
         \label{tab:stability_params}
@@ -299,18 +249,55 @@ At low frequencies the IDE circuit closely follows the response of the photodiod
              & \textbf{(kHz)} & \textbf{(\textdegree)} & \\
             \hline
             \multicolumn{4}{l}{\textit{$R_f = \SI{7.5}{\kilo\ohm}$}} \\
-            Constant C Randles & 65.83 & 82.2 & Stable \\
             Photodiode & 24.22 & 0.1 & Unstable \\
+            Constant C Randles & 65.83 & 82.2 & Stable \\
             CPE Randles & 64.22 & 63.8 & Stable \\
             \hline
             \multicolumn{4}{l}{\textit{$R_f = \SI{37.5}{\ohm}$}} \\
-            Constant C Randles & 9840.03 & 89.8 & Stable \\
             Photodiode & 343.77 & 0.5 & Unstable \\
+            Constant C Randles & 9840.03 & 89.8 & Stable \\
             CPE Randles & 7725.81 & 86.3 & Stable \\
             \hline
         \end{tabular}
     \end{minipage}
 \end{table}
+
+\begin{figure}[H]
+    \centering
+    % \begin{subfigure}[b]{0.5\textwidth}
+    %     \centering
+    %     \includegraphics[width=\textwidth]{MatLabLG_37,5.png}
+    %     \caption{$R_F=37.5~\Omega$}
+    %     \label{fig:matlab_cl_37.5}
+    % \end{subfigure}\hfill
+    % \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{MatLabLG_7500.png}
+        % \caption{$R_F=7.5~k\Omega$}
+        % \label{fig:matlab_cl_7.5}
+    % \end{subfigure}
+    \caption{Loop Gain Frequency Response for $R_F=7.5~k\Omega$}
+    \label{fig:matlab_lg}
+\end{figure}
+% \todo{Move this to the appendix}
+% \begin{figure}[H]
+%     \centering
+%     \begin{subfigure}[b]{0.5\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{MatLabBeta_37,5.png}
+%         \caption{$R_F=37.5~\Omega$}
+%         \label{fig:matlab_beta_37.5}
+%     \end{subfigure}\hfill
+%     \begin{subfigure}[b]{0.5\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{MatLabBeta_7500.png}
+%         \caption{$R_F=7.5~k\Omega$}
+%         \label{fig:matlab_beta_7.5}
+%     \end{subfigure}
+%     \caption{$\frac{1}{\beta(j\omega)}$ Frequency Responses}
+%     \label{fig:matlab_beta}
+% \end{figure}
+At low frequencies the IDE circuit closely follows the response of the photodiode. This is due to the zero caused by the capacitance dominating the response ($X_{C_{DL}}>>R_S$). However, at higher frequencies $R_S$ dominates and the responses start to diverge. This confirms that ample phase margin is available at both $R_f=37.5~\Omega$ and $R_f=7.5~k\Omega$, meaning that no feedback capacitors are needed. At extremely large values of $R_F$ the phase margin reduces, and the system can become unstable ($R_f>40~k\Omega$ for this circuit). Since adding compensation capacitors reduces the bandwidth of the TIA \cite{StabilizeYourTransimpedance}, it is not recommended for biosensing TIA circuits, except in cases of extremely high feedback resistor values.
 
 The final current measurement circuit is shown in Figure \ref{fig:imeas_stage_circuit}.
 \begin{figure}[H]
@@ -360,7 +347,8 @@ Finally, a power supply system needed to be designed to power the entire system.
 \subsection{Power Supply}
 To ensure portablility, a battery is required. The most cost-effective approach is to utilise a microcontroller with built-in LiPo charging circuitry instead of a dedicated charging circuit. The Firebeetle 2 ESP32 C6 uses an HM6245 \ac{LDO}, which can supply up to 1 A. This is sufficient to power the rest of the system, from the 3.3 V supply of the ESP32 dev board.
 
-As mentioned in Section \ref{subsec:design_excitation}, a 1.65 V reference is needed for the analogue circuitry. Due to the small amplitude of the excitation signal, it needs to be highly accurate and stable. This was done through the use of a matched resistor array and an op-amp buffer. Using a resistor array ensures that our reference is the exact midpoint of the supply voltage despite any tolerances in the resistor value, while the op-amp buffers this output to avoid loading the resistor array and causing a voltage drop. Choosing a too large resistor value risks a slightly uneven voltage drop due to the small input bias current of the op-amp buffer, on the other hand, a lower value increases the static current draw and power consumption. $1~k\Omega$ was chosen as a balance between these trade-offs.
+
+To avoid establishing a DC bias at the electrode–electrolyte interface, the generated excitation must be centred around a stable reference potential. This is achieved using a buffered virtual ground reference at 1.65 V (3.3 V/2) as the midpoint for all analogue circuitry. This approach ensures no DC bias is applied to the \ac{DUT} whilst negating the need for negative supply rails. Due to the small amplitude of the excitation signal, it needs to be highly accurate and stable. This was done through the use of a matched resistor array and an op-amp buffer. Using a resistor array ensures that our reference is the exact midpoint of the supply voltage despite any tolerances in the resistor value, while the op-amp buffers this output to avoid loading the resistor array and causing a voltage drop. Choosing a too large resistor value risks a slightly uneven voltage drop due to the small input bias current of the op-amp buffer, on the other hand, a lower value increases the static current draw and power consumption. $1~k\Omega$ was chosen as a balance between these trade-offs.
 
 \begin{figure}[H]
     \centering
@@ -460,34 +448,44 @@ For the simulation of the excitation stage, a sample-and-hold block was used to 
 % \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{FullExcitationStage.png}
-    \caption{Simulated Excitation Stage}
-    \label{fig:excitation_sim}
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{FullExcitationStage.png}
+        \caption{Simulated Excitation Stage}
+        \label{fig:excitation_sim}
+    \end{minipage}\hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{FullVoltageMeasurementStage.png}
+        \caption{Simulated Voltage Measurement Stage}
+        \label{fig:voltage_meas_sim}
+    \end{minipage}
 \end{figure}
 
 Figure \ref{fig:excitation_sim} shows a 10kHz signal with 32x oversampling generated by the DAC before and after passing through the AA-filter and after being attenuated. The circuit performed as expected and the voltage measurement stage was simulated next.
 
 \subsection{Voltage Measurement}
-The voltage measurement stage was simulated with the INA331 and TLV9061 models to confirm the frequency response of the system. Figure \ref{fig:ina_freq} shows that the INA331 circuit exhibits only a slight gain reduction of -0.02dB and a -4.6\textdegree phase shift at 100kHz. Fig \ref{fig:v_meas_freq} shows the overall frequency response of the voltage measurement stage with the TLV9061 amplification stage contributing an additional -0.2dB gain reduction and -3.4\textdegree phase shift. This confirms that sufficient bandwidth is available for measurements up to 100kHz.
+The voltage measurement stage was simulated with the INA331 and TLV9061 models to confirm the frequency response of the system. The INA331 circuit exhibited only a slight gain reduction of -0.02dB and a -4.6\textdegree\ phase shift at 100kHz, with the TLV9061 amplification stage contributing an additional -0.2dB gain reduction and -3.4\textdegree\ phase shift. This confirms that sufficient bandwidth is available for measurements up to 100kHz and testing moved on to the current measurement stage.
 
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{INA331FreqResponse.png}
-        \caption{INA331 Frequency Response}
-        \label{fig:ina_freq}
-    \end{minipage}\hfill
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{VmeasFreqResponse.png}
-        \caption{Complete Voltage Measurement Stage Frequency Response}
-        \label{fig:v_meas_freq}
-    \end{minipage}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{minipage}{0.48\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{INA331FreqResponse.png}
+%         \caption{INA331 Frequency Response}
+%         \label{fig:ina_freq}
+%     \end{minipage}\hfill
+%     \begin{minipage}{0.48\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{VmeasFreqResponse.png}
+%         \caption{Complete Voltage Measurement Stage Frequency Response}
+%         \label{fig:v_meas_freq}
+%     \end{minipage}
+% \end{figure}
 
 \subsection{Current Measurement}
-Due to problems porting the OPA3s328 PSpice model to LT Spice, the internal mux was not simulated. The PGA113 has no available PSpice model \cite{PGA113PspiceModel2022}, thus a standard inverting amplifier configuration using the TLV9061 was used to simulate the PGA stage. Figure \ref{fig:tia_freq} shows the frequency response of the TIA stage alone at both feedback resistor values. At 100 kHz with $R_F = 7.5~k\Omega$, the stage exhibits a gain increase of +0.136 dB and a phase shift of -15.4\textdegree. For $R_F = 37.5~\Omega$, the response shows a gain increase of +0.137 dB and a phase shift of -15.6\textdegree. The slight gain increase is due to very slight peaking in the frequency response before the eventual rolloff. This demonstrates a very flat frequency response well below the circuit's bandwidth limitations. Figure \ref{fig:i_meas_freq} shows the overall frequency response of the current measurement stage with the PGA and final amplification stages contributing an additional -0.25dB gain reduction and -4.8\textdegree phase shift. This confirms that sufficient bandwidth is available for measurements up to 100kHz.
+The current measurement stage presented the most critical and complex simulation, with the performance and stability of the TIA being key focus areas.
+Due to problems porting the OPA3s328 PSpice model to LT Spice, the internal mux was not simulated. The PGA113 has no available PSpice model \cite{PGA113PspiceModel2022}, thus a standard inverting amplifier configuration using the TLV9061 was used to simulate the PGA stage. Figure \ref{fig:tia_freq} shows the frequency response of the TIA stage alone at both feedback resistor values. At 100 kHz with $R_F = 7.5~k\Omega$, the stage exhibits a gain increase of +0.136 dB and a phase shift of -15.4\textdegree. For $R_F = 37.5~\Omega$, the response shows a gain increase of +0.137 dB and a phase shift of -15.6\textdegree. The slight gain increase is due to very slight peaking in the frequency response before the eventual rolloff. This demonstrates a very flat frequency response well below the circuit's bandwidth limitations. Figure \ref{fig:i_meas_freq} shows the overall frequency response of the current measurement stage with the PGA and final amplification stages contributing an additional -0.25dB gain reduction and -4.8\textdegree\ phase shift. This confirms that sufficient bandwidth is available for measurements up to 100kHz.
 
 To confirm the stability of the TIA circuit, Tian's method was used to plot the loop gain and phase margin for both the Randles circuit using the \ac{CPE} and the simplified circuit using a constant capacitance as seen in Figure \ref{fig:tia_stability} and Table \ref{tab:lt_tia_stability}. These results closely match the MatLab results in section \ref{subsec:design_cur}, confirming that the TIA design is stable without the need for feedback compensation.
 
@@ -516,45 +514,54 @@ To confirm the stability of the TIA circuit, Tian's method was used to plot the 
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{CurMeas_37.5.png}
-        \caption{$R_F = 37.5~\Omega$}
+        \includegraphics[width=\textwidth]{FullCurrentMEasurementStageFreqResponse_37,5.png}
+        \caption{$R_F = 37.5~\Omega$, PGA Gain = 100 V/V}
         \label{fig:i_meas_freq_37.5}
     \end{subfigure}\hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{CurMeas_7500.png} 
-        \caption{$R_F = 7.5~k\Omega$}
+        \includegraphics[width=\textwidth]{FullCurrentMEasurementStageFreqResponse_7500.png} 
+        \caption{$R_F = 7.5~k\Omega$, PGA Gain = 100 V/V}
         \label{fig:i_meas_freq_7.5k}
     \end{subfigure}
     \caption{Simulated Complete Current Measurement Stage Frequency Response}
     \label{fig:i_meas_freq}
 \end{figure}
 
-\subsection{Complete System}
-The individual subsystems were combined into a complete model including DAC and ADCs using sample-and-hold blocks. Transient analysis was done at a range of excitation frequencies. For frequency analysis the DAC and ADCs were excluded.
+% \subsection{Complete System}
+For testing the complete system, individual subsystems were combined including the DAC and ADCs using sample-and-hold blocks. Transient analysis was done at a range of excitation frequencies. For frequency analysis the DAC and ADCs were excluded. This confirmed that the subsystems performed similarly to the individual simulations and the PCB could thus be designed around this circuit. 
 
 \section{PCB Design}\label{sec:PCB}
 % Beskryf filosofie en idees wat mee ingegaa het. Briefly discuss general PCB design principles wat design geguide het (Analogue ground plane etc). Beskryf beperkings van PCB manufactures wat inag geneem moes word (PCB size, layers, trace width via diamtre etc.). Noem briefly hoekom PCB in China eerder as Uni laat maak. Gaan deur design logic en discuss probleem met TIA. Include maybe final PCB diagram en langs dit foto van manufactured PCB.
 
-All PCB design was done using KiCad due to its open-source nature and wide usage in industry. Due to the complexity of the circuit, JLC PCB was used for manufacturing rather than Stellenbosch University's in-house PCB manufacturing. \rephrase{There are substantial price differences between JLC's standard process and their more advanced processes (\textdollar 4 vs \textdollar 68)}. Table \ref{tab:jlc_limits} lists the key limits of JLC's standard PCB process that had to be taken into account. 
+All PCB design was done using KiCad due to its open-source nature and wide usage in industry. Due to the complexity of the circuit, JLC PCB was used for manufacturing rather than Stellenbosch University's in-house PCB manufacturing. Table \ref{tab:jlc_limits} in Appendix  lists the key limits of JLC's standard PCB process that had to be taken into account. 
 
+% Insert biopal schematic svg
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{BioPal_Front.png}
-        \caption{PCB front layout}
-        \label{fig:pcb_front}
-    \end{subfigure}\hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{BioPal_Back.png}
-        \caption{PCB back layout}
-        \label{fig:pcb_back}
-    \end{subfigure}
-    \caption{Final PCB Layout}
-    \label{fig:pcb_layout}
+    \includegraphics[width=\textwidth]{BioPalSchematic.png}
+    \caption{Complete PCB Schematic}
+    \label{fig:pcb_schematic}
 \end{figure}
+
+% \todo{Move to appendix}
+% \begin{figure}[H]
+%     \centering
+%     \begin{subfigure}[b]{0.48\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{BioPal_Front.png}
+%         \caption{PCB front layout}
+%         \label{fig:pcb_front}
+%     \end{subfigure}\hfill
+%     \begin{subfigure}[b]{0.48\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{BioPal_Back.png}
+%         \caption{PCB back layout}
+%         \label{fig:pcb_back}
+%     \end{subfigure}
+%     \caption{Final PCB Layout}
+%     \label{fig:pcb_layout}
+% \end{figure}
 
 Another key consideration when designing the PCB was minimising noise and interference in the analogue circuitry. Given the limitations of a two-layer PCB, maintaining a continuous and low-impedance ground reference was a key priority, as a fully dedicated ground plane was not practical. To achieve this, both layers incorporated extensive ground copper pours connected through frequent stitching vias to minimise loop inductance and reduce \ac{EMI} coupling between layers. A single unified ground network was chosen over separate analogue and digital grounds, as is modern best practice for low-current mixed-signal systems \cite{WhatAreBasic}. Instead, the analogue and digital sections were physically partitioned, with sensitive analogue components and signal routed away from high-speed digital traces. Fencing vias were deployed along region boundaries to confine high-frequency digital currents and provide additional shielding for low-level analogue signals (Figure \ref{fig:via_fencing}).
 
@@ -659,12 +666,22 @@ A secondary web-based interface provides enhanced usability when client devices 
     \label{fig:web_ui_results}
 \end{figure}
 
+\todo{Trim down}
 \textbf{Option 1 - Existing WiFi Network:} The device connects to an existing network, enabling control over WiFi or the internet. While convenient once configured, this approach poses significant barriers in healthcare environments with strict network security policies due to the need to protect patient data. It also excludes settings without existing WiFi infrastructure, such as rural clinics.
 
 \textbf{Option 2 - Device WiFi Hotspot:} The device hosts its own WiFi network, serving a local website. This avoids secure network requirements and functions everywhere, but forces client devices offline, potentially disrupting other applications and services.
 
 \textbf{Option 3 - Web Application with BLE:} A web application hosted remotely connects to the device via \ac{BLE} usin the WebBLE protocol. This approach was selected as it provides the benefits of both previous options without their drawbacks. Client devices maintain internet connectivity, no secure network authentication is required, and the solution works universally. Critically, all measurement data transfers locally over \ac{BLE}, eliminating security risks and POPIA compliance concerns associated with transmitting patient information over the internet.
 
+After completing all other aspects of hardware and software, the complete system needed to be integrated to ensure a cohesive user experience.
 \section{System Integration}
+The system was enclosed in a plastic case, with cutouts provided for the LCD, buttons and \acp{IDE} connectors. A power button and panel-mount usb c port that supports both charging and data transfer were added. Additionally a \ac{NFC} tag and QR code were included on the top of the case to provide easy access to the web interface. The final assembled device can be seen in Figure \ref{fig:final_device}.
 
-\label{chap:design}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{IntegratedSystem.jpg}
+    \caption{Complete BioPal Device}
+    \label{fig:final_device}
+\end{figure}
+
+The device was then validated using lab testing to measure performance against reference equipment.
