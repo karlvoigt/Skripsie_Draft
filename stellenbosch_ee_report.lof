@@ -7,34 +7,50 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Equivalent Circuits for Faradaic and Non-Faradaic EIS Biosensors}}{6}{figure.caption.7}%
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Nyquist Plots of Faradaic and Non-Faradaic Randles Circuits}}{8}{figure.caption.8}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces System Overview}}{14}{figure.caption.9}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Complete Excitation Stage Circuit}}{15}{figure.caption.10}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Complete Voltage Measurement Stage Circuit}}{17}{figure.caption.11}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Randles Equivalent TIA Circuit with CPE}}{19}{figure.caption.12}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Loop Gain Frequency Response for $R_F=7.5~k\Omega $}}{20}{figure.caption.14}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Complete Current Measurement Stage Circuit}}{21}{figure.caption.15}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Relay Multiplexer Topology for 4 DUT's}}{22}{figure.caption.16}%
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Relay Driver Circuit for one relay}}{22}{figure.caption.16}%
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Virtual Ground Reference Circuit}}{23}{figure.caption.17}%
-\contentsline {figure}{\numberline {3.10}{\ignorespaces 5 V Boost Converter Circuit}}{23}{figure.caption.17}%
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Simulated Excitation Stage}}{24}{figure.caption.18}%
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Simulated Voltage Measurement Stage}}{24}{figure.caption.18}%
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Simulated Complete Current Measurement Stage Frequency Response}}{25}{figure.caption.19}%
-\contentsline {figure}{\numberline {3.14}{\ignorespaces Complete PCB Schematic}}{26}{figure.caption.20}%
-\contentsline {figure}{\numberline {3.15}{\ignorespaces STM32 Measurement Subsystem Flowdiagram}}{27}{figure.caption.21}%
-\contentsline {figure}{\numberline {3.16}{\ignorespaces ESP Flow Diagram}}{29}{figure.caption.22}%
-\contentsline {figure}{\numberline {3.17}{\ignorespaces Web Interface Results Page}}{30}{figure.caption.25}%
-\contentsline {figure}{\numberline {3.18}{\ignorespaces Complete BioPal Device}}{31}{figure.caption.26}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces System Overview}}{15}{figure.caption.10}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Complete Excitation Stage Circuit}}{16}{figure.caption.11}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Complete Voltage Measurement Stage Circuit}}{18}{figure.caption.12}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Randles Equivalent TIA Circuit with CPE}}{20}{figure.caption.13}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Loop Gain Frequency Response for $R_F=7.5~k\Omega $}}{21}{figure.caption.15}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Complete Current Measurement Stage Circuit}}{22}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Relay Multiplexer Topology for 4 DUT's}}{23}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Relay Driver Circuit for one relay}}{23}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Virtual Ground Reference Circuit}}{24}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces 5 V Boost Converter Circuit}}{24}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Simulated Excitation Stage}}{25}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Simulated Voltage Measurement Stage}}{25}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Simulated Complete Current Measurement Stage Frequency Response}}{26}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Complete PCB Schematic}}{27}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.15}{\ignorespaces STM32 Measurement Subsystem Flowdiagram}}{28}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.16}{\ignorespaces ESP Flow Diagram}}{30}{figure.caption.23}%
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Web Interface}}{31}{figure.caption.26}%
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Complete BioPal Device}}{32}{figure.caption.27}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces 25\% Baseline vs 100\% Final PBS 1x Comparison}}{36}{figure.caption.29}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces 50\% Baseline vs 100\% Final PBS 1x Comparison}}{36}{figure.caption.30}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces 75\% Baseline vs 100\% Final PBS 1x Comparison}}{36}{figure.caption.31}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Baseline vs Final Frequency Response to 20mg/mL BSA Binding}}{37}{figure.caption.33}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Baseline vs Final Frequency Response to 50mg/mL BSA Binding}}{38}{figure.caption.34}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Baseline vs Final Frequency Response to 100mg/mL BSA Binding}}{38}{figure.caption.35}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces IDE Impedance Change with 20 mg/mL BSA Binding}}{38}{figure.caption.37}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces IDE Impedance Change with 50 mg/mL BSA Binding}}{39}{figure.caption.38}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces IDE Impedance Change with 100 mg/mL BSA Binding}}{39}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces 25\% Baseline vs 100\% Final PBS 1x Comparison}}{37}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces 50\% Baseline vs 100\% Final PBS 1x Comparison}}{37}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces 75\% Baseline vs 100\% Final PBS 1x Comparison}}{37}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Baseline vs Final Frequency Response to 20mg/mL BSA Binding}}{38}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Baseline vs Final Frequency Response to 50mg/mL BSA Binding}}{39}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Baseline vs Final Frequency Response to 100mg/mL BSA Binding}}{39}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces IDE Impedance Change with 20 mg/mL BSA Binding}}{39}{figure.caption.38}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces IDE Impedance Change with 50 mg/mL BSA Binding}}{40}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces IDE Impedance Change with 100 mg/mL BSA Binding}}{40}{figure.caption.40}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {C.1}{\ignorespaces INA331 Bandwidth vs Gain}}{49}{figure.caption.42}%
+\contentsline {figure}{\numberline {C.3}{\ignorespaces $\frac {1}{\beta (j\omega )}$ Frequency Responses}}{49}{figure.caption.44}%
+\contentsline {figure}{\numberline {C.2}{\ignorespaces Example of TIA Kelvin Sense Switch Connections and High Impedance Buffer}}{50}{figure.caption.43}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {D.1}{\ignorespaces Simulated CPE Frequency Response}}{51}{figure.caption.45}%
+\contentsline {figure}{\numberline {D.2}{\ignorespaces Simulated Biosensor Frequency Response}}{51}{figure.caption.46}%
+\contentsline {figure}{\numberline {D.3}{\ignorespaces Simulated FIR filter Frequency Responses}}{51}{figure.caption.47}%
+\contentsline {figure}{\numberline {D.4}{\ignorespaces LTC1069-7 Datasheet Frequency Responses}}{52}{figure.caption.48}%
+\contentsline {figure}{\numberline {D.5}{\ignorespaces Simulated Excitation Stage}}{52}{figure.caption.49}%
+\contentsline {figure}{\numberline {D.6}{\ignorespaces Simulated TIA Frequency Response}}{52}{figure.caption.50}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {E.1}{\ignorespaces Final PCB Layout}}{53}{figure.caption.52}%
+\contentsline {figure}{\numberline {E.2}{\ignorespaces Final PCB Render}}{54}{figure.caption.53}%
+\contentsline {figure}{\numberline {E.3}{\ignorespaces OPA3S328 BGA Routing Solution}}{54}{figure.caption.53}%
 \addvspace {10\p@ }

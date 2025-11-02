@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt,draft]{report}
+\documentclass[a4paper,12pt]{report}
 
 % Page layout
 \usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
@@ -9,6 +9,7 @@
 \usepackage{setspace}
 \usepackage{lmodern}
 \usepackage{siunitx}
+\usepackage{pifont}
 \newcommand{\myemph}[1]{{\sffamily\bfseries#1}}
 \sloppy
 \onehalfspacing
@@ -41,6 +42,7 @@
 \usepackage{float}
 \usepackage{placeins}
 \usepackage{subcaption}
+\usepackage{eso-pic}  % For adding background images
 \setlength{\abovecaptionskip}{7.5pt}  % spacing above and below captions
 \newcommand*{\WaterMark}[2][0.2\paperwidth]{\AddToShipoutPicture*{\AtTextCenter{\parbox[c]{0pt}{\makebox[0pt][c]{\includegraphics[width=#1]{#2}}}}}}
 % Mathematics
@@ -95,7 +97,7 @@
 \captionsetup[algorithm]{labelfont={bf,sf},font=small,labelsep=colon}
 
 % Bibliography
-\usepackage{cite}  % automatically reorder inline citations
+\usepackage[numbers,sort&compress]{natbib}  % automatically reorder inline citations
 \bibliographystyle{IEEEtran}
 
 % Fix titlesec issue
@@ -248,10 +250,15 @@
     short = NFC,
     long = near-field communication
 }
+\DeclareAcronym{USB}{
+    short = USB,
+    long = universal serial bus
+}
 \begin{document}
 
 % Front matter
-\input{frontmatter/skripsie_title_page}
+\input{frontmatter/stellenbosch_title_page}
+%\input{frontmatter/skripsie_title_page}
 %\input{frontmatter/masters_title_page}
 \pagenumbering{roman}
 \input{frontmatter/acknowledgements}

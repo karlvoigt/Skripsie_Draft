@@ -83,6 +83,9 @@ e.~{technology}, ``What are the {{Drawbacks}} of {{Differential Amplifier Circui
 \bibitem{InstrumentationAmplifierOperational}
 ``The {{Instrumentation Amplifier}} {\textbar} {{Operational Amplifiers}} {\textbar} {{Electronics Textbook}},'' https://www.allaboutcircuits.com/textbook/semiconductors/chpt-8/the-instrumentation-amplifier/.
 
+\bibitem{panchalDesignValidationLowCost2025}
+J.~Panchal, M.~I. Singh, M.~Singh, and K.~S. Sandha, ``Design and {{Validation}} of {{Low-Cost}}, {{Portable Impedance Analyzer System}} for {{Biopotential Electrode Evaluation}} and {{Skin}}/{{Electrode Impedance Measurement}},'' \emph{Sensors (Basel, Switzerland)}, vol.~25, no.~12, p. 3688, Jun. 2025.
+
 \bibitem{brownDesignThinking2008}
 T.~Brown, ``Design {{Thinking}},'' \emph{Harvard Business Review}, Jul. 2008.
 
@@ -113,6 +116,9 @@ M.~Wilson, L.~Cowie, V.~Farrow, M.~Cree, and J.~Scott, \emph{Simulating {{Fracti
 \bibitem{PGA113PspiceModel2022}
 ``{{PGA113 Pspice}} model - {{Logic}} forum - {{Logic}} - {{TI E2E}} support forums,'' https://e2e.ti.com/support/logic-group/logic/f/logic-forum/1178762/pga113-pspice-model, Dec. 2022.
 
+\bibitem{PlottingLoopGain}
+``Plotting {{Loop Gain Using}} the {{Tian Method}} - {{Spring}} 2011,'' https://gotroot.ca/spectrum/www.spectrum-soft.com/news/spring2011/loopgain.html.
+
 \bibitem{WhatAreBasic}
 ``What {{Are}} the {{Basic Guidelines}} for {{Layout Design}} of {{Mixed-Signal PCBs}}? {\textbar} {{Analog Devices}},'' https://www.analog.com/en/resources/analog-dialogue/articles/what-are-the-basic-guidelines-for-layout-design-of-mixed-signal-pcbs.html.
 
@@ -124,5 +130,8 @@ M.~Ebadi, S.~A. Mazlan, M.~A.~F. Johari, and M.~R. Yusop, ``Polypyrrole-based bo
 
 \bibitem{moultonStudiesDoubleLayer2004}
 S.~E. Moulton, J.~N. Barisci, A.~Bath, R.~Stella, and G.~G. Wallace, ``Studies of double layer capacitance and electron transfer at a gold electrode exposed to protein solutions,'' \emph{Electrochimica Acta}, vol.~49, no.~24, pp. 4223--4230, Sep. 2004.
+
+\bibitem{chioyeBuildProgrammableGain2021}
+L.~Chioye, ``Build a {{Programmable Gain Transimpedance Amplifier Using}} the {{OPA3S328}},'' 2021.
 
 \end{thebibliography}

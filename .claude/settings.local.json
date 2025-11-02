@@ -7,7 +7,8 @@
       "Bash(sudo tlmgr update:*)",
       "Bash(bibtex:*)",
       "Read(//Users/karlvoigt/Documents/Uni/**)",
-      "Bash(kpsewhich:*)"
+      "Bash(kpsewhich:*)",
+      "WebFetch(domain:www.overleaf.com)"
     ],
     "deny": [],
     "ask": []

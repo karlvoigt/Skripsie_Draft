@@ -1,3 +1,8 @@
+\graphicspath{{design/fig/},
+                {introduction/fig/},
+                {literature_review/fig/},
+                {testing_and_validation/fig/},
+                {appendices/fig/}}
 \chapter{Project Planning Schedule}
 \makeatletter\@mkboth{}{Appendix}\makeatother
 \label{appen:derivations_bigramseg}
@@ -9,3 +14,191 @@ This is an appendix.
 \label{appen:derivations_bigramseg2}
 
 This is another appendix.
+
+\chapter{Additional Design Information}
+\makeatletter\@mkboth{}{Appendix}\makeatother
+\label{appen:design}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{INA_BW.jpeg}
+    \caption[INA331 Bandwidth vs Gain]{INA331 Bandwidth vs Gain adapted from \cite{INA331}}
+    \label{fig:ina_bw}
+\end{figure}
+
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.8\textwidth]{KelvinSenseTIA.png}
+    \caption[Example of TIA Kelvin Sense Switch Connections and High Impedance Buffer]{Example of TIA Kelvin Sense Switch Connections and High Impedance Buffer\cite{chioyeBuildProgrammableGain2021}}
+    \label{fig:kelvin_sense_tia}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{MatLabBeta_37,5.png}
+        \caption{$R_F=37.5~\Omega$}
+        \label{fig:matlab_beta_37.5}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{MatLabBeta_7500.png}
+        \caption{$R_F=7.5~k\Omega$}
+        \label{fig:matlab_beta_7.5}
+    \end{subfigure}
+    \caption{$\frac{1}{\beta(j\omega)}$ Frequency Responses}
+    \label{fig:matlab_beta}
+\end{figure}
+
+\chapter{Additional Simulation Results}
+\makeatletter\@mkboth{}{Appendix}\makeatother
+\label{appen:simulation}
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{CPE_linear.png}
+        \caption{Simulated CPE Frequency Response}
+        \label{fig:cpe_sim}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{DUT_Z.png}
+        \caption{Simulated Biosensor Frequency Response}
+        \label{fig:biosensor_sim}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{FIR_10k.png}
+        \caption{10kHz Cutoff Frequency}
+        \label{fig:fir_10k}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{FIR_100k.png}
+        \caption{100kHz Cutoff Frequency}
+        \label{fig:fir_100k}
+    \end{subfigure}
+    \caption{Simulated FIR filter Frequency Responses}
+    \label{fig:lt_aa_freq}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{LTC_10k.png}
+        \caption{10kHz Cutoff Frequency}
+        \label{fig:ltc_10k}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{LTC_100k.png}
+        \caption{100kHz Cutoff Frequency}
+        \label{fig:ltc_100k}
+    \end{subfigure}
+    \caption{LTC1069-7 Datasheet Frequency Responses}
+    \label{fig:ltc_aa_freq}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{FullExcitationStage.png}
+        \caption{Time Domain Response}
+        \label{fig:dac_filtering}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{AA_vs_noAA_cur.png}
+        \caption{Frequency Domain Response}
+        \label{fig:dut_current}
+    \end{subfigure}
+    \caption{Simulated Excitation Stage}
+    \label{fig:excitation_sim}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TIA_Freq_37,5.png}
+        \caption{$R_F = 37.5 \Omega$}
+        \label{fig:tia_freq_37.5}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TIA_Freq_7500.png}
+        \caption{$R_F = 7.5~k\Omega$}
+        \label{fig:tia_freq_7.5k}
+    \end{subfigure}
+    \caption{Simulated TIA Frequency Response}
+    \label{fig:tia_freq}
+\end{figure}
+
+\chapter{Full PCB Layouts and Additional PCB Information}
+\makeatletter\@mkboth{}{Appendix}\makeatother
+\label{appen:pcb}
+
+\begin{table}[H]
+    \centering
+    \caption{JLC PCB Standard Manufacturing Process Limits}
+    \label{tab:jlc_limits}
+    \begin{tabular}{ll}
+        \hline
+        \textbf{Parameter} & \textbf{Limit} \\
+        \hline
+        Minimum Trace Width & \SI{0.1}{\milli\meter} (4 mil) \\
+        Minimum Trace Spacing & \SI{0.1}{\milli\meter} (4 mil) \\
+        Minimum Via Diameter & \SI{0.45}{\milli\meter} \\
+        Minimum Via Hole Diameter & \SI{0.3}{\milli\meter} \\
+        Minimum BGA Pad Diameter & \SI{0.25}{\milli\meter} \\
+        Maximum Board Size & \SI{100}{\milli\meter} × \SI{100}{\milli\meter} \\
+        Number of Layers & 2, 4, or 6 layers \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BioPal_Front.png}
+        \caption{PCB front layout}
+        \label{fig:pcb_front}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BioPal_Back.png}
+        \caption{PCB back layout}
+        \label{fig:pcb_back}
+    \end{subfigure}
+    \caption{Final PCB Layout}
+    \label{fig:pcb_layout}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BioPal_render.png}
+        \caption{Final PCB Render}
+        \label{fig:final_pcb}
+    \end{minipage}\hfill
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BGA_Routing.png}
+        \caption{\\OPA3S328 BGA Routing Solution}
+        \label{fig:bga_routing}
+    \end{minipage}
+\end{figure}
+
+\chapter{Full Testing Results}
+\makeatletter\@mkboth{}{Appendix}\makeatother
+\label{appen:testing}
+
+

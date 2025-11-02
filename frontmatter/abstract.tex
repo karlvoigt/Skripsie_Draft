@@ -4,12 +4,18 @@
 
 \subsubsection*{English}
 
-The English abstract.
+Early disease screening through the detection of biomarkers has the potential for significant healthcare benefits, particularly in resource-limited point-of-care (POC) settings. Impedance analysers utilizing electrochemical impedance spectroscopy (EIS) on interdigitated electrodes (IDEs) offer a promising approach for such applications. However, commercial devices are often prohibitively expensive and require specialised knowledge to operate, limiting their adoption in POC environments. This project presents the development of BioPal, a low-cost multiplexed impedance analyser system designed to be user-friendly for healthcare workers (HCWs).
 
+The system integrates an analogue frontend comprising voltage-controlled excitation, instrumentation amplifier-based voltage measurement, and transimpedance amplifier-based current measurement with programmable gain. A relay-based multiplexer enables sequential measurement of up to four IDEs across a frequency range of 1 Hz to 100 kHz. The device employs a dual-microcontroller architecture. An STM32F303K8 performs measurements and signal processing, while an ESP32-C6 provides system control and dual user interfaces through an on-device LCD for standalone operation and a web-based interface via Bluetooth Low Energy for enhanced usability. The complete system is contained on a custom PCB within a portable, battery-powered enclosure.
+
+The device was calibrated and tested against the PalmSens4. Validation demonstrated sub-3\% error margins for phosphate buffered saline (PBS) measurements and successful differentiation between varying concentrations (20, 50 and 100 mg/mL) of bovine serum albumin (BSA) protein binding. With a cost of R2,000, this project presents a validated platform for further development towards accessible and affordable POC biosensing applications.
 \selectlanguage{afrikaans}
 
 \subsubsection*{Afrikaans}
+Vroeë siekte-sifting deur die opsporing van biomerkers het die potensiaal vir betekenisvolle gesondheidsorgvoordele, veral in hulpbron-beperkte punt-van-sorg (PVS) omgewings. Impedansie-ontleders wat elektrochemiese impedansie-spektroskopie (EIS) op interdigitale elektrodes (IDEs) gebruik, bied 'n belowende benadering vir sulke toepassings. Kommersiële toestelle is egter dikwels onbekostigbaar duur en vereis gespesialiseerde kennis om gebruik te word, wat hul nuttigheid in POC-omgewings beperk. Hierdie projek beskryf die ontwerp van BioPal, 'n lae-koste gemultiplekseerde impedansie-ontleder stelsel wat ontwerp is om gebruikersvriendelik te wees vir gesondheidsorgwerkers (GWs).
 
-Die Afrikaanse uittreksel.
+Die stelsel integreer 'n analoog stelsel bestaande uit spanningbeheerde opwekking, instrumentasie-versterker-gebaseerde spanningmeting, en transimpedansie-versterker-gebaseerde stroommeting met programmeerbare aanwins. 'n Relais-gebaseerde multiplekser maak opeenvolgende meting van tot vier IDEs moontlik oor 'n frekwensiebestek van 1 Hz tot 100 kHz. Die toestel gebruik 'n dubbel-mikrobeheerder-argitektuur. 'n STM32F303K8 voer metings en seinverwerking uit, terwyl 'n ESP32-C6 stelselkontrole en dubbele gebruikerskoppelvlakke verskaf deur 'n op-toestel LCD vir alleenstaande werking en 'n web-gebaseerde koppelvlak via Bluetooth Lae Energie vir verbeterde bruikbaarheid. Die volledige stelsel is vervat op 'n pasgemaakte PCB binne 'n draagbare, battery-aangedrewe omhulsel.
+
+Die toestel is gekalibreer en getoets teenoor die PalmSens4. Validasie het sub-3\% foutmarges vir fosfaatgebufferde soutoplossing (PBS) metings getoon en suksesvolle onderskeiding tussen verskillende konsentrasies (20, 50 en 100 mg/mL) van beeserumalbumien (BSA) proteïenbinding gedemonstreer. Met 'n koste van R2,000, bied hierdie projek 'n getoetse platform vir verdere ontwikkeling na toeganklike en bekostigbare PVS biosensing-toepassings aan.
 
 \selectlanguage{english}

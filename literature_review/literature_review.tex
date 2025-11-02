@@ -1,14 +1,15 @@
 \graphicspath{{literature_review/fig/}}
 
+
 \chapter{Literature Review}
-This chapter establishes the theoretical foundation for developing a impedance analyser for \ac{POC} biosensing applications. The fundamental principles of biosensors and electrochemical impedance spectroscopy are examined, followed by an analysis of impedance measurement techniques and existing instrumentation approaches. This review identifies key design considerations and trade-offs that inform the development of a practical point-of-care impedance measurement system.
+This chapter establishes the theoretical foundation for developing an impedance analyser for \ac{POC} biosensing applications. The fundamental principles of biosensors and electrochemical impedance spectroscopy are examined, followed by an analysis of impedance measurement techniques and existing instrumentation approaches. This review identifies key design considerations and trade-offs that inform the development of a practical point-of-care impedance measurement system.
 \section{Background on Biosensors}
 Biosensors are employed in applications such as disease monitoring, drug discovery, and detection of pollutants, disease-causing micro-organisms and markers that are indicators of a disease in bodily fluids (blood, urine, saliva, sweat) \cite{bhallaIntroductionBiosensors2016}. 
 
 % A biomarker is an objective measure that that gives an indication of the biological processes happening inside the body at a given moment \cite{BiomarkersNationalInstitute}. They are physical substances found in the body that can be measured. The concentration of biomarkers differs between healthy individuals and individuals with diseases, thereby aiding in diagnosis and monitoring of diseases \cite{rosenzweigWhatArePancreatic2018}. This project will focus on the development of a system that can be used for the detection of biomarkers found in blood samples. The concentration of these biomarkers in blood can give an indication of the presence and progression of a variety of diseases, including many types of cancer \cite{ribeiroApplicationsElectrochemicalImpedance2024}.
 
 
-A biosensor consists of an analyte, a bioreceptor and a transducer mechanism combined with the electronics needed to process the signal \cite{bhallaIntroductionBiosensors2016}. The analyte is the substance of interest that needs detection. When the analyte is a subtance that acts as an objective measure that that gives an indication of the biological processes happening inside the body at a given moment, they are reffered to as biomarkers \cite{BiomarkersNationalInstitute}. Bioreceptors are molecules such as enzymes, cells, DNA or antibodies that specifically recognise and interact with the analyte. They produce a signal (in the form of light, heat, pH, charge or mass change, etc.) when they interact with the biomarker \cite{bhallaIntroductionBiosensors2016}. 
+A biosensor consists of an analyte, a bioreceptor and a transducer mechanism combined with the electronics needed to process the signal \cite{bhallaIntroductionBiosensors2016}. The analyte is the substance of interest that needs detection. When the analyte is a substance that acts as an objective measure that that gives an indication of the biological processes happening inside the body at a given moment, they are referred to as biomarkers \cite{BiomarkersNationalInstitute}. Bioreceptors are molecules such as enzymes, cells, DNA or antibodies that specifically recognise and interact with the analyte. They produce a signal (in the form of light, heat, pH, charge or mass change, etc.) when they interact with the biomarker \cite{bhallaIntroductionBiosensors2016}. 
 % Antibodies are produced by vertebrates as part of their immune response to foreign organisms or substances (called antigens). They are the most common biorecognition element used in biosensors \cite{zengRecombinantAntibodiesTheir2012}. Antibodies are Y-shaped cells that can be divided into two distinct regions. The top of the Y is variable and binds to a specific antigen depending on the amino acids present in this region. The amino acids present in the constant region (the bottom of the Y) is similar between different classes of antibodies (within the same species of animal) \cite{zengRecombinantAntibodiesTheir2012}. This constant region binds to the substrate of the biosensor during immobilization, leaving the variable region free to bind with antigens \cite{suedaAntibodyImmobilizationImmunosensing2022a}.
 % \begin{figure}[ht]
 %     \centering
@@ -103,7 +104,7 @@ The non-faradaic Randles equivalent, however does not exhibit a semi-circle, due
     \label{eq:cpe_impedance}
 \end{equation}
 
-The impedance of the \ac{CPE} is given by Equation \ref{eq:cpe_impedance}, with $\omega$ representing the angular frequency, $T$ being a constant related to capacitance, and $\alpha$ being an exponent between 0 and 1 that characterizes the deviation from ideal capacitive behaviour \cite{xieReviewAdvancementsNanoscale2020a}. $\alpha$ corresponds to the angle of the line in the Nyquist plot. When $\alpha = 1$, the \ac{CPE} behaves as an ideal capacitor, while values less than 1 indicate increasing non-ideality due to factors such as surface roughness or inhomogeneities \cite{xieReviewAdvancementsNanoscale2020a}.
+The impedance of the \ac{CPE} is given by Equation \ref{eq:cpe_impedance}, with $\omega$ representing the angular frequency, $T$ being a constant related to capacitance, and $\alpha$ being an exponent between 0 and 1 that characterises the deviation from ideal capacitive behaviour \cite{xieReviewAdvancementsNanoscale2020a}. $\alpha$ corresponds to the angle of the line in the Nyquist plot. When $\alpha = 1$, the \ac{CPE} behaves as an ideal capacitor, while values less than 1 indicate increasing non-ideality due to factors such as surface roughness or inhomogeneities \cite{xieReviewAdvancementsNanoscale2020a}.
 
 An alternative representation of complex impedance data is the Bode plot.
 
@@ -122,11 +123,11 @@ The analogue frontend of an impedance analyser typically consists of three main 
 \subsection{Signal Generation}\label{subsec:lit_review_excitation}
 \Ac{EIS} requires the generation of a small AC excitation signal, either voltage or current, to probe the \ac{DUT} \cite{orazemTutorialElectrochemicalImpedance2020}. Generating a small current signal is difficult to do accurately and requires circuits such as the improved Howlard current pump \cite{ImprovedHowlandCurrent2020}. On the other hand, generating voltage signals are simple, and thus the method commonly used in \ac{EIS} systems \cite{orazemTutorialElectrochemicalImpedance2020}.
 
-Voltage-based signal generation can use dedicated chips like the AD5933 or custom solutions using microcontroller-based \acp{DAC}. The AD5933 offers integrated frequency sweeps and impedance measurement, making it attractive for simple implementations \cite{AD5934TestUpdate}. However, it has several critical drawbacks. The chip has a DC offset between excitation and measurement stages, which is problematic because biosensing requires bipolar signals with no DC component \cite{seoaneAnalogFrontendEnables2008}. DC bias causes charge accumulation at the electrode–electrolyte interface, establishing a net electrochemical potential that drives unwanted redox reactions. Over time, these parasitic reactions alter the interfacial chemistry and change the electrode's impedance characteristics, obscuring the properties that non-faradaic \ac{EIS} aims to measure. The AD5933 also lacks direct voltage measurement capability and has a minimum measurable impedance of 1 k$\Omega$, further limiting its suitability for biosensing applications.
+Voltage-based signal generation can use dedicated chips like the AD5933 or custom solutions using microcontroller-based \acp{DAC}. The AD5933 offers integrated frequency sweeps and impedance measurement, making it attractive for simple implementations \cite{AD5934TestUpdate}. However, it has several critical drawbacks. The chip has a DC offset between excitation and measurement stages, which is problematic because biosensing requires bipolar signals with no DC component \cite{seoaneAnalogFrontendEnables2008}. DC bias causes charge accumulation at the electrode–electrolyte interface, establishing a net electrochemical potential that drives unwanted redox reactions. Over time, these parasitic reactions alter the interfacial chemistry and change the electrode's impedance characteristics, obscuring the properties that non-faradaic \ac{EIS} aims to measure \cite{al-aliDesignPortableLowCost2017}. The AD5933 also lacks direct voltage measurement capability and has a minimum measurable impedance of 1 k$\Omega$, further limiting its suitability for biosensing applications.
 
 In contrast, a \ac{DAC} and \ac{ADC} solution implemented on a microcontroller allows precise control of excitation signals, flexible signal processing, and easier integration with multiplexing subsystems. 
 
-When generating sinusoidal signals using a \ac{DAC}, the output is not a smooth analogue waveform but rather a series of discrete voltage steps. These steps introduce high-frequency components and harmonics not present in the original signal. Without filtering, they may interfere with downstream circuitry or cause aliasing during analog-to-digital conversion. An anti-aliasing filter (AA filter), typically a \ac{LPF}, is placed after the \ac{DAC} output to remove high-frequency content and smooth the signal.
+When generating sinusoidal signals using a \ac{DAC}, the output is not a smooth analogue waveform but rather a series of discrete voltage steps. These steps introduce high-frequency components and harmonics not present in the original signal. \needscite{Without filtering, they may interfere with downstream circuitry or cause aliasing during analog-to-digital conversion. An anti-aliasing filter (AA filter), typically a \ac{LPF}, is placed after the \ac{DAC} output to remove high-frequency content and smooth the signal.}
 
 The dynamic range of a \ac{DAC}, expressed in decibels, determines the smallest signal it can produce above its noise floor and is given by:
 \begin{equation}
@@ -142,16 +143,16 @@ While some impedance analyser designs infer the applied voltage by using the kno
 \subsection{Voltage Measurement}\label{subsec:lit_review_v_meas}
 Two common circuits for differential voltage measurements are differential op-amps and instrumentation amplifiers. Differential op-amps are simple and cost-effective but are susceptible to common-mode noise and offset errors \cite{technologyWhatAreDrawbacks2024}. They also have relatively low input impedance, which loads the signal source and affects measurements \cite{technologyWhatAreDrawbacks2024}. Instrumentation amplifiers are specifically designed for high-precision differential measurement. They provide superior common-mode rejection, high input impedance, and excellent accuracy even with small signals in noisy environments \cite{InstrumentationAmplifierOperational}. This is due to their three op-amp design, making them particularly suitable for biosensing where signals can be very small and minimising interference is critical.
 
-Amplifying the measured voltage to fully utilise the \ac{ADC}'s linear range enhances both sensitivity and resolution. By maximising the voltage swing within the \ac{ADC}'s input range, the system can discriminate smaller changes in sensor response, allowing for better detection of low-concentration analytes. However, amplification introduces trade-offs related to gain-bandwidth product, which limits usable bandwidth at higher gains. Multi-stage amplification distributes gain across several stages, allowing higher overall gain whilst maintaining adequate bandwidth across the measurement frequency range.
+Amplifying the measured voltage to fully utilise the \ac{ADC}'s linear range enhances both sensitivity and resolution. By maximising the voltage swing within the \ac{ADC}'s input range, the system can discriminate smaller changes in sensor response, allowing for better detection of low-concentration analytes. \needscite{However, amplification introduces trade-offs related to gain-bandwidth product, which limits usable bandwidth at higher gains}. Multi-stage amplification distributes gain across several stages, allowing higher overall gain whilst maintaining adequate bandwidth across the measurement frequency range.
 
 While the measured voltage is relatively constant, the current through the \ac{DUT} can vary dramatically depending on its impedance. Thus, accurate current measurement is essential for determining the impedance of the \ac{DUT}.
 
 \subsection{Current Measurement}
 Two primary approaches to measuring current exist, namely shunt resistor based measurement and transimpedance amplifier based measurement.
 
-The most basic method places a small known precision resistor (shunt resistor) in series with the current path and measures the voltage drop across it. Ohm's Law then gives the current. This approach is cheap and easy to implement but has severe drawbacks. The voltage drop across the resistor directly reduces the magnitude of the applied perturbation to the \ac{DUT}, impacting measurements. For biosensing, where signal levels are already low, even small drops significantly affect sensitivity.
+\needscite{The most basic method places a small known precision resistor (shunt resistor) in series with the current path and measures the voltage drop across it}. Ohm's Law then gives the current. This approach is cheap and easy to implement but has severe drawbacks. The voltage drop across the resistor directly reduces the magnitude of the applied perturbation to the \ac{DUT}, impacting measurements. For biosensing, where signal levels are already low, even small drops significantly affect sensitivity.
 
-A \ac{TIA} on the other hand, converts input current to a proportional output voltage without introducing significant voltage drop across the \ac{DUT}. The \ac{TIA} makes use of the following properties of op-amps:
+\needscite{A \ac{TIA} on the other hand, converts input current to a proportional output voltage without introducing significant voltage drop across the \ac{DUT}}. The \ac{TIA} makes use of the following properties of op-amps:
 \begin{equation}
     V_n \approx V_p
     \label{eq:opamp_V}
@@ -167,10 +168,35 @@ where $V_n$ and $V_p$ are the voltages at the inverting and non-inverting inputs
 \end{equation}
 The \ac{TIA} has the advantage that unlike a shunt resistor, the feedback resistor can be large without affecting the applied signal.
 
-In biosensing with fixed voltage perturbation, current varies dramatically depending on the \ac{DUT}'s impedance; from nanoamperes at high impedance to milliamperes at low impedance. A fixed-gain amplifier is impractical across this dynamic range. It would either saturate at high currents or provide insufficient resolution at low currents. Variable gain amplification, achieved through switchable feedback resistors in the \ac{TIA} or \acp{PGA} in subsequent stages, allows the system to adapt to current magnitude. This ensures output voltage remains within the optimal range for the \ac{ADC} whilst maximising measurement resolution.
+\needscite{In biosensing with fixed voltage perturbation, current varies dramatically depending on the \ac{DUT}'s impedance; from nanoamperes at high impedance to milliamperes at low impedance}. A fixed-gain amplifier is impractical across this dynamic range. It would either saturate at high currents or provide insufficient resolution at low currents. Variable gain amplification, achieved through switchable feedback resistors in the \ac{TIA} or \acp{PGA} in subsequent stages, allows the system to adapt to current magnitude. This ensures output voltage remains within the optimal range for the \ac{ADC} whilst maximising measurement resolution.
 
 \todo{Add linking sentence}
 
 \section{Related Works}
+\begin{table}[ht]
+\centering
+\caption{Comparison of impedance analyser systems for biosensing applications}
+\label{tab:related_works}
+% \small
+\renewcommand{\arraystretch}{2.0}
+    \begin{tabular}{lcccccc}
+    \toprule
+    \textbf{Feature} & \textbf{PalmSens4} & \textbf{SimpleZ \cite{buscagliaSimpleZLowCostPortable2023}} & \textbf{\citeauthor{panchalDesignValidationLowCost2025} \cite{panchalDesignValidationLowCost2025}} & \textbf{\citeauthor{al-aliDesignPortableLowCost2017}\cite{al-aliDesignPortableLowCost2017}} & \textbf{Proposed BioPal System} \\
+    \midrule
+    \textbf{Year} & N/A & 2022 & 2025 & 2017 & 2025 \\
+    \textbf{Design Focus} & Research Equipment & Biosensing and education & ECG Electrode Validation & Agricultural crop monitoring & POC Biosensing \\
+    \textbf{Cost} & R 85,000 & R 1,750 & R 2,750 & R 2,600 & R 2,000 \\
+    \textbf{Frequency Range} & 10 $\mu$Hz -- 1 MHz & 1 Hz -- 100 kHz & 10 Hz -- 100 kHz & 5 Hz -- 100 kHz & 1 Hz -- 100 kHz \\
+    \textbf{Excitation Voltage} & 2.8 mV -- 0.7 V & 10 mV -- 1 V & $\geq$ 200 mV & $\geq$ 200 mV & 10 mV \\
+    \textbf{Impedance Range} & 1 $\Omega$ -- 100 M$\Omega$ & 100 $\Omega$ -- 1 M$\Omega$ & 100 $\Omega$ -- 1 M$\Omega$ & 10 $\Omega$ -- 100 k$\Omega$ & 2.5 $\Omega$ -- 100 k$\Omega$ \\
+    \textbf{Wireless} & \checkmark & X & \checkmark & \checkmark & \checkmark \\
+    \textbf{Battery Operated} & \checkmark & X & \checkmark & \checkmark & \checkmark \\
+    \textbf{Standalone Operations} & \checkmark & X & \checkmark & X & \checkmark \\
+    \textbf{Multiplexed} & X & X & X & X & \checkmark \\
+    \textbf{Technical Expertise Required} & \checkmark & \checkmark & \checkmark & \checkmark & X \\
+    \textbf{Suitable for POC Settings} & X & X & X & X & \checkmark \\
+    \bottomrule
+    \end{tabular}
+\end{table}
 
 \label{chap:literature_review}
