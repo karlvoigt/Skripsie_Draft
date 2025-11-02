@@ -1,0 +1,79 @@
+\acswitchoff 
+\babel@toc {english}{}\relax 
+\babel@toc {afrikaans}{}\relax 
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Equivalent Circuits for Faradaic and Non-Faradaic EIS Biosensors}}{6}{figure.caption.7}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Nyquist Plots of Faradaic and Non-Faradaic Randles Circuits}}{8}{figure.caption.8}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces System Overview}}{14}{figure.caption.10}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Complete Excitation Stage Circuit}}{15}{figure.caption.11}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Complete Voltage Measurement Stage Circuit}}{17}{figure.caption.12}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Randles Equivalent TIA Circuit with CPE}}{19}{figure.caption.13}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Loop Gain Frequency Response for $R_F=7.5~k\Omega $}}{20}{figure.caption.15}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Complete Current Measurement Stage Circuit}}{21}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Relay Multiplexer Topology for 4 DUT's}}{22}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Relay Driver Circuit for one relay}}{22}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Virtual Ground Reference Circuit}}{23}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces 5 V Boost Converter Circuit}}{23}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Simulated Excitation Stage}}{24}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Simulated Voltage Measurement Stage}}{24}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Simulated Complete Current Measurement Stage Frequency Response}}{25}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Complete PCB Schematic}}{26}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.15}{\ignorespaces STM32 Measurement Subsystem Flowdiagram}}{27}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.16}{\ignorespaces ESP Flow Diagram}}{29}{figure.caption.23}%
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Web Interface}}{31}{figure.caption.26}%
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Complete BioPal Device}}{32}{figure.caption.27}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Run to Run Variation Across 16 Measurements of the Test Cell}}{36}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces 25\% Baseline vs 100\% Final PBS 1x Comparison}}{37}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces 50\% Baseline vs 100\% Final PBS 1x Comparison}}{37}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces 75\% Baseline vs 100\% Final PBS 1x Comparison}}{38}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Baseline vs Final Frequency Response to 20 mg/mL BSA Binding}}{39}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Baseline vs Final Frequency Response to 50 mg/mL BSA Binding}}{39}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Baseline vs Final Frequency Response to 100 mg/mL BSA Binding}}{39}{figure.caption.37}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces IDE Impedance Change with 20 mg/mL BSA Binding}}{40}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces IDE Impedance Change with 50 mg/mL BSA Binding}}{40}{figure.caption.40}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces IDE Impedance Change with 100 mg/mL BSA Binding}}{40}{figure.caption.41}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {C.1}{\ignorespaces INA331 Bandwidth vs Gain}}{49}{figure.caption.43}%
+\contentsline {figure}{\numberline {C.2}{\ignorespaces Kelvin Sense TIA}}{49}{figure.caption.44}%
+\contentsline {figure}{\numberline {C.3}{\ignorespaces Equivalent Circuit Model of Photodiode}}{49}{figure.caption.45}%
+\contentsline {figure}{\numberline {C.4}{\ignorespaces Photodiode TIA Equivalent Circuit}}{50}{figure.caption.46}%
+\contentsline {figure}{\numberline {C.5}{\ignorespaces $\frac {1}{\beta (j\omega )}$ Frequency Responses}}{50}{figure.caption.47}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {F.1}{\ignorespaces Simulated CPE Frequency Response}}{55}{figure.caption.49}%
+\contentsline {figure}{\numberline {F.2}{\ignorespaces Simulated IDE Frequency Response}}{55}{figure.caption.50}%
+\contentsline {figure}{\numberline {F.3}{\ignorespaces Simulated FIR filter Frequency Responses}}{55}{figure.caption.51}%
+\contentsline {figure}{\numberline {F.4}{\ignorespaces LTC1069-7 Datasheet Frequency Responses}}{56}{figure.caption.52}%
+\contentsline {figure}{\numberline {F.5}{\ignorespaces FFT of Simulated Excitation Signal Filtering showing reduction in aliasing artefacts}}{56}{figure.caption.53}%
+\contentsline {figure}{\numberline {F.6}{\ignorespaces Simulated INA331 Frequency Response}}{57}{figure.caption.54}%
+\contentsline {figure}{\numberline {F.7}{\ignorespaces Simulated TLV9061 Frequency Response}}{57}{figure.caption.54}%
+\contentsline {figure}{\numberline {F.8}{\ignorespaces Simulated Gain Stage Frequency Responses}}{57}{figure.caption.54}%
+\contentsline {figure}{\numberline {F.9}{\ignorespaces Simulated TIA Frequency Response}}{57}{figure.caption.55}%
+\contentsline {figure}{\numberline {F.10}{\ignorespaces Simulated Time Domain Response of Full Current Measurement Stage}}{57}{figure.caption.56}%
+\contentsline {figure}{\numberline {F.11}{\ignorespaces Simulated Current Measurement with and without Anti-Aliasing Filter}}{58}{figure.caption.57}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {G.1}{\ignorespaces Final PCB Render}}{59}{figure.caption.59}%
+\contentsline {figure}{\numberline {G.2}{\ignorespaces OPA3S328 BGA Routing Solution}}{59}{figure.caption.59}%
+\contentsline {figure}{\numberline {G.3}{\ignorespaces Final PCB Layout}}{60}{figure.caption.60}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {H.1}{\ignorespaces INA331 Measured Frequency Response with Filtered Calibration Curve}}{61}{figure.caption.61}%
+\contentsline {figure}{\numberline {H.2}{\ignorespaces TIA Measured Frequency Response at $R_F = 37.5~\Omega $ with Filtered Calibration Curve}}{61}{figure.caption.61}%
+\contentsline {figure}{\numberline {H.3}{\ignorespaces TIA Measured Frequency Response at $R_F = 7.5~k\Omega $ with Filtered Calibration Curve}}{62}{figure.caption.62}%
+\contentsline {figure}{\numberline {H.4}{\ignorespaces PGA113 Measured Frequency Response at Gain 200 with Filtered Calibration Curve}}{62}{figure.caption.62}%
+\contentsline {figure}{\numberline {H.5}{\ignorespaces PGA113 Measured Frequency Response at Gain 100 with Filtered Calibration Curve}}{62}{figure.caption.63}%
+\contentsline {figure}{\numberline {H.6}{\ignorespaces PGA113 Measured Frequency Response at Gain 50 with Filtered Calibration Curve}}{62}{figure.caption.63}%
+\contentsline {figure}{\numberline {H.7}{\ignorespaces PGA113 Measured Frequency Response at Gain 20 with Filtered Calibration Curve}}{63}{figure.caption.64}%
+\contentsline {figure}{\numberline {H.8}{\ignorespaces PGA113 Measured Frequency Response at Gain 10 with Filtered Calibration Curve}}{63}{figure.caption.64}%
+\contentsline {figure}{\numberline {H.9}{\ignorespaces PGA113 Measured Frequency Response at Gain 5 with Filtered Calibration Curve}}{63}{figure.caption.65}%
+\contentsline {figure}{\numberline {H.10}{\ignorespaces PGA113 Measured Frequency Response at Gain 2 with Filtered Calibration Curve}}{63}{figure.caption.65}%
+\contentsline {figure}{\numberline {H.11}{\ignorespaces PGA113 Measured Frequency Response at Gain 1 with Filtered Calibration Curve}}{64}{figure.caption.66}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {I.1}{\ignorespaces Run to Run Magnitude Standard Deviation at Various Frequency Ranges}}{67}{figure.caption.68}%

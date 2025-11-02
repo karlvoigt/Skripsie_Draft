@@ -1,0 +1,30 @@
+\acswitchoff 
+\babel@toc {english}{}\relax 
+\babel@toc {afrikaans}{}\relax 
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Comparison of Impedance Analyser Systems for Biosensing Applications}}{12}{table.caption.9}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Circuit Parameters}}{20}{table.caption.14}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Stability Analysis Results}}{20}{table.caption.14}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces PGA113 Performance at 100 kHz}}{35}{table.caption.28}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Average Impedance Change from Baseline to PBS 1x (125 Hz - 100 kHz)}}{37}{table.caption.30}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Qualitative Risk Levels Based on Impedance Change}}{38}{table.caption.34}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Average change in Impedance Magnitude due to BSA Binding (160 Hz - 500 Hz)}}{39}{table.caption.38}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {D.1}{\ignorespaces Configured Sampling Frequencies and Timer Settings for 64 MHz Peripheral Clock}}{51}{table.D.1}%
+\contentsline {table}{\numberline {D.2}{\ignorespaces TIA and PGA Gain Settings per Signal Frequency. TIA: 0=High, 1=Low. PGA index maps to gain \{0=1,1=2,2=5,3=10,4=20,5=50,6=100,7=200\}.}}{52}{table.D.2}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {E.1}{\ignorespaces Bill of Materials and Cost Breakdown}}{54}{table.caption.48}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {G.1}{\ignorespaces JLC PCB Standard Manufacturing Process Limits}}{59}{table.caption.58}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {I.1}{\ignorespaces Run to Run Variation Statistics}}{66}{table.caption.67}%

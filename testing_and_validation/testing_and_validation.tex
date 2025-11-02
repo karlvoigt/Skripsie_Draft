@@ -28,7 +28,7 @@ The attenuation stage was characterised across the full frequency range from 1 H
 \subsection{Voltage Measurement Stage} 
 For the voltage measurement stage, both the INA331 instrumentation amplifier and TLV9061 gain stage were tested separately. The INA331 was tested using a 200mV input signal to minimise noise from the signal generator. It performed as expected, with no measurable gain roll-off at 100 kHz and a phase shift of -5\textdegree, which is close to the expected -4.6\textdegree\ based on simulations.
 
-The TLV9061 stage was similairly tested using a 150mV input signal to avoid clipping on the output. It performed well, exhibiting a less than 0.2 dB gain roll-off and -8.7\textdegree\ phase shift at 100 kHz compared to the expected -3.4\textdegree. The larger-than-expected phase shift can be attributed to tolerances in the op-amp's gain-bandwidth product.
+The TLV9061 stage was similarly tested using a 150mV input signal to avoid clipping on the output. It performed well, exhibiting a less than 0.2 dB gain roll-off and -8.7\textdegree\ phase shift at 100 kHz compared to the expected -3.4\textdegree. The larger-than-expected phase shift can be attributed to tolerances in the op-amp's gain-bandwidth product and could be better studied in future using Monte Carlo simulations.
 
 Overall, the voltage measurement stage's performance closely matched expectations, with the phase offsets remaining well within acceptable limits for accurate impedance measurements if properly calibrated for.
 
@@ -41,11 +41,11 @@ The current measurement stage required the most extensive testing due to its com
 
 The TIA was characterised by applying known voltages across resistors of known values, allowing the input current to be calculated. The TIA output voltage was then measured to determine the transimpedance gain across the full frequency range. The resistor values were measured using a standard multimeter (rather than a Kelvin sense connection) and the resistors' parasitic inductance and capacitance were ignored. However, this characterisation served primarily for functional validation, as final calibration would be performed against the PalmSens4.
 
-At $R_f = 37.5~\Omega$, the TIA exhibited a gain of 37.73 V/V with a phase shift of -4.4\textdegree\ and gain reduction of 0.74 dB at 100 kHz. At the larger feedback resistor value of $R_f = 7.5~k\Omega$, the gain averaged at 7427 V/V. Interestingly, both phase shift and gain reduction  at 100 kHz were less pronounced with the higher feedback value at -3.5\textdegree\ and \textless 0.1 dB respectively. This is possibly due to slight peaking.
+At $R_f = 37.5~\Omega$, the TIA exhibited a gain of 37.73 V/V with a phase shift of -4.4\textdegree\ and gain reduction of 0.74 dB at 100 kHz. At the larger feedback resistor value of $R_f = 7.5~k\Omega$, the gain averaged at 7427 V/V. Interestingly, both phase shift and gain reduction  at 100 kHz were less pronounced with the higher feedback value at -3.5\textdegree\ and \textless 0.1 dB respectively. This is possibly due to slight peaking. These results confirm that the TIA performs as expected and is capable of accurate current measurement across the target frequency range.
 
-Stability was verified by connecting a simplified Randles equivalent circuit with a constant capacitance of \SI{1.47}{\micro F} and resistance of $12~\Omega$, approximating the expected biosensor characteristics (Table \ref{tab:stability_params}). A 10 mVpp signal was applied to the equivalent circuit and swept from 1 Hz to 30 MHz while monitoring the TIA output for oscillations, ringing, or excessive peaking in the frequency response. No instability was observed, confirming the theoretical analysis in Section \ref{subsec:design_cur}.
+Stability was verified by connecting a simplified Randles equivalent circuit with a constant capacitance of \SI{1.47}{\micro F} and resistance of $12~\Omega$, approximating the expected IDE characteristics (refer back to Table \ref{tab:stability_params}). A 10 mVpp signal was applied to the equivalent circuit and swept from 1 Hz to 30 MHz while monitoring the TIA output for oscillations, ringing, or excessive peaking in the frequency response. No instability was observed, confirming the theoretical analysis in Section \ref{subsec:design_cur}.
 
-The PGA113 was measured at each gain setting from 1 V/V to 200 V/V for each measurement frequency. Table \ref{tab:pga_performance} summarises the measured gain and phase shift at 100 kHz for each setting. As expected, the phase shift is more pronounced at higher gain settings, however the higher gains will primarily be used at lower frequencies where the phase shift is negligible. These gain and phase shift values were incorporated into the calibration procedure to ensure accurate impedance calculations.
+The PGA113 was measured at each gain setting from 1 V/V to 200 V/V for each measurement frequency. The measured gain and phase shift at 100 kHz are summarised for each setting in Table \ref{tab:pga_performance}. As expected, the phase shift is more pronounced at higher gain settings, however the higher gains will primarily be used at lower frequencies where the phase shift is negligible. These gain and phase shift values were incorporated into the calibration procedure to ensure accurate impedance calculations.
 
 % Move to appendix
 \begin{table}[H]
@@ -88,7 +88,14 @@ The complete analogue frontend was tested using passive test cells, initially wi
 Frequency response data from each subsystem was smoothed with Locally Estimated Scatterplot Smoothing (LOESS) filtering in MATLAB to minimise measurement noise. The processed data was compiled into a calibration table, stored on the ESP. Finally, a non-faradaic Randles equivalent test cell (consisting of a 12 $\Omega$ resistor and 1.47 $\mu$F capacitor in series), was measured with both the BioPal and PalmSens4. This was used to calibrate the BioPal's response against the reference instrument. 
 % This approach accounts for the complete signal chain at actual operating conditions, significantly improving accuracy.
 
-It was found that at low frequencies (125 Hz and below), the lack of filtering in the excitation phase, lead to significant aliasing. Due to the \ac{DUT}'s lower impedance at higher frequencies, the aliased high-frequency components dominated the response, leading to clipping at high gain settings or conversely, very low signal levels at the frequency of interest for low gain settings. However, as shown in the following section, these frequencies are below the range of interest for the tested \acp{IDE} and thus did not have a significant impact on results. However, it did lead to increased error margins at lower frequencies, especially in phase measurements. Measurements taken with the PalmSens4 taken directly on the test cell and on the output of the multiplexer confirmed that the multiplexer does not influence measurement accuracy.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{RunToRun_Narrow.png}
+    \caption{Run to Run Variation Across 16 Measurements of the Test Cell}
+    \label{fig:run_to_run}
+\end{figure}
+
+It was found that at low frequencies (125 Hz and below), the lack of filtering in the excitation phase, leads to significant aliasing. Due to the \ac{DUT}'s lower impedance at higher frequencies, the aliased high-frequency components dominated the response, leading to clipping at high gain settings or conversely, very low signal levels at the frequency of interest for low gain settings. However, as shown in the following section, these frequencies are below the range of interest for the tested \acp{IDE} and thus did not have a significant impact on results. However, it did lead to increased run to run variations (Figure \ref{fig:run_to_run}) and error margins at lower frequencies, especially in phase measurements. Measurements taken with the PalmSens4 taken directly on the test cell and on the output of the multiplexer confirmed that the multiplexer does not influence measurement accuracy.
 
 After calibrating the system, final validation could be done through measurements on \acp{IDE} using phosphate buffered saline (PBS) 1x solution and bovine serum albumin (BSA) protein.
 
@@ -96,7 +103,7 @@ After calibrating the system, final validation could be done through measurement
 
 Initial validation was performed using PBS 1x solutions of varying concentrations to test the BioPal's ability to measure bulk solution impedance changes. Following this, BSA protein binding to the \acp{IDE} was used to simulate antibody-antigen interactions, allowing validation of surface-based impedance changes.
 % PBS 1× was selected as the electrolyte solution due to its physiological ionic strength and pH (7.4), which closely mimics the conditions in bodily fluids and provides a stable, well-characterised electrochemical environment for biosensor operation.
-PBS solutions of v25\%, 50\% and 75\% concentrations were prepared by diluting stock PBS 1x with deionised water with higher PBS concentrations corresponding to higher ionic strength and thus lower solution impedance. Figures \ref{fig:25_pbs_comparison} - \ref{fig:75_pbs_comparison} show impedance measurements taken by both the BioPal and PalmSens4 for each concentration. Baseline measurements were taken using the diluted solutions, followed by final measurements using undiluted PBS 1x. Tabel \ref{tab:pbs} summarises the average reduction in impedance magnitude between the baseline and final measurements across the frequency range from 125 Hz - 100 kHz. This also confirmed the usefulness of the multiplexed system when taking multiple measurements.
+PBS solutions of v25\%, 50\% and 75\% concentrations were prepared by diluting stock PBS 1x with deionised water with higher PBS concentrations corresponding to higher ionic strength and thus lower solution impedance. Figures \ref{fig:25_pbs_comparison} - \ref{fig:75_pbs_comparison} show impedance measurements taken by both the BioPal and PalmSens4 for each concentration. Baseline measurements were taken using the diluted solutions, followed by final measurements using undiluted PBS 1x. Table \ref{tab:pbs} summarises the average reduction in impedance magnitude between the baseline and final measurements across the frequency range from 125 Hz - 100 kHz. This also confirmed the usefulness of the multiplexed system when taking multiple measurements.
 % The BioPal successfully detected the impedance increase following BSA adsorption, demonstrating its capability to measure surface-based electrochemical changes relevant to biosensing applications.
 \begin{table}[H]
 \centering
@@ -199,7 +206,7 @@ Measurements were performed at each step using both the BioPal and the PalmSens4
         \caption{PalmSens4: Baseline vs Post-BSA}
         \label{fig:2g_palmsens}
     \end{subfigure}
-    \caption{Baseline vs Final Frequency Response to 20mg/mL BSA Binding}
+    \caption{Baseline vs Final Frequency Response to 20 mg/mL BSA Binding}
     \label{fig:2g_bsa_comparison_final}
 \end{figure}
 
@@ -216,7 +223,7 @@ Measurements were performed at each step using both the BioPal and the PalmSens4
         \caption{PalmSens4: Baseline vs Post-BSA}
         \label{fig:5g_palmsens}
     \end{subfigure}
-    \caption{Baseline vs Final Frequency Response to 50mg/mL BSA Binding}
+    \caption{Baseline vs Final Frequency Response to 50 mg/mL BSA Binding}
     \label{fig:5g_bsa_comparison_final}
 \end{figure}
 
@@ -233,7 +240,7 @@ Measurements were performed at each step using both the BioPal and the PalmSens4
         \caption{PalmSens4: Baseline vs Post-BSA}
         \label{fig:10g_palmsens}
     \end{subfigure}
-    \caption{Baseline vs Final Frequency Response to 100mg/mL BSA Binding}
+    \caption{Baseline vs Final Frequency Response to 100 mg/mL BSA Binding}
     \label{fig:10g_bsa_comparison_final}
 \end{figure}
 
@@ -310,7 +317,7 @@ The BioPal meets all requirements needed to meet the objectives set out in Chapt
 
 PBS concentration measurements performed exceptionally well, with sub-3\% error margins across all tested concentrations (Table \ref{tab:pbs}), ensuring that different concentrations can be reliably distinguished. This validates the BioPal's impedance measurement capabilities and the core functionality of the combined system.  The lack of AA-filter had an impact at low frequencies, however this did not have an impact on final results due to being outside the range of interest for the tested \acp{IDE}. The frequency response closely tracked the PalmSens4 from 125 Hz to 100 kHz (Figures \ref{fig:25_pbs_comparison} - \ref{fig:75_pbs_comparison}), confirming that the calibration procedure successfully compensates for systematic errors in the analogue frontend.
 
-Tests using BSA confirmed that the BioPal can clearly differentiate between different concentrations, albeit with larger error margins against the PalmSens4 than the PBS tests. Figures \ref{fig:2g_bsa_comparison} - \ref{fig:10g_bsa_comparison} show that the change in magnitude across the tested frequency range follows a similar pattern between the BioPal and PalmSens4. However, the BioPal consistently detected larger changes than the PalmSens4. This disparity likely results from the measurement sequence, with baselines first recorded with the BioPal then the PalmSens4, while final measurements reversed this order (PalmSens4 then BioPal). The roughly 10 minute delay between BioPal and PalmSens4 measurements allowed time-dependent impedance reduction from PBS exposure \cite{moultonStudiesDoubleLayer2004}. Thus, the PalmSens4 baseline had more time to stabilize and the final had less, while the BioPal baseline had less time to stabilize and the final more time. This emphasises the importance of standardised measurement timing protocols for \ac{POC} deployment. Despite this, the BioPal was able to reliably distinguish between concentrations, demonstrating its suitability for biosensing applications. The risk level classification based on impedance change (Table \ref{tab:risk_levels}) functioned as intended, providing a straightforward interpretation of results for end-users.
+Tests using BSA confirmed that the BioPal can clearly differentiate between different concentrations, albeit with larger error margins against the PalmSens4 than the PBS tests. Figures \ref{fig:2g_bsa_comparison} - \ref{fig:10g_bsa_comparison} show that the change in magnitude across the tested frequency range follows a similar pattern between the BioPal and PalmSens4. However, the BioPal consistently detected larger changes than the PalmSens4. This disparity likely results from the measurement sequence, with baselines first recorded with the BioPal then the PalmSens4, while final measurements reversed this order (PalmSens4 then BioPal). The roughly 10-minute delay between BioPal and PalmSens4 measurements allowed time-dependent impedance reduction from PBS exposure \cite{moultonStudiesDoubleLayer2004}. Thus, the PalmSens4 baseline had more time to stabilize and the final had less, while the BioPal baseline had less time to stabilize and the final more time. This emphasises the importance of standardised measurement timing protocols for \ac{POC} deployment. Despite this, the BioPal was able to reliably distinguish between concentrations, demonstrating its suitability for biosensing applications. The risk level classification based on impedance change (Table \ref{tab:risk_levels}) functioned as intended, providing a straightforward interpretation of results for end-users.
 
 Recommendations for future work as well as a summary of the completed project is discussed in the following chapter.
 

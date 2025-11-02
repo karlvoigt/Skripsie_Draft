@@ -4,7 +4,7 @@
 \chapter{Literature Review}
 This chapter establishes the theoretical foundation for developing an impedance analyser for \ac{POC} biosensing applications. The fundamental principles of biosensors and electrochemical impedance spectroscopy are examined, followed by an analysis of impedance measurement techniques and existing instrumentation approaches. This review identifies key design considerations and trade-offs that inform the development of a practical point-of-care impedance measurement system.
 \section{Background on Biosensors}
-Biosensors are employed in applications such as disease monitoring, drug discovery, and detection of pollutants, disease-causing micro-organisms and markers that are indicators of a disease in bodily fluids (blood, urine, saliva, sweat) \cite{bhallaIntroductionBiosensors2016}. 
+Biosensors are employed in applications such as disease monitoring, drug discovery, and detection of pollutants, disease-causing microorganisms and markers that are indicators of a disease in bodily fluids (blood, urine, saliva, sweat) \cite{bhallaIntroductionBiosensors2016}. 
 
 % A biomarker is an objective measure that that gives an indication of the biological processes happening inside the body at a given moment \cite{BiomarkersNationalInstitute}. They are physical substances found in the body that can be measured. The concentration of biomarkers differs between healthy individuals and individuals with diseases, thereby aiding in diagnosis and monitoring of diseases \cite{rosenzweigWhatArePancreatic2018}. This project will focus on the development of a system that can be used for the detection of biomarkers found in blood samples. The concentration of these biomarkers in blood can give an indication of the presence and progression of a variety of diseases, including many types of cancer \cite{ribeiroApplicationsElectrochemicalImpedance2024}.
 
@@ -37,7 +37,7 @@ A key advantage of \ac{EIS} is the ability to simulate the electrochemical syste
 EIS biosensors can be categorized into two main types based on their transduction mechanism: faradaic and non-faradaic sensors.
 
 \subsection{Faradaic vs Non-Faradaic EIS Sensors}\label{subsec:lit_review_eis_sensors}
-In faradaic measurements, charge transfers occur at the electrode-solution interface and redox reactions occur on the electrode surface \cite{xieReviewAdvancementsNanoscale2020a}. The basic equivalent circuit model for faradaic sensors is the Randles circuit (Figure \ref{fig:randles_fardaic}), consisting of solution resistance ($R_s$) in series with the parallel combination of double-layer capacitance ($C_{dl}$) and charge transfer resistance ($R_{CT}$) plus Warburg impedance ($Z_w$) representing diffusion processes \cite{xieReviewAdvancementsNanoscale2020a}.
+In faradaic measurements, charge transfers occur at the electrode-solution interface and redox reactions occur on the electrode surface \cite{xieReviewAdvancementsNanoscale2020a}. The basic equivalent circuit model for faradaic sensors is the Randles circuit (Figure \ref{fig:randles_fardaic}), consisting of solution resistance ($R_s$) in series with the parallel combination of double-layer capacitance ($C_{DL}$) and charge transfer resistance ($R_{CT}$) plus Warburg impedance ($Z_W$) representing diffusion processes \cite{xieReviewAdvancementsNanoscale2020a}.
 
 Non-faradaic measurements operate without charge-transfer reactions, functioning as capacitive sensors that detect changes in the electrical double layer capacitance. Due to the lack of charge-transfer, $R_{CT}$ becomes infinitely large, thus creating an open circuit \cite{xieReviewAdvancementsNanoscale2020a}. On solid electrodes, the observed impedance response of $C_{DL}$ differs from an ideal capacitor, thus a \ac{CPE} is used instead of $C_{DL}$ in the Randles non-fardaic equivalent circuit (Figure \ref{fig:randles_non_faradaic}).  
 
@@ -74,11 +74,11 @@ Two major ways of visualizing this complex impedance are the Nyquist and Bode re
 \subsection{Nyquist Plot}
 A Nyquist plot displays the negative imaginary part of impedance($Z''(\omega)$) versus the real part ($Z'(\omega)$) \cite{BodeNyquistPlot}. Each point on the plot corresponds to a particular frequency, though the frequency is not explicitly shown along the axes. For biosensing, high-frequency data points are located near the origin (low impedance), while low-frequency points are farther along the curve (high impedance). The Nyquist plot has the distinct advantage that some circuit parameters can be read directly form the plot \cite{BodeNyquistPlot}. 
 
-A purely resistive impedance is represented as a point on the x-axis, as it has no imaginary component and is not frequency dependent. A purely capacitive impedance on the other hand is represented as a straight vertical line on the y-axis, as it has no real component and its imaginary component varies inversely with frequency \cite{BodeNyquistPlot}. The series combination of resistive and capacitive elements, thus result in a vertical line, offset from the y-axis. The parallel combination of resistive and capacitive elements, however result in a semicircular arc, as current flows though the path of least resistance \cite{BodeNyquistPlot}. At low frequencies, the capacitor acts as an open circuit resulting in the x-axis intercept (or diameter of the semi-circle) representing the magnitude of the resistive elements in the circuit. The series combination of a resistor and parallel resistor-capacitor thus results in a semicircular arc offset from the y-axis.
+A purely resistive impedance is represented as a point on the x-axis, as it has no imaginary component and is not frequency dependent. A purely capacitive impedance on the other hand is represented as a straight vertical line on the y-axis, as it has no real component and its imaginary component varies inversely with frequency \cite{BodeNyquistPlot}. The series combination of resistive and capacitive elements, thus result in a vertical line, offset from the y-axis. The parallel combination of resistive and capacitive elements, however result in a semicircular arc, as current flows through the path of least resistance \cite{BodeNyquistPlot}. At low frequencies, the capacitor acts as an open circuit resulting in the x-axis intercept (or diameter of the semicircle) representing the magnitude of the resistive elements in the circuit. The series combination of a resistor and parallel resistor-capacitor thus results in a semicircular arc offset from the y-axis.
 
-For simple electrochemical systems such as a Randles cell, the Nyquist plot appears as a semicircle (frequencies where charge transfer phenomena dominate) ending in a straight line tail (frequencies where mass transfer phenomena dominate) (Figure \ref{fig:randles_nyquist}) \cite{lazanasErratumElectrochemicalImpedance2025}. The series resistance ($R_s$) can be read directly from the x-axis intercept at high frequencies (closer to the origin), while the charge transfer resistance ($R_{CT}$) is given by the diameter of the semicircle in middle frequencies. At low frequencies, the Warburg impedance ($Z_w$) manifests as a 45-degree line due to diffusion-limited processes \cite{lazanasErratumElectrochemicalImpedance2025}, explaining the observed tail.
+For simple electrochemical systems such as a Randles cell, the Nyquist plot appears as a semicircle (frequencies where charge transfer phenomena dominate) ending in a straight line tail (frequencies where mass transfer phenomena dominate) (Figure \ref{fig:randles_nyquist}) \cite{lazanasErratumElectrochemicalImpedance2025}. The series resistance ($R_s$) can be read directly from the x-axis intercept at high frequencies (closer to the origin), while the charge transfer resistance ($R_{CT}$) is given by the diameter of the semicircle in middle frequencies. At low frequencies, the Warburg impedance ($Z_W$) manifests as a 45-degree line due to diffusion-limited processes \cite{lazanasErratumElectrochemicalImpedance2025}, explaining the observed tail.
 
-The non-faradaic Randles equivalent, however does not exhibit a semi-circle, due to the exclusion of the charge transfer resistance ($R_{CT}$) and Warburg impedance ($Z_w$). Instead, the Nyquist plot appears as a straight line with an x-axis intercept representing $R_S$. For solid electrodes, however the line is not vertical as would be expected from the series combination of a resistive and purely capacitive element \cite{xieReviewAdvancementsNanoscale2020a} (Figure \ref{fig:RandlesNonFaradaicNyquist}). The $C_{DL}$ is thus replaced with a \ac{CPE} in the circuit model to account for this non-ideal capacitive behaviour.
+The non-faradaic Randles equivalent, however, does not exhibit a semicircle due to the exclusion of the charge transfer resistance ($R_{CT}$) and Warburg impedance ($Z_W$). Instead, the Nyquist plot appears as a straight line with an x-axis intercept representing $R_s$. For solid electrodes, however, the line is not vertical as would be expected from the series combination of a resistive and purely capacitive element \cite{xieReviewAdvancementsNanoscale2020a} (Figure \ref{fig:RandlesNonFaradaicNyquist}). The $C_{DL}$ is thus replaced with a \ac{CPE} in the circuit model to account for this non-ideal capacitive behaviour.
 
 \begin{figure}[H]
     \centering
@@ -168,35 +168,39 @@ where $V_n$ and $V_p$ are the voltages at the inverting and non-inverting inputs
 \end{equation}
 The \ac{TIA} has the advantage that unlike a shunt resistor, the feedback resistor can be large without affecting the applied signal.
 
-\needscite{In biosensing with fixed voltage perturbation, current varies dramatically depending on the \ac{DUT}'s impedance; from nanoamperes at high impedance to milliamperes at low impedance}. A fixed-gain amplifier is impractical across this dynamic range. It would either saturate at high currents or provide insufficient resolution at low currents. Variable gain amplification, achieved through switchable feedback resistors in the \ac{TIA} or \acp{PGA} in subsequent stages, allows the system to adapt to current magnitude. This ensures output voltage remains within the optimal range for the \ac{ADC} whilst maximising measurement resolution.
+\needscite{In biosensing with fixed voltage perturbation, current varies dramatically depending on the \ac{DUT}'s impedance, ranging from nanoamperes at high impedance to milliamperes at low impedance}. A fixed-gain amplifier is impractical across this dynamic range. It would either saturate at high currents or provide insufficient resolution at low currents. Variable gain amplification, achieved through switchable feedback resistors in the \ac{TIA} or \acp{PGA} in subsequent stages, allows the system to adapt to current magnitude. This ensures output voltage remains within the optimal range for the \ac{ADC} whilst maximising measurement resolution.
 
 \todo{Add linking sentence}
 
 \section{Related Works}
-\begin{table}[ht]
+\begin{table}[H]
 \centering
-\caption{Comparison of impedance analyser systems for biosensing applications}
+\caption{Comparison of Impedance Analyser Systems for Biosensing Applications}
 \label{tab:related_works}
 % \small
-\renewcommand{\arraystretch}{2.0}
-    \begin{tabular}{lcccccc}
+% reduce vertical and horizontal padding to make table more compact
+\setlength{\tabcolsep}{3pt} % default 6pt -> smaller columns
+\renewcommand{\arraystretch}{1.2} % increase row height for better vertical centering
+\small % slightly smaller font to help fit
+    \begin{tabular}{>{\raggedright\arraybackslash}m{4.0cm} *{5}{>{\centering\arraybackslash}m{2.7cm}}}
     \toprule
-    \textbf{Feature} & \textbf{PalmSens4} & \textbf{SimpleZ \cite{buscagliaSimpleZLowCostPortable2023}} & \textbf{\citeauthor{panchalDesignValidationLowCost2025} \cite{panchalDesignValidationLowCost2025}} & \textbf{\citeauthor{al-aliDesignPortableLowCost2017}\cite{al-aliDesignPortableLowCost2017}} & \textbf{Proposed BioPal System} \\
+    \textbf{Device:} & \textbf{PalmSens4} & \textbf{SimpleZ \cite{buscagliaSimpleZLowCostPortable2023}} & \textbf{\protect\citeauthor{panchalDesignValidationLowCost2025} \cite{panchalDesignValidationLowCost2025}} & \textbf{Proposed System} \\
     \midrule
-    \textbf{Year} & N/A & 2022 & 2025 & 2017 & 2025 \\
-    \textbf{Design Focus} & Research Equipment & Biosensing and education & ECG Electrode Validation & Agricultural crop monitoring & POC Biosensing \\
-    \textbf{Cost} & R 85,000 & R 1,750 & R 2,750 & R 2,600 & R 2,000 \\
-    \textbf{Frequency Range} & 10 $\mu$Hz -- 1 MHz & 1 Hz -- 100 kHz & 10 Hz -- 100 kHz & 5 Hz -- 100 kHz & 1 Hz -- 100 kHz \\
-    \textbf{Excitation Voltage} & 2.8 mV -- 0.7 V & 10 mV -- 1 V & $\geq$ 200 mV & $\geq$ 200 mV & 10 mV \\
-    \textbf{Impedance Range} & 1 $\Omega$ -- 100 M$\Omega$ & 100 $\Omega$ -- 1 M$\Omega$ & 100 $\Omega$ -- 1 M$\Omega$ & 10 $\Omega$ -- 100 k$\Omega$ & 2.5 $\Omega$ -- 100 k$\Omega$ \\
-    \textbf{Wireless} & \checkmark & X & \checkmark & \checkmark & \checkmark \\
-    \textbf{Battery Operated} & \checkmark & X & \checkmark & \checkmark & \checkmark \\
-    \textbf{Standalone Operations} & \checkmark & X & \checkmark & X & \checkmark \\
-    \textbf{Multiplexed} & X & X & X & X & \checkmark \\
-    \textbf{Technical Expertise Required} & \checkmark & \checkmark & \checkmark & \checkmark & X \\
-    \textbf{Suitable for POC Settings} & X & X & X & X & \checkmark \\
+    \textbf{Year} & N/A & 2022 & 2025 & 2025 \\
+    \textbf{Design Focus} & Research Equipment & Biosensing and education & ECG Electrodes Validation & POC Biosensing \\
+    \textbf{Cost} & R 85,000 & R 1,750 & R 2,750 & R 2,000 \\
+    \textbf{Frequency Range} & 10 $\mu$Hz -- 1 MHz & 1 Hz -- 100 kHz & 10 Hz -- 100 kHz & 1 Hz -- 100 kHz \\
+    \textbf{Excitation Voltage} & 2.8 mV -- 0.7 V & 10 mV -- 1 V & $\geq$ 200 mV & 10 mV \\
+    \textbf{Impedance Range} & 1 $\Omega$ -- 100 M$\Omega$ & 100 $\Omega$ -- 1 M$\Omega$ & 100 $\Omega$ -- 1 M$\Omega$ & 2.5 $\Omega$ -- 100 k$\Omega$ \\
+    \textbf{Wireless} & \checkmark & X & \checkmark & \checkmark \\
+    \textbf{Battery} & \checkmark & X & \checkmark & \checkmark \\
+    \textbf{Standalone Operation} & \checkmark & X & \checkmark & \checkmark \\
+    \textbf{Multiplexed} & X & X & X & \checkmark \\
+    \textbf{No Technical Expertise Required} & X & X & X & \checkmark \\
+    \textbf{Suitable for POC} & X & X & X & \checkmark \\
     \bottomrule
     \end{tabular}
+\normalsize
 \end{table}
 
 \label{chap:literature_review}

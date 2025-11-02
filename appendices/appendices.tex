@@ -15,7 +15,7 @@ This is an appendix.
 
 This is another appendix.
 
-\chapter{Additional Design Information}
+\chapter{Additional Hardware Design Information}
 \makeatletter\@mkboth{}{Appendix}\makeatother
 \label{appen:design}
 
@@ -26,10 +26,10 @@ This is another appendix.
     \label{fig:ina_bw}
 \end{figure}
 
-\begin{figure}[]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{KelvinSenseTIA.png}
-    \caption[Example of TIA Kelvin Sense Switch Connections and High Impedance Buffer]{Example of TIA Kelvin Sense Switch Connections and High Impedance Buffer\cite{chioyeBuildProgrammableGain2021}}
+    \includegraphics[width=0.5\textwidth]{KelvinSenseTIA.png}
+    \caption[Kelvin Sense TIA]{Kelvin Sense TIA \cite{chioyeBuildProgrammableGain2021}}
     \label{fig:kelvin_sense_tia}
 \end{figure}
 
@@ -70,6 +70,143 @@ This is another appendix.
     \caption{$\frac{1}{\beta(j\omega)}$ Frequency Responses}
     \label{fig:matlab_beta}
 \end{figure}
+\chapter{Additional Software Design Information}
+\makeatletter\@mkboth{}{Appendix}\makeatother
+\label{appen:software}
+
+\begingroup
+\small % adjust size to fit; change to \scriptsize if needed
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{6pt}
+\begin{longtable}{lrrrr}
+    \caption{Configured Sampling Frequencies and Timer Settings for 64 MHz Peripheral Clock}
+    \label{tab:frequency_table}\\
+    \toprule
+    \textbf{Signal Freq (Hz)} & \textbf{PSC} & \textbf{ARR} & \textbf{Oversampling} & \textbf{Sampling Freq (Hz)}\\
+    \midrule
+    \endfirsthead
+
+    \caption[]{Configured Sampling Frequencies and Timer Settings for 64 MHz Peripheral Clock (continued)}\\
+    \toprule
+    \textbf{Signal Freq (Hz)} & \textbf{PSC} & \textbf{ARR} & \textbf{Oversampling} & \textbf{Sampling Freq (Hz)}\\
+    \midrule
+    \endhead
+
+    \midrule
+    \multicolumn{5}{r}{\emph{Continued on next page}}\\
+    \endfoot
+
+    \bottomrule
+    \endlastfoot
+
+    100000 & 0 & 19    & 32  & 3,200,000 \\
+     80000 & 0 & 24    & 32  & 2,560,000 \\
+     62500 & 0 & 31    & 32  & 2,000,000 \\
+     50000 & 0 & 19    & 64  & 3,200,000 \\
+     25000 & 0 & 19    & 128 & 3,200,000 \\
+     15625 & 0 & 31    & 128 & 2,000,000 \\
+     12500 & 0 & 39    & 128 & 1,600,000 \\
+     10000 & 0 & 49    & 128 & 1,280,000 \\
+      6250 & 0 & 79    & 128 &   800,000 \\
+      5000 & 0 & 99    & 128 &   640,000 \\
+      4000 & 0 & 124   & 128 &   512,000 \\
+      3125 & 0 & 159   & 128 &   400,000 \\
+      2500 & 0 & 199   & 128 &   320,000 \\
+      2000 & 0 & 249   & 128 &   256,000 \\
+      1250 & 0 & 399   & 128 &   160,000 \\
+      1000 & 0 & 499   & 128 &   128,000 \\
+       800 & 0 & 624   & 128 &   102,400 \\
+       625 & 0 & 799   & 128 &    80,000 \\
+       500 & 0 & 999   & 128 &    64,000 \\
+       400 & 0 & 1249  & 128 &    51,200 \\
+       250 & 0 & 1999  & 128 &    32,000 \\
+       200 & 0 & 2499  & 128 &    25,600 \\
+       160 & 0 & 3124  & 128 &    20,480 \\
+       125 & 0 & 3999  & 128 &    16,000 \\
+       100 & 0 & 4999  & 128 &    12,800 \\
+        80 & 0 & 6249  & 128 &    10,240 \\
+        50 & 0 & 9999  & 128 &     6,400 \\
+        40 & 0 & 12499 & 128 &     5,120 \\
+        32 & 0 & 15624 & 128 &     4,096 \\
+        25 & 0 & 19999 & 128 &     3,200 \\
+        20 & 0 & 24999 & 128 &     2,560 \\
+        16 & 0 & 31249 & 128 &     2,048 \\
+        10 & 0 & 49999 & 128 &     1,280 \\
+         8 & 0 & 62499 & 128 &     1,024 \\
+         5 & 1 & 49999 & 128 &       640 \\
+         4 & 1 & 62499 & 128 &       512 \\
+         2 & 3 & 62499 & 128 &       256 \\
+         1 & 7 & 62499 & 128 &       128 \\
+\end{longtable}
+\endgroup
+
+\begingroup
+\small
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{6pt}
+\begin{longtable}{l l r r}
+    \caption{TIA and PGA Gain Settings per Signal Frequency. TIA: 0=High, 1=Low. PGA index maps to gain \{0=1,1=2,2=5,3=10,4=20,5=50,6=100,7=200\}.}
+    \label{tab:gain_settings_table}\\
+    \toprule
+    \textbf{Signal Freq (Hz)} & \textbf{TIA} & \textbf{PGA idx} & \textbf{PGA gain} \\
+    \midrule
+    \endfirsthead
+
+    \caption[]{TIA and PGA Gain Settings per Signal Frequency (continued)}\\
+    \toprule
+    \textbf{Signal Freq (Hz)} & \textbf{TIA} & \textbf{PGA idx} & \textbf{PGA gain} \\
+    \midrule
+    \endhead
+
+    \midrule
+    \multicolumn{4}{r}{\emph{Continued on next page}}\\
+    \endfoot
+
+    \bottomrule
+    \endlastfoot
+
+    100000 & Low  & 1 & 2   \\
+     80000 & Low  & 1 & 2   \\
+     62500 & Low  & 1 & 2   \\
+     50000 & Low  & 1 & 2   \\
+     25000 & Low  & 2 & 5   \\
+     15625 & Low  & 2 & 5   \\
+     12500 & Low  & 2 & 5   \\
+     10000 & Low  & 2 & 5   \\
+      6250 & Low  & 2 & 5   \\
+      5000 & Low  & 3 & 10  \\
+      4000 & Low  & 3 & 10  \\
+      3125 & Low  & 3 & 10  \\
+      2500 & Low  & 3 & 10  \\
+      2000 & Low  & 4 & 20  \\
+      1250 & Low  & 4 & 20  \\
+      1000 & Low  & 4 & 20  \\
+       800 & Low  & 5 & 50  \\
+       625 & Low  & 5 & 50  \\
+       500 & Low  & 5 & 50  \\
+       400 & Low  & 6 & 100 \\
+       250 & Low  & 6 & 100 \\
+       200 & Low  & 6 & 100 \\
+       160 & High & 0 & 1   \\
+       125 & High & 0 & 1   \\
+       100 & High & 1 & 2   \\
+        80 & High & 1 & 2   \\
+        50 & High & 1 & 2   \\
+        40 & High & 1 & 2   \\
+        32 & High & 1 & 2   \\
+        25 & High & 2 & 5   \\
+        20 & High & 2 & 5   \\
+        16 & High & 2 & 5   \\
+        10 & High & 2 & 5   \\
+         8 & High & 2 & 5   \\
+         5 & High & 3 & 10  \\
+         4 & High & 3 & 10  \\
+         2 & High & 3 & 10  \\
+         1 & High & 3 & 10  \\
+\end{longtable}
+\endgroup
+
+\chapter{Bill of Materials}
 
 \begin{table}[H]
     \centering
@@ -103,16 +240,22 @@ This is another appendix.
         \hline
     \end{tabular}
 \end{table}
+\begin{flushleft}
+    \small
+    Note: Shipping costs excluded as they are not directly proportional to units produced.
+\end{flushleft}
+
+% Passive component values
 
 \chapter{Additional Simulation Results}
 \makeatletter\@mkboth{}{Appendix}\makeatother
 \label{appen:simulation}
 
 \begin{figure}[H]
-        \centering
-        \includegraphics[width=\textwidth]{CPE_linear.png}
-        \caption{Simulated CPE Frequency Response}
-        \label{fig:cpe_sim}
+    \centering
+    \includegraphics[width=\textwidth]{CPE_linear.png}
+    \caption{Simulated CPE Frequency Response}
+    \label{fig:cpe_sim}
 \end{figure}
 \begin{figure}[H]
         \centering
@@ -138,7 +281,6 @@ This is another appendix.
     \caption{Simulated FIR filter Frequency Responses}
     \label{fig:lt_aa_freq}
 \end{figure}
-
 \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
@@ -156,7 +298,6 @@ This is another appendix.
     \caption{LTC1069-7 Datasheet Frequency Responses}
     \label{fig:ltc_aa_freq}
 \end{figure}
-
 % design/fig/ExcitationFilteringFFT.png Showing the effect of filtering on DAC output in reducing aliasing
 \begin{figure}[H]
     \centering
@@ -164,7 +305,6 @@ This is another appendix.
     \caption{FFT of Simulated Excitation Signal Filtering showing reduction in aliasing artefacts}
     \label{fig:excitation_filtering}
 \end{figure}
-
 % Two horizontal figures, not subfigures but minipages with the  ina33 and tlv gain stages freq responses design/fig/TLVfreqResponse.png design/fig/INA331_FreqResponse.png
 \begin{figure}[H]
     \centering
@@ -183,7 +323,32 @@ This is another appendix.
     \caption{Simulated Gain Stage Frequency Responses}
     \label{fig:gain_stage_freq}
 \end{figure}
-
+% Insert design/fig/TIAFreqResponse_7500.png design/fig/TIAFreqResponse_37,5.png which shows the frequency response of the TIA at both gain settings as horizontally stacked subfigures
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TIAFreqResponse_37,5.png}
+        \caption{$R_F = 37.5 \Omega$}
+        \label{fig:tia_freq_37.5}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TIAFreqResponse_7500.png}
+        \caption{$R_F = 7.5~k\Omega$}
+        \label{fig:tia_freq_7.5k}
+    \end{subfigure}
+    \caption{Simulated TIA Frequency Response}
+    \label{fig:tia_freq}
+\end{figure}
+% Insert time domain response of the full current measurement stage design/fig/FullCurrentMeasurementStage.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{FullCurrentMeasurementStage.png}
+    \caption{Simulated Time Domain Response of Full Current Measurement Stage}
+    \label{fig:full_current_measurement}
+\end{figure}
 % Insert two subfigures in the figure that compares current measurement with and without AA filter design/fig/SampledTIA_AAvsNoAA.png design/fig/IDECurrentAAvsNoAA.png
 \begin{figure}[H]
     \centering
@@ -206,34 +371,6 @@ This is another appendix.
     \label{fig:current_measurement_aa_vs_noaa}
 \end{figure}
 
-% Insert design/fig/TIAFreqResponse_7500.png design/fig/TIAFreqResponse_37,5.png which shows the frequency response of the TIA at both gain settings as horizontally stacked subfigures
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{TIAFreqResponse_37,5.png}
-        \caption{$R_F = 37.5 \Omega$}
-        \label{fig:tia_freq_37.5}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{TIAFreqResponse_7500.png}
-        \caption{$R_F = 7.5~k\Omega$}
-        \label{fig:tia_freq_7.5k}
-    \end{subfigure}
-    \caption{Simulated TIA Frequency Response}
-    \label{fig:tia_freq}
-\end{figure}
-
-
-% Insert time domain response of the full current measurement stage design/fig/FullCurrentMeasurementStage.png
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{FullCurrentMeasurementStage.png}
-    \caption{Simulated Time Domain Response of Full Current Measurement Stage}
-    \label{fig:full_current_measurement}
-\end{figure}
 
 % \begin{figure}[H]
 %     \centering
@@ -316,8 +453,189 @@ This is another appendix.
     \label{fig:pcb_layout}
 \end{figure}
 
-\chapter{Full Testing Results}
+\chapter{Measured Frequency Responses and Calibration Data}
 \makeatletter\@mkboth{}{Appendix}\makeatother
 \label{appen:testing}
 
+% Add measured frequency responses of each gain stage (with LOESS filtering applied in matlab)
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=\textwidth]{SmoothedBodeV.png}
+        \caption{INA331 Measured Frequency Response with Filtered Calibration Curve}
+        \label{fig:smoothed_bode_v}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=\textwidth]{SmoothedBodeTIA37,5.png}
+        \caption{TIA Measured Frequency Response at $R_F = 37.5~\Omega$ with Filtered Calibration Curve}
+        \label{fig:smoothed_bode_i_37.5}
+    \end{minipage}
+\end{figure}
 
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=\textwidth]{SmoothedBodeTIA7500.png}
+        \caption{TIA Measured Frequency Response at $R_F = 7.5~k\Omega$ with Filtered Calibration Curve}
+        \label{fig:smoothed_bode_i_7.5k}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=\textwidth]{SmoothedBodePGA200.png}
+        \caption{PGA113 Measured Frequency Response at Gain 200 with Filtered Calibration Curve}
+        \label{fig:smoothed_bode_pga_200}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=\textwidth]{SmoothedBodePGA100.png}
+        \caption{PGA113 Measured Frequency Response at Gain 100 with Filtered Calibration Curve}
+        \label{fig:smoothed_bode_pga_100}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=\textwidth]{SmoothedBodePGA50.png}
+        \caption{PGA113 Measured Frequency Response at Gain 50 with Filtered Calibration Curve}
+        \label{fig:smoothed_bode_pga_50}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=\textwidth]{SmoothedBodePGA20.png}
+        \caption{PGA113 Measured Frequency Response at Gain 20 with Filtered Calibration Curve}
+        \label{fig:smoothed_bode_pga_20}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=\textwidth]{SmoothedBodePGA10.png}
+        \caption{PGA113 Measured Frequency Response at Gain 10 with Filtered Calibration Curve}
+        \label{fig:smoothed_bode_pga_10}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=\textwidth]{SmoothedBodePGA5.png}
+        \caption{PGA113 Measured Frequency Response at Gain 5 with Filtered Calibration Curve}
+        \label{fig:smoothed_bode_pga_5}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=\textwidth]{SmoothedBodePGA2.png}
+        \caption{PGA113 Measured Frequency Response at Gain 2 with Filtered Calibration Curve}
+        \label{fig:smoothed_bode_pga_2}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=\textwidth]{SmoothedBodePGA1.png}
+        \caption{PGA113 Measured Frequency Response at Gain 1 with Filtered Calibration Curve}
+        \label{fig:smoothed_bode_pga_1}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        % intentionally left empty to keep consistent two-column layout for odd number of figures
+    \end{minipage}
+\end{figure}
+
+\chapter{Run to Run Variation Data}
+\makeatletter\@mkboth{}{Appendix}\makeatother
+\label{appen:variance}
+
+% Run to run variance table
+\begin{table}[H]
+    \centering
+    \caption{Run to Run Variation Statistics}
+    \label{tab:run_to_run_stats}
+    \begin{tabular}{rrrr}
+        \hline
+        \textbf{Frequency} & \textbf{Magnitude Standard} & \textbf{Normalised Standard } & \textbf{Phase Standard} \\
+        \textbf{(Hz)} & \textbf{Deviation ($\Omega$)} & \textbf{Deviation (\%)} & \textbf{Deviation (°)} \\
+        \hline
+        100000 & 0.031 & 0.32\% & 0.183 \\
+        80000 & 0.027 & 0.30\% & 0.219 \\
+        62500 & 0.009 & 0.10\% & 0.041 \\
+        50000 & 0.020 & 0.21\% & 0.113 \\
+        25000 & 0.012 & 0.11\% & 0.102 \\
+        15625 & 0.007 & 0.06\% & 0.052 \\
+        12500 & 0.009 & 0.07\% & 0.036 \\
+        10000 & 0.012 & 0.08\% & 0.030 \\
+        6250 & 0.022 & 0.10\% & 0.030 \\
+        5000 & 0.026 & 0.10\% & 0.028 \\
+        4000 & 0.031 & 0.10\% & 0.048 \\
+        3125 & 0.050 & 0.12\% & 0.040 \\
+        2500 & 0.069 & 0.14\% & 0.027 \\
+        2000 & 0.121 & 0.20\% & 0.110 \\
+        1250 & 0.182 & 0.18\% & 0.174 \\
+        1000 & 0.221 & 0.17\% & 0.096 \\
+        800 & 0.241 & 0.14\% & 0.059 \\
+        625 & 1.930 & 0.83\% & 0.651 \\
+        500 & 1.561 & 0.49\% & 0.408 \\
+        400 & 2.297 & 0.52\% & 0.210 \\
+        250 & 14.929 & 1.39\% & 0.848 \\
+        200 & 48.305 & 2.63\% & 1.667 \\
+        160 & 300.174 & 5.62\% & 2.962 \\
+        125 & 1597.204 & 10.79\% & 6.976 \\
+        100 & 4606.785 & 25.22\% & 14.699 \\
+        80 & 13895.325 & 45.70\% & 56.690 \\
+        50 & 32077.954 & 62.80\% & 93.550 \\
+        40 & 17920.418 & 45.73\% & 100.532 \\
+        32 & 27779.397 & 54.32\% & 94.192 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+% Three subfigures with Magnitude STndard deviation plotted from 100kHz to 32,125 and 160 Hz respectiv ely
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{StdDev32-100k.png}
+        \caption{32Hz to 100kHz}
+        \label{fig:run_to_run_mag_std_100k_32}
+    \end{subfigure}
+    
+    \vspace{1em}
+    
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{StdDev125-100k.png}
+        \caption{125Hz to 100kHz}
+        \label{fig:run_to_run_mag_std_100k_125}
+    \end{subfigure}
+    
+    \vspace{1em}
+    
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{StdDev160-100k.png}
+        \caption{160Hz to 100kHz}
+        \label{fig:run_to_run_mag_std_100k_160}
+    \end{subfigure}
+    \caption{Run to Run Magnitude Standard Deviation at Various Frequency Ranges}
+    \label{fig:run_to_run_mag_std}
+\end{figure}

@@ -9,10 +9,10 @@ The analogue frontend implements voltage-controlled EIS across 1 Hz to 100 kHz u
 The project achieved its core objectives. The analogue frontend successfully generates excitation signals and measures voltage and current responses across the target frequency range, enabling microcontroller-based EIS measurements (Objective 1). The multiplexer sequentially measures up to four IDEs (Objective 2). A complete PCB integrating all subsystems was designed and manufactured (Objective 3). Firmware implementing signal processing, FFT-based impedance calculation, and calibration correction was developed for both microcontrollers (Objective 4). Dual user interfaces enable standalone operation with qualitative risk assessment (Objective 5). The device operates from battery power with total component costs of approximately R2,000 (A full cost breakdown is shown in Table \ref{tab:bom_cost} in Appendix \ref{appen:design}), well below the R4,500 target (Objective 6). Calibration against the PalmSens4 was completed using test cells and IDEs, with validation demonstrating sub-3\% error margins for PBS measurements and successful differentiation between varying concentrations of BSA protein binding (Objective 7).
 
 However, several limitations constrain immediate deployment. 
-\subsection{Limitations}
+\section{Limitations}
 The inoperable LTC1069 AA filter limits accurate measurements to frequencies above 125 Hz due to aliasing artefacts, though this proved sufficient for the tested IDEs. This would be easy to replace given more time and would lead to even better accuracy and repeatability. The fixed-gain configuration improves stability but reduces flexibility for \acp{IDE} with different impedance characteristics. Validation was restricted to passive components, PBS solutions, and BSA protein. Testing with immobilised antibodies and disease biomarkers or clinical samples were outside the scope of this project. Despite these limitations, the BioPal demonstrates core measurement capabilities and a validated platform for further development toward practical \ac{POC} biosensing applications.
 
-\subsection{Recommendations for Future Work}
+\section{Recommendations for Future Work}
 Recommendations for future work towards achieving an accessible \ac{POC} biosensing system based on the BioPal platform include:
 \begin{itemize}
     \item Enable gain settings to be configured via the user interface to accommodate \acp{IDE} with varying impedance ranges.
