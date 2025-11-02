@@ -33,15 +33,35 @@ This is another appendix.
     \label{fig:kelvin_sense_tia}
 \end{figure}
 
+%  design/fig/PhotoDiodeCircuit.png
+%  equivalent circuit model of photodiode
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=0.5\textwidth]{PhotoDiodeCircuit.png}
+    \caption[Equivalent Circuit Model of Photodiode]{Equivalent Circuit Model of Photodiode\cite{StabilizeYourTransimpedance}}
+    \label{fig:photodiode}
+\end{figure}
+
+% photodiode tia equivalent circuit
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{PhotoTIA.png}
+    \caption[Photodiode TIA Equivalent Circuit]{Photodiode TIA Equivalent Circuit}
+    \label{fig:tia_photo}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{\textwidth}
         \centering
         \includegraphics[width=\textwidth]{MatLabBeta_37,5.png}
         \caption{$R_F=37.5~\Omega$}
         \label{fig:matlab_beta_37.5}
-    \end{subfigure}\hfill
-    \begin{subfigure}[b]{0.5\textwidth}
+    \end{subfigure}
+    
+    \vspace{1em}
+    
+    \begin{subfigure}[b]{\textwidth}
         \centering
         \includegraphics[width=\textwidth]{MatLabBeta_7500.png}
         \caption{$R_F=7.5~k\Omega$}
@@ -50,6 +70,39 @@ This is another appendix.
     \caption{$\frac{1}{\beta(j\omega)}$ Frequency Responses}
     \label{fig:matlab_beta}
 \end{figure}
+
+\begin{table}[H]
+    \centering
+    \caption{Bill of Materials and Cost Breakdown}
+    \label{tab:bom_cost}
+    \begin{tabular}{llrr}
+        \hline
+        \textbf{Description} & \textbf{Part No.} & \textbf{Price per Unit} & \textbf{Units} \\
+        \hline
+        STM32F303 & NUCLEO-F303K8 & R195.96 & 1 \\
+        FireBeetle 2 ESP32-C6 & DFR1075 & R144.90 & 1 \\
+        2.4" Display & W18366 & R243.80 & 1 \\
+        Battery & 2000mAh LiPo & R110.40 & 1 \\
+        Keypad & Adafruit 5001 & R158.86 & 1 \\
+        General Opamp & TLV9061IDBVR & R7.35 & 4 \\
+        Anti-Aliasing Filter & LTC1069 & R256.31 & 1 \\
+        Instrumentation Amplifier & INA331 & R38.52 & 1 \\
+        TIA & OPA3S328 & R162.06 & 1 \\
+        PGA & PGA113 & R51.48 & 1 \\
+        5V Regulator & TPS61071 & R20.77 & 1 \\
+        Latching Signal Relay & TXS2-L2-3V & R81.47 & 3 \\
+        Relay Driver BJT & BC847BS & R3.55 & 3 \\
+        1k Resistor Array & ACASN1001S1001P1AT & R12.78 & 1 \\
+        DUT Connectors & 2 POS 1.27MM PITCH & R19.38 & 4 \\
+        Shunt Jumpers & 2 way 2.54mm & R0.42 & 25 \\
+        Enclosure & Gianta ABS Enclosure & R201.25 & 1 \\
+        PCB & JLC PCB & R14.00 & 1 \\
+        Other Passive Components & N/A & R170.12 & 1 \\
+        \hline
+        \multicolumn{3}{r}{\textbf{Total Cost:}} & \textbf{R1,983.55} \\
+        \hline
+    \end{tabular}
+\end{table}
 
 \chapter{Additional Simulation Results}
 \makeatletter\@mkboth{}{Appendix}\makeatother
@@ -64,8 +117,8 @@ This is another appendix.
 \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{DUT_Z.png}
-        \caption{Simulated Biosensor Frequency Response}
-        \label{fig:biosensor_sim}
+        \caption{Simulated IDE Frequency Response}
+        \label{fig:ide_freq}
 \end{figure}
 
 \begin{figure}[H]
@@ -103,41 +156,105 @@ This is another appendix.
     \caption{LTC1069-7 Datasheet Frequency Responses}
     \label{fig:ltc_aa_freq}
 \end{figure}
+
+% design/fig/ExcitationFilteringFFT.png Showing the effect of filtering on DAC output in reducing aliasing
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{FullExcitationStage.png}
-        \caption{Time Domain Response}
-        \label{fig:dac_filtering}
-    \end{subfigure}\hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{AA_vs_noAA_cur.png}
-        \caption{Frequency Domain Response}
-        \label{fig:dut_current}
-    \end{subfigure}
-    \caption{Simulated Excitation Stage}
-    \label{fig:excitation_sim}
+    \includegraphics[width=0.8\textwidth]{ExcitationFilteringFFT.png}
+    \caption{FFT of Simulated Excitation Signal Filtering showing reduction in aliasing artefacts}
+    \label{fig:excitation_filtering}
 \end{figure}
 
+% Two horizontal figures, not subfigures but minipages with the  ina33 and tlv gain stages freq responses design/fig/TLVfreqResponse.png design/fig/INA331_FreqResponse.png
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{TIA_Freq_37,5.png}
+        \includegraphics[width=\textwidth]{INA331_FreqResponse.png}
+        \caption{Simulated INA331 Frequency Response}
+        \label{fig:ina_freq}
+    \end{minipage}\hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TLVfreqResponse.png}
+        \caption{Simulated TLV9061 Frequency Response}
+        \label{fig:tlv_freq}
+    \end{minipage}
+    \caption{Simulated Gain Stage Frequency Responses}
+    \label{fig:gain_stage_freq}
+\end{figure}
+
+% Insert two subfigures in the figure that compares current measurement with and without AA filter design/fig/SampledTIA_AAvsNoAA.png design/fig/IDECurrentAAvsNoAA.png
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{IDECurrentAAvsNoAA.png}
+        \caption{Current Through IDE}
+        \label{fig:ide_current_aa_vs_noaa}
+    \end{subfigure}
+    
+    \vspace{1em}
+    
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{SampledTIA_AAvsNoAA.png}
+        \caption{Sampled TIA Output}
+        \label{fig:tia_aa_vs_noaa}
+    \end{subfigure}
+    \caption{Simulated Current Measurement with and without Anti-Aliasing Filter}
+    \label{fig:current_measurement_aa_vs_noaa}
+\end{figure}
+
+% Insert design/fig/TIAFreqResponse_7500.png design/fig/TIAFreqResponse_37,5.png which shows the frequency response of the TIA at both gain settings as horizontally stacked subfigures
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TIAFreqResponse_37,5.png}
         \caption{$R_F = 37.5 \Omega$}
         \label{fig:tia_freq_37.5}
-    \end{subfigure}\hfill
-    \begin{subfigure}[b]{0.48\textwidth}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{TIA_Freq_7500.png}
+        \includegraphics[width=\textwidth]{TIAFreqResponse_7500.png}
         \caption{$R_F = 7.5~k\Omega$}
         \label{fig:tia_freq_7.5k}
     \end{subfigure}
     \caption{Simulated TIA Frequency Response}
     \label{fig:tia_freq}
 \end{figure}
+
+
+% Insert time domain response of the full current measurement stage design/fig/FullCurrentMeasurementStage.png
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{FullCurrentMeasurementStage.png}
+    \caption{Simulated Time Domain Response of Full Current Measurement Stage}
+    \label{fig:full_current_measurement}
+\end{figure}
+
+% \begin{figure}[H]
+%     \centering
+%     \begin{subfigure}[b]{0.6\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{TIA_Freq_37,5.png}
+%         \caption{$R_F = 37.5 \Omega$}
+%         \label{fig:tia_freq_37.5}
+%     \end{subfigure}
+    
+%     \vspace{1em}
+    
+%     \begin{subfigure}[b]{0.6\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{TIA_Freq_7500.png}
+%         \caption{$R_F = 7.5~k\Omega$}
+%         \label{fig:tia_freq_7.5k}
+%     \end{subfigure}
+%     \caption{Simulated TIA Frequency Response}
+%     \label{fig:tia_freq}
+% \end{figure}
 
 \chapter{Full PCB Layouts and Additional PCB Information}
 \makeatletter\@mkboth{}{Appendix}\makeatother
@@ -164,13 +281,32 @@ This is another appendix.
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BioPal_render.png}
+        \caption{Final PCB Render}
+        \label{fig:final_pcb}
+    \end{minipage}\hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{BGA_Routing.png}
+        \caption{\\OPA3S328 BGA Routing Solution}
+        \label{fig:bga_routing}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.75\textwidth}
         \centering
         \includegraphics[width=\textwidth]{BioPal_Front.png}
         \caption{PCB front layout}
         \label{fig:pcb_front}
-    \end{subfigure}\hfill
-    \begin{subfigure}[b]{0.48\textwidth}
+    \end{subfigure}
+    
+    \vspace{1em}
+    
+    \begin{subfigure}[b]{0.75\textwidth}
         \centering
         \includegraphics[width=\textwidth]{BioPal_Back.png}
         \caption{PCB back layout}
@@ -178,23 +314,6 @@ This is another appendix.
     \end{subfigure}
     \caption{Final PCB Layout}
     \label{fig:pcb_layout}
-\end{figure}
-
-
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{BioPal_render.png}
-        \caption{Final PCB Render}
-        \label{fig:final_pcb}
-    \end{minipage}\hfill
-    \begin{minipage}{0.35\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{BGA_Routing.png}
-        \caption{\\OPA3S328 BGA Routing Solution}
-        \label{fig:bga_routing}
-    \end{minipage}
 \end{figure}
 
 \chapter{Full Testing Results}
